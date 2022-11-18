@@ -46,6 +46,11 @@ namespace CatchingRegistry.Models
             return false;
         }
 
+        public void IsRedactor()
+        {
+
+        }
+
         public void FillFields()
         {
             var db = new Context();

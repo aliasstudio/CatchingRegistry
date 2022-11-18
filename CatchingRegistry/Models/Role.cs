@@ -16,9 +16,5 @@ namespace CatchingRegistry.Models
 
         public bool CanUpdate { get; set; }
 
-        public void IsUserRedactor()
-        {
-
-        }
     }
 }
