@@ -137,14 +137,23 @@ namespace CatchingRegistry.Views
 
 
 
+            List<Animal> animals = new List<Animal>();
             for (int i = 0; i < dataGridViewAnimals.Rows.Count; i++)
             {
+                var animal = new Animal
+                {
+                    Id = (string) dataGridViewAnimals[0, i].Value,
+                    Category = (string)dataGridViewAnimals[1, i].Value,
+                    Gender = (string)dataGridViewAnimals[2, i].Value,
+                    Size = (string)dataGridViewAnimals[3, i].Value,
+                    Features = (string)dataGridViewAnimals[4, i].Value,
+                };
 
+
+                animals.Add(animal);
             }
 
-            //List<Animal> animals = dataGridViewAnimals.Rows;
-
-            //cardController.ExportToWord(dictionary, animals);
+            cardController.ExportToWord(dictionary, animals);
         }
 
 
