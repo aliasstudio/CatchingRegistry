@@ -10,7 +10,6 @@ namespace CatchingRegistry.Models
 {
     public class Organization
     {
-        [Key]
         public int ID { get; set; }
         public string Name { get; set; }
     }

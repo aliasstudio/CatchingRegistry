@@ -10,15 +10,10 @@ namespace CatchingRegistry.Models
 {
     public class MunicipalContract
     {
-        [Key]
         public int ID { get; set; }
-        [Required]
         public DateTime ContractDate { get; set; }
-        [Required]
         public string MunicipalName { get; set; }
-        [Required]
         public string LocalGovernment { get; set; }
-        [Required]
         public Organization Organization { get; set; }
 
     }
