@@ -11,7 +11,7 @@ namespace CatchingRegistry
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+            Application.Run(new Auth());
         }
     }
 }

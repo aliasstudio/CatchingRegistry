@@ -3,11 +3,11 @@ using CatchingRegistry.Models;
 
 namespace CatchingRegistry.Views
 {
-    public partial class Login : Form
+    public partial class Auth : Form
     {
-        private readonly LoginController loginController = new();
+        private readonly AuthController authController = new();
 
-        public Login()
+        public Auth()
         {
             InitializeComponent();
 
@@ -18,7 +18,7 @@ namespace CatchingRegistry.Views
 
         private void authBtn_Click(object sender, EventArgs e)
         {
-            loginController.Authorize(userNameBox.Text, userPasswordBox.Text);
+            authController.Authorize(userNameBox.Text, userPasswordBox.Text);
         }
     }
 }

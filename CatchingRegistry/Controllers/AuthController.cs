@@ -3,7 +3,7 @@ using CatchingRegistry.Views;
 
 namespace CatchingRegistry.Controllers
 {
-    public class LoginController
+    public class AuthController
     {
         public void Authorize(string userName, string userPassword)
         {

@@ -1,6 +1,6 @@
 ﻿namespace CatchingRegistry.Views
 {
-    partial class Login
+    partial class Auth
     {
         /// <summary>
         /// Required designer variable.
