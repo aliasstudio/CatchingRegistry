@@ -1,12 +1,11 @@
-﻿using CatchingRegistry.Controllers;
+﻿using CatchingRegistry.Controllers.Auth;
 using CatchingRegistry.Models;
 
 namespace CatchingRegistry.Views
 {
     public partial class Auth : Form
     {
-        private readonly AuthController authController = new();
-
+        private AuthController authController = new AuthController();
         public Auth()
         {
             InitializeComponent();

@@ -51,7 +51,7 @@
             // 
             // authBtn
             // 
-            this.authBtn.Location = new System.Drawing.Point(12, 150);
+            this.authBtn.Location = new System.Drawing.Point(12, 153);
             this.authBtn.Name = "authBtn";
             this.authBtn.Size = new System.Drawing.Size(291, 40);
             this.authBtn.TabIndex = 2;
@@ -77,10 +77,10 @@
             this.labelPassword.TabIndex = 4;
             this.labelPassword.Text = "Пароль";
             // 
-            // Login
+            // Auth
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(315, 202);
+            this.ClientSize = new System.Drawing.Size(321, 220);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.authBtn);
@@ -88,7 +88,7 @@
             this.Controls.Add(this.userNameBox);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Login";
+            this.Name = "Auth";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация";
             this.ResumeLayout(false);
