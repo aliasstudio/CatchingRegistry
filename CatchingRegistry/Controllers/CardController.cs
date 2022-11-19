@@ -43,21 +43,27 @@ namespace CatchingRegistry.Controllers
             var rowsCount = table.Rows.Count;
             var columnsCount = table.Columns.Count;
 
+
+
+
             // Добавление животных в таблицу
             for (int i = 0; i < animals.Count; i++)
             {
-                table.Cell(i, 0).Range.Text = animals[i].Id;
-                table.Cell(i, 1).Range.Text = animals[i].Category;
-                table.Cell(i, 2).Range.Text = animals[i].Gender;
-                table.Cell(i, 3).Range.Text = animals[i].Size;
-                table.Cell(i, 4).Range.Text = animals[i].Features;
+                // Добавление строки
+                object oMissing = Missing.Value;
+                table.Rows.Add(oMissing);
+
+                table.Cell(i+2, 1).Range.Text = animals[i].Id;
+                table.Cell(i+2, 2).Range.Text = animals[i].Category;
+                table.Cell(i+2, 3).Range.Text = animals[i].Gender;
+                table.Cell(i+2, 4).Range.Text = animals[i].Size;
+                table.Cell(i+2, 5).Range.Text = animals[i].Features;
             }
 
-            // Добавление строки
-            object oMissing = Missing.Value;
-            table.Rows.Add(oMissing);
 
-            document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\docs\result.docx");
+
+            string path2 = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\docs\result.docx";
+            document.SaveAs2(FileName: path2);
 
             document.Close();
             wordApp.Quit();
