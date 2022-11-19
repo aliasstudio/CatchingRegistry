@@ -28,135 +28,241 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewRegistry = new System.Windows.Forms.DataGridView();
+            this.registryGrid = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonAddRecord = new System.Windows.Forms.Button();
-            this.buttonRemoveRecord = new System.Windows.Forms.Button();
-            this.buttonOpenCard = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.labelName = new System.Windows.Forms.Label();
-            this.labelRole = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRegistry)).BeginInit();
+            this.registryAddBtn = new System.Windows.Forms.Button();
+            this.registryDeleteBtn = new System.Windows.Forms.Button();
+            this.registryOpenBtn = new System.Windows.Forms.Button();
+            this.registryExportBtn = new System.Windows.Forms.Button();
+            this.userNameLabel = new System.Windows.Forms.Label();
+            this.userRoleLabel = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.currentPageLabel = new System.Windows.Forms.Label();
+            this.recordsCountBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nextPageBtn = new System.Windows.Forms.Button();
+            this.previousPageBtn = new System.Windows.Forms.Button();
+            this.municipalListOpenBtn = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridViewRegistry
+            // registryGrid
             // 
-            this.dataGridViewRegistry.AllowUserToAddRows = false;
-            this.dataGridViewRegistry.AllowUserToDeleteRows = false;
-            this.dataGridViewRegistry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRegistry.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewRegistry.Location = new System.Drawing.Point(3, 23);
-            this.dataGridViewRegistry.Name = "dataGridViewRegistry";
-            this.dataGridViewRegistry.ReadOnly = true;
-            this.dataGridViewRegistry.RowHeadersVisible = false;
-            this.dataGridViewRegistry.RowHeadersWidth = 51;
-            this.dataGridViewRegistry.RowTemplate.Height = 29;
-            this.dataGridViewRegistry.Size = new System.Drawing.Size(1192, 341);
-            this.dataGridViewRegistry.TabIndex = 0;
-            this.dataGridViewRegistry.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRegistry_CellClick);
-            this.dataGridViewRegistry.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRegistry_CellDoubleClick);
-            this.dataGridViewRegistry.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseDoubleClick);
+            this.registryGrid.AllowUserToAddRows = false;
+            this.registryGrid.AllowUserToDeleteRows = false;
+            this.registryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.registryGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.registryGrid.Location = new System.Drawing.Point(3, 23);
+            this.registryGrid.Name = "registryGrid";
+            this.registryGrid.ReadOnly = true;
+            this.registryGrid.RowHeadersVisible = false;
+            this.registryGrid.RowHeadersWidth = 51;
+            this.registryGrid.RowTemplate.Height = 29;
+            this.registryGrid.Size = new System.Drawing.Size(845, 508);
+            this.registryGrid.TabIndex = 0;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridViewRegistry);
+            this.groupBox1.Controls.Add(this.registryGrid);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1198, 367);
+            this.groupBox1.Size = new System.Drawing.Size(851, 534);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Реестр отлова";
             // 
-            // buttonAddRecord
+            // registryAddBtn
             // 
-            this.buttonAddRecord.Location = new System.Drawing.Point(226, 385);
-            this.buttonAddRecord.Name = "buttonAddRecord";
-            this.buttonAddRecord.Size = new System.Drawing.Size(101, 51);
-            this.buttonAddRecord.TabIndex = 2;
-            this.buttonAddRecord.Text = "Создать акт отлова";
-            this.buttonAddRecord.UseVisualStyleBackColor = true;
-            this.buttonAddRecord.Click += new System.EventHandler(this.buttonAddRecord_Click);
+            this.registryAddBtn.Location = new System.Drawing.Point(6, 72);
+            this.registryAddBtn.Name = "registryAddBtn";
+            this.registryAddBtn.Size = new System.Drawing.Size(255, 40);
+            this.registryAddBtn.TabIndex = 2;
+            this.registryAddBtn.Text = "Создать";
+            this.registryAddBtn.UseVisualStyleBackColor = true;
             // 
-            // buttonRemoveRecord
+            // registryDeleteBtn
             // 
-            this.buttonRemoveRecord.Location = new System.Drawing.Point(333, 385);
-            this.buttonRemoveRecord.Name = "buttonRemoveRecord";
-            this.buttonRemoveRecord.Size = new System.Drawing.Size(102, 51);
-            this.buttonRemoveRecord.TabIndex = 3;
-            this.buttonRemoveRecord.Text = "Удалить";
-            this.buttonRemoveRecord.UseVisualStyleBackColor = true;
-            this.buttonRemoveRecord.Click += new System.EventHandler(this.buttonRemoveRecord_Click);
+            this.registryDeleteBtn.Location = new System.Drawing.Point(6, 118);
+            this.registryDeleteBtn.Name = "registryDeleteBtn";
+            this.registryDeleteBtn.Size = new System.Drawing.Size(255, 40);
+            this.registryDeleteBtn.TabIndex = 3;
+            this.registryDeleteBtn.Text = "Удалить";
+            this.registryDeleteBtn.UseVisualStyleBackColor = true;
             // 
-            // buttonOpenCard
+            // registryOpenBtn
             // 
-            this.buttonOpenCard.Location = new System.Drawing.Point(115, 385);
-            this.buttonOpenCard.Name = "buttonOpenCard";
-            this.buttonOpenCard.Size = new System.Drawing.Size(105, 51);
-            this.buttonOpenCard.TabIndex = 4;
-            this.buttonOpenCard.Text = "Открыть";
-            this.buttonOpenCard.UseVisualStyleBackColor = true;
-            this.buttonOpenCard.Click += new System.EventHandler(this.buttonOpenCard_Click);
+            this.registryOpenBtn.Location = new System.Drawing.Point(6, 26);
+            this.registryOpenBtn.Name = "registryOpenBtn";
+            this.registryOpenBtn.Size = new System.Drawing.Size(255, 40);
+            this.registryOpenBtn.TabIndex = 4;
+            this.registryOpenBtn.Text = "Открыть";
+            this.registryOpenBtn.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // registryExportBtn
             // 
-            this.button1.Location = new System.Drawing.Point(15, 385);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 51);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Экспорт в Excel";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.registryExportBtn.Location = new System.Drawing.Point(6, 164);
+            this.registryExportBtn.Name = "registryExportBtn";
+            this.registryExportBtn.Size = new System.Drawing.Size(255, 40);
+            this.registryExportBtn.TabIndex = 6;
+            this.registryExportBtn.Text = "Экспорт в Excel";
+            this.registryExportBtn.UseVisualStyleBackColor = true;
             // 
-            // labelName
+            // userNameLabel
             // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(12, 549);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(46, 20);
-            this.labelName.TabIndex = 7;
-            this.labelName.Text = "name";
+            this.userNameLabel.AutoSize = true;
+            this.userNameLabel.Location = new System.Drawing.Point(6, 205);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.Size = new System.Drawing.Size(46, 20);
+            this.userNameLabel.TabIndex = 7;
+            this.userNameLabel.Text = "name";
             // 
-            // labelRole
+            // userRoleLabel
             // 
-            this.labelRole.AutoSize = true;
-            this.labelRole.Location = new System.Drawing.Point(84, 549);
-            this.labelRole.Name = "labelRole";
-            this.labelRole.Size = new System.Drawing.Size(35, 20);
-            this.labelRole.TabIndex = 8;
-            this.labelRole.Text = "role";
+            this.userRoleLabel.AutoSize = true;
+            this.userRoleLabel.Location = new System.Drawing.Point(6, 185);
+            this.userRoleLabel.Name = "userRoleLabel";
+            this.userRoleLabel.Size = new System.Drawing.Size(35, 20);
+            this.userRoleLabel.TabIndex = 8;
+            this.userRoleLabel.Text = "role";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.registryOpenBtn);
+            this.groupBox2.Controls.Add(this.registryAddBtn);
+            this.groupBox2.Controls.Add(this.registryDeleteBtn);
+            this.groupBox2.Controls.Add(this.registryExportBtn);
+            this.groupBox2.Location = new System.Drawing.Point(869, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(267, 212);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Управление";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.currentPageLabel);
+            this.groupBox3.Controls.Add(this.recordsCountBox);
+            this.groupBox3.Controls.Add(this.userNameLabel);
+            this.groupBox3.Controls.Add(this.userRoleLabel);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.nextPageBtn);
+            this.groupBox3.Controls.Add(this.previousPageBtn);
+            this.groupBox3.Location = new System.Drawing.Point(869, 315);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(267, 228);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Навигация";
+            // 
+            // currentPageLabel
+            // 
+            this.currentPageLabel.AutoSize = true;
+            this.currentPageLabel.Location = new System.Drawing.Point(112, 89);
+            this.currentPageLabel.Name = "currentPageLabel";
+            this.currentPageLabel.Size = new System.Drawing.Size(39, 20);
+            this.currentPageLabel.TabIndex = 4;
+            this.currentPageLabel.Text = "3/10";
+            // 
+            // recordsCountBox
+            // 
+            this.recordsCountBox.Location = new System.Drawing.Point(7, 46);
+            this.recordsCountBox.Name = "recordsCountBox";
+            this.recordsCountBox.Size = new System.Drawing.Size(254, 27);
+            this.recordsCountBox.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(241, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Количество записей на странице";
+            // 
+            // nextPageBtn
+            // 
+            this.nextPageBtn.Location = new System.Drawing.Point(181, 79);
+            this.nextPageBtn.Name = "nextPageBtn";
+            this.nextPageBtn.Size = new System.Drawing.Size(80, 40);
+            this.nextPageBtn.TabIndex = 1;
+            this.nextPageBtn.Text = ">";
+            this.nextPageBtn.UseVisualStyleBackColor = true;
+            // 
+            // previousPageBtn
+            // 
+            this.previousPageBtn.Location = new System.Drawing.Point(6, 79);
+            this.previousPageBtn.Name = "previousPageBtn";
+            this.previousPageBtn.Size = new System.Drawing.Size(80, 40);
+            this.previousPageBtn.TabIndex = 0;
+            this.previousPageBtn.Text = "<";
+            this.previousPageBtn.UseVisualStyleBackColor = true;
+            // 
+            // municipalListOpenBtn
+            // 
+            this.municipalListOpenBtn.Location = new System.Drawing.Point(6, 26);
+            this.municipalListOpenBtn.Name = "municipalListOpenBtn";
+            this.municipalListOpenBtn.Size = new System.Drawing.Size(255, 40);
+            this.municipalListOpenBtn.TabIndex = 7;
+            this.municipalListOpenBtn.Text = "Муниципальные контракты";
+            this.municipalListOpenBtn.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.municipalListOpenBtn);
+            this.groupBox4.Location = new System.Drawing.Point(869, 230);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(267, 79);
+            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Таблицы";
             // 
             // Registry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1228, 578);
-            this.Controls.Add(this.labelRole);
-            this.Controls.Add(this.labelName);
-            this.Controls.Add(this.buttonAddRecord);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonOpenCard);
-            this.Controls.Add(this.buttonRemoveRecord);
+            this.ClientSize = new System.Drawing.Size(1151, 556);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "Registry";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Реестр отлова";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Registry_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRegistry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private DataGridView dataGridViewRegistry;
+        private DataGridView registryGrid;
         private GroupBox groupBox1;
-        private Button buttonAddRecord;
-        private Button buttonRemoveRecord;
-        private Button buttonOpenCard;
-        private Button button1;
-        private Label labelName;
-        private Label labelRole;
+        private Button registryAddBtn;
+        private Button registryDeleteBtn;
+        private Button registryOpenBtn;
+        private Button registryExportBtn;
+        private Label userNameLabel;
+        private Label userRoleLabel;
+        private GroupBox groupBox2;
+        private GroupBox groupBox3;
+        private Label currentPageLabel;
+        private TextBox recordsCountBox;
+        private Label label1;
+        private Button nextPageBtn;
+        private Button previousPageBtn;
+        private Button municipalListOpenBtn;
+        private GroupBox groupBox4;
     }
 }

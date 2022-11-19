@@ -28,41 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.buttonAuthorize = new System.Windows.Forms.Button();
+            this.userNameBox = new System.Windows.Forms.TextBox();
+            this.userPasswordBox = new System.Windows.Forms.TextBox();
+            this.authBtn = new System.Windows.Forms.Button();
             this.labelName = new System.Windows.Forms.Label();
             this.labelPassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBoxName
+            // userNameBox
             // 
-            this.textBoxName.Location = new System.Drawing.Point(26, 60);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(254, 27);
-            this.textBoxName.TabIndex = 0;
+            this.userNameBox.Location = new System.Drawing.Point(12, 32);
+            this.userNameBox.Name = "userNameBox";
+            this.userNameBox.Size = new System.Drawing.Size(291, 27);
+            this.userNameBox.TabIndex = 0;
             // 
-            // textBoxPassword
+            // userPasswordBox
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(26, 136);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(254, 27);
-            this.textBoxPassword.TabIndex = 1;
+            this.userPasswordBox.Location = new System.Drawing.Point(12, 105);
+            this.userPasswordBox.Name = "userPasswordBox";
+            this.userPasswordBox.Size = new System.Drawing.Size(291, 27);
+            this.userPasswordBox.TabIndex = 1;
             // 
-            // buttonAuthorize
+            // authBtn
             // 
-            this.buttonAuthorize.Location = new System.Drawing.Point(79, 191);
-            this.buttonAuthorize.Name = "buttonAuthorize";
-            this.buttonAuthorize.Size = new System.Drawing.Size(149, 52);
-            this.buttonAuthorize.TabIndex = 2;
-            this.buttonAuthorize.Text = "Авторизоваться";
-            this.buttonAuthorize.UseVisualStyleBackColor = true;
-            this.buttonAuthorize.Click += new System.EventHandler(this.button1_Click);
+            this.authBtn.Location = new System.Drawing.Point(12, 150);
+            this.authBtn.Name = "authBtn";
+            this.authBtn.Size = new System.Drawing.Size(291, 40);
+            this.authBtn.TabIndex = 2;
+            this.authBtn.Text = "Авторизоваться";
+            this.authBtn.UseVisualStyleBackColor = true;
+            this.authBtn.Click += new System.EventHandler(this.authBtn_Click);
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(26, 37);
+            this.labelName.Location = new System.Drawing.Point(12, 9);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(39, 20);
             this.labelName.TabIndex = 3;
@@ -71,7 +71,7 @@
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(26, 113);
+            this.labelPassword.Location = new System.Drawing.Point(12, 82);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(62, 20);
             this.labelPassword.TabIndex = 4;
@@ -79,16 +79,18 @@
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 255);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(315, 202);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.labelName);
-            this.Controls.Add(this.buttonAuthorize);
-            this.Controls.Add(this.textBoxPassword);
-            this.Controls.Add(this.textBoxName);
+            this.Controls.Add(this.authBtn);
+            this.Controls.Add(this.userPasswordBox);
+            this.Controls.Add(this.userNameBox);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Login";
-            this.Text = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Авторизация";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,9 +98,9 @@
 
         #endregion
 
-        private TextBox textBoxName;
-        private TextBox textBoxPassword;
-        private Button buttonAuthorize;
+        private TextBox userNameBox;
+        private TextBox userPasswordBox;
+        private Button authBtn;
         private Label labelName;
         private Label labelPassword;
     }

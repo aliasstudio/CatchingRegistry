@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +10,16 @@ namespace CatchingRegistry.Models
 {
     public class MunicipalContract
     {
-        public int Id { get; set; }
+        [Key]
+        public int ID { get; set; }
+        [Required]
         public DateTime ContractDate { get; set; }
+        [Required]
         public string MunicipalName { get; set; }
+        [Required]
         public string LocalGovernment { get; set; }
-
-        public Organisation Organisation { get; set; }
-        public string Locality { get; set; }
-        public CatchingAct CatchingAct { get; set; }
+        [Required]
+        public Organization Organization { get; set; }
 
     }
 }

@@ -1,5 +1,4 @@
-﻿using CatchingRegistry.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CatchingRegistry.Views
 {
-    public partial class Filter : Form
+    public partial class MunicipalCard : Form
     {
-        public Filter()
+        public MunicipalCard()
         {
             InitializeComponent();
         }

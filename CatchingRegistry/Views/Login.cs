@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.EntityFrameworkCore;
-using CatchingRegistry.Controllers;
+﻿using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 
 namespace CatchingRegistry.Views
 {
     public partial class Login : Form
     {
-        readonly private LoginController loginController;
+        private readonly LoginController loginController = new();
+
         public Login()
         {
             InitializeComponent();
 
-            loginController = new LoginController(this);
+            //Debug
+            userNameBox.Text = "admin";
+            userPasswordBox.Text = "admin";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void authBtn_Click(object sender, EventArgs e)
         {
-            loginController.Authorize("admin", "admin");
+            loginController.Authorize(userNameBox.Text, userPasswordBox.Text);
         }
     }
 }
