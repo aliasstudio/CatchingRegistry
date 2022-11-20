@@ -85,6 +85,7 @@
             this.registryAddBtn.TabIndex = 2;
             this.registryAddBtn.Text = "Создать";
             this.registryAddBtn.UseVisualStyleBackColor = true;
+            this.registryAddBtn.Click += new System.EventHandler(this.registryAddBtn_Click);
             // 
             // registryDeleteBtn
             // 
@@ -94,6 +95,7 @@
             this.registryDeleteBtn.TabIndex = 3;
             this.registryDeleteBtn.Text = "Удалить";
             this.registryDeleteBtn.UseVisualStyleBackColor = true;
+            this.registryDeleteBtn.Click += new System.EventHandler(this.registryDeleteBtn_Click);
             // 
             // registryOpenBtn
             // 
@@ -235,6 +237,7 @@
             this.Name = "Registry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Реестр отлова";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Registry_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

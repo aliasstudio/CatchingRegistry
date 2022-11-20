@@ -10,28 +10,8 @@ using System.Threading.Tasks;
 
 namespace CatchingRegistry.Controllers
 {
-    public class CatchingCardController
+    public class CatchingCardController : ICrudController<CatchingAct>
     {
-        public void Create()
-        {
-
-        }
-
-        public void Open()
-        {
-
-        }
-
-        public void Update()
-        {
-
-        }
-
-        public void Delete()
-        {
-
-        }
-
         public void AddFile()
         {
 

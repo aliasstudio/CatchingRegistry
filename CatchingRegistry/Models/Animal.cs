@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace CatchingRegistry.Models
 {
     public class Animal
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Category { get; set; }
         public string Gender { get; set; }
         public string Size { get; set; }

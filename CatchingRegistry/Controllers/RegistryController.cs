@@ -1,15 +1,11 @@
-﻿using CatchingRegistry.Models;
-using CatchingRegistry.Views;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CatchingRegistry.Services;
+using CatchingRegistry.Models;
+using System.Data;
+using System.ComponentModel;
 
 namespace CatchingRegistry.Controllers
 {
-    public class RegistryController
+    public class RegistryController : ICrudController<CatchingAct>
     {
         public void NextPage()
         {

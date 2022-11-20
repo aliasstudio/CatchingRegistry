@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CatchingRegistry.Controllers
 {
-    public class FileController
+    //Мб не нужно, посмотрим
+    public abstract class FileController
     {
     }
 }

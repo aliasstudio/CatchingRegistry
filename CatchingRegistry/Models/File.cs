@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace CatchingRegistry.Models
 {
-    public class Organization
+    [Table("Files")]
+    public class File
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Path { get; set; }
     }
 }

@@ -1,11 +1,11 @@
-﻿using CatchingRegistry.Controllers.Auth;
+﻿using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 
 namespace CatchingRegistry.Views
 {
     public partial class Auth : Form
     {
-        private AuthController authController = new AuthController();
+        private AuthController authController = new();
         public Auth()
         {
             InitializeComponent();
@@ -17,7 +17,15 @@ namespace CatchingRegistry.Views
 
         private void authBtn_Click(object sender, EventArgs e)
         {
-            authController.Authorize(userNameBox.Text, userPasswordBox.Text);
+            try
+            {
+                authController.Authorize(userNameBox.Text, userPasswordBox.Text);
+                new Registry().Show();
+                this.Hide();
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
