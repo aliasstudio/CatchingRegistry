@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.registryGrid = new System.Windows.Forms.DataGridView();
+            this.applicationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.catchingActViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.registryAddBtn = new System.Windows.Forms.Button();
             this.registryDeleteBtn = new System.Windows.Forms.Button();
@@ -38,7 +42,7 @@
             this.userRoleLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.currentPageLabel = new System.Windows.Forms.Label();
+            this.currentPageBox = new System.Windows.Forms.TextBox();
             this.recordsCountBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nextPageBtn = new System.Windows.Forms.Button();
@@ -46,6 +50,8 @@
             this.municipalListOpenBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.applicationContextBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.catchingActViewBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -56,6 +62,17 @@
             // 
             this.registryGrid.AllowUserToAddRows = false;
             this.registryGrid.AllowUserToDeleteRows = false;
+            this.registryGrid.AllowUserToResizeColumns = false;
+            this.registryGrid.AllowUserToResizeRows = false;
+            this.registryGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.registryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.registryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.registryGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.registryGrid.Location = new System.Drawing.Point(3, 23);
@@ -63,7 +80,11 @@
             this.registryGrid.ReadOnly = true;
             this.registryGrid.RowHeadersVisible = false;
             this.registryGrid.RowHeadersWidth = 51;
+            this.registryGrid.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.registryGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.registryGrid.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.registryGrid.RowTemplate.Height = 29;
+            this.registryGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.registryGrid.Size = new System.Drawing.Size(845, 508);
             this.registryGrid.TabIndex = 0;
             // 
@@ -105,6 +126,7 @@
             this.registryOpenBtn.TabIndex = 4;
             this.registryOpenBtn.Text = "Открыть";
             this.registryOpenBtn.UseVisualStyleBackColor = true;
+            this.registryOpenBtn.Click += new System.EventHandler(this.registryOpenBtn_Click);
             // 
             // registryExportBtn
             // 
@@ -148,7 +170,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.currentPageLabel);
+            this.groupBox3.Controls.Add(this.currentPageBox);
             this.groupBox3.Controls.Add(this.recordsCountBox);
             this.groupBox3.Controls.Add(this.userNameLabel);
             this.groupBox3.Controls.Add(this.userRoleLabel);
@@ -162,14 +184,12 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Навигация";
             // 
-            // currentPageLabel
+            // currentPageBox
             // 
-            this.currentPageLabel.AutoSize = true;
-            this.currentPageLabel.Location = new System.Drawing.Point(112, 89);
-            this.currentPageLabel.Name = "currentPageLabel";
-            this.currentPageLabel.Size = new System.Drawing.Size(39, 20);
-            this.currentPageLabel.TabIndex = 4;
-            this.currentPageLabel.Text = "3/10";
+            this.currentPageBox.Location = new System.Drawing.Point(92, 86);
+            this.currentPageBox.Name = "currentPageBox";
+            this.currentPageBox.Size = new System.Drawing.Size(83, 27);
+            this.currentPageBox.TabIndex = 9;
             // 
             // recordsCountBox
             // 
@@ -233,12 +253,15 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Registry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Реестр отлова";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Registry_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.applicationContextBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.catchingActViewBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -260,12 +283,14 @@
         private Label userRoleLabel;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
-        private Label currentPageLabel;
         private TextBox recordsCountBox;
         private Label label1;
         private Button nextPageBtn;
         private Button previousPageBtn;
         private Button municipalListOpenBtn;
         private GroupBox groupBox4;
+        private TextBox currentPageBox;
+        private BindingSource catchingActViewBindingSource;
+        private BindingSource applicationContextBindingSource;
     }
 }

@@ -1,7 +1,6 @@
 using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 using CatchingRegistry.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace CatchingRegistry.Views
 {
@@ -12,24 +11,50 @@ namespace CatchingRegistry.Views
         {
             InitializeComponent();
             registryGrid.DataSource = registryController.GetDataSource();
-        }
 
+
+            /*            registryGrid.Columns[0].HeaderText = "№";
+                        registryGrid.Columns[0].FillWeight = 8;
+                        registryGrid.Columns[1].HeaderText = "Дата";
+                        registryGrid.Columns[1].FillWeight = 12;
+                        registryGrid.Columns[2].HeaderText = "№ МК";
+                        registryGrid.Columns[2].FillWeight = 15;
+                        registryGrid.Columns[3].HeaderText = "Причина отлова";
+                        registryGrid.Columns[3].FillWeight = 30;
+                        registryGrid.Columns[4].HeaderText = "Адрес отлова";
+                        registryGrid.Columns[4].FillWeight = 35;*/
+
+
+        }
+        private void registryOpenBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
+                new CatchingCard(itemID).Show();
+            } 
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Ни одна запись не выделена. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void registryAddBtn_Click(object sender, EventArgs e)
         {
-            var testItem = new CatchingAct { 
-                DateTime = DateTime.Now.ToUniversalTime(), 
-                CatchingAddress = "123",
-                CatchingPurpose = "123",
-                MunicipalContract = DataBaseService<MunicipalContract>.GetByID(0) 
-            };
-            registryController.Add(testItem);
+            new CatchingCard(-1).Show();
         }
 
         private void registryDeleteBtn_Click(object sender, EventArgs e)
         {
-            //registryController.Delete();
+            try { 
+                var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
+                registryController.Delete(itemID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ни одна запись не выделена. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit(); //Жоский код
+        private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
     }
 }

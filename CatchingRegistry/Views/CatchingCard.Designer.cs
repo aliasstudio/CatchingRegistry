@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.catchCardExportBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -37,11 +38,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.catchAnimalCountLabel = new System.Windows.Forms.Label();
             this.catchAnimalsGrid = new System.Windows.Forms.DataGridView();
-            this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnFeatures = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catchCardSaveBtn = new System.Windows.Forms.Button();
             this.animalCategoryCombo = new System.Windows.Forms.ComboBox();
             this.municipalNumCombo = new System.Windows.Forms.ComboBox();
@@ -61,20 +57,24 @@
             this.municipalAddBtn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.catchAnimalEditBtn = new System.Windows.Forms.Button();
             this.catchAnimalAddBtn = new System.Windows.Forms.Button();
             this.catchAnimalDeleteBtn = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.catchCardFileOpenBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.catchCardFileList = new System.Windows.Forms.ListBox();
             this.catchCardFileDeleteBtn = new System.Windows.Forms.Button();
             this.catchCardFileUploadBtn = new System.Windows.Forms.Button();
+            this.catchingActBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.catchingActBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // catchCardExportBtn
@@ -151,60 +151,15 @@
             this.catchAnimalsGrid.AllowUserToAddRows = false;
             this.catchAnimalsGrid.AllowUserToDeleteRows = false;
             this.catchAnimalsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.catchAnimalsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnId,
-            this.ColumnCategory,
-            this.ColumnGender,
-            this.ColumnSize,
-            this.ColumnFeatures});
             this.catchAnimalsGrid.Location = new System.Drawing.Point(11, 13);
             this.catchAnimalsGrid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.catchAnimalsGrid.Name = "catchAnimalsGrid";
             this.catchAnimalsGrid.ReadOnly = true;
             this.catchAnimalsGrid.RowHeadersWidth = 51;
             this.catchAnimalsGrid.RowTemplate.Height = 25;
+            this.catchAnimalsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.catchAnimalsGrid.Size = new System.Drawing.Size(845, 331);
             this.catchAnimalsGrid.TabIndex = 35;
-            // 
-            // ColumnId
-            // 
-            this.ColumnId.HeaderText = "Id";
-            this.ColumnId.MinimumWidth = 6;
-            this.ColumnId.Name = "ColumnId";
-            this.ColumnId.ReadOnly = true;
-            this.ColumnId.Width = 125;
-            // 
-            // ColumnCategory
-            // 
-            this.ColumnCategory.HeaderText = "Category";
-            this.ColumnCategory.MinimumWidth = 6;
-            this.ColumnCategory.Name = "ColumnCategory";
-            this.ColumnCategory.ReadOnly = true;
-            this.ColumnCategory.Width = 125;
-            // 
-            // ColumnGender
-            // 
-            this.ColumnGender.HeaderText = "Gender";
-            this.ColumnGender.MinimumWidth = 6;
-            this.ColumnGender.Name = "ColumnGender";
-            this.ColumnGender.ReadOnly = true;
-            this.ColumnGender.Width = 125;
-            // 
-            // ColumnSize
-            // 
-            this.ColumnSize.HeaderText = "Size";
-            this.ColumnSize.MinimumWidth = 6;
-            this.ColumnSize.Name = "ColumnSize";
-            this.ColumnSize.ReadOnly = true;
-            this.ColumnSize.Width = 125;
-            // 
-            // ColumnFeatures
-            // 
-            this.ColumnFeatures.HeaderText = "Features";
-            this.ColumnFeatures.MinimumWidth = 6;
-            this.ColumnFeatures.Name = "ColumnFeatures";
-            this.ColumnFeatures.ReadOnly = true;
-            this.ColumnFeatures.Width = 125;
             // 
             // catchCardSaveBtn
             // 
@@ -214,6 +169,7 @@
             this.catchCardSaveBtn.TabIndex = 36;
             this.catchCardSaveBtn.Text = "Сохранить";
             this.catchCardSaveBtn.UseVisualStyleBackColor = true;
+            this.catchCardSaveBtn.Click += new System.EventHandler(this.catchCardSaveBtn_Click);
             // 
             // animalCategoryCombo
             // 
@@ -395,14 +351,25 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.catchAnimalEditBtn);
             this.groupBox4.Controls.Add(this.catchAnimalAddBtn);
             this.groupBox4.Controls.Add(this.catchAnimalDeleteBtn);
-            this.groupBox4.Location = new System.Drawing.Point(862, 570);
+            this.groupBox4.Location = new System.Drawing.Point(862, 514);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(313, 135);
+            this.groupBox4.Size = new System.Drawing.Size(313, 191);
             this.groupBox4.TabIndex = 54;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Управление животными";
+            // 
+            // catchAnimalEditBtn
+            // 
+            this.catchAnimalEditBtn.Location = new System.Drawing.Point(6, 74);
+            this.catchAnimalEditBtn.Name = "catchAnimalEditBtn";
+            this.catchAnimalEditBtn.Size = new System.Drawing.Size(301, 40);
+            this.catchAnimalEditBtn.TabIndex = 37;
+            this.catchAnimalEditBtn.Text = "Изменить";
+            this.catchAnimalEditBtn.UseVisualStyleBackColor = true;
+            this.catchAnimalEditBtn.Click += new System.EventHandler(this.catchAnimalEditBtn_Click);
             // 
             // catchAnimalAddBtn
             // 
@@ -410,40 +377,32 @@
             this.catchAnimalAddBtn.Name = "catchAnimalAddBtn";
             this.catchAnimalAddBtn.Size = new System.Drawing.Size(301, 40);
             this.catchAnimalAddBtn.TabIndex = 36;
-            this.catchAnimalAddBtn.Text = "Добавить животное";
+            this.catchAnimalAddBtn.Text = "Добавить";
             this.catchAnimalAddBtn.UseVisualStyleBackColor = true;
+            this.catchAnimalAddBtn.Click += new System.EventHandler(this.catchAnimalAddBtn_Click);
             // 
             // catchAnimalDeleteBtn
             // 
-            this.catchAnimalDeleteBtn.Location = new System.Drawing.Point(6, 75);
+            this.catchAnimalDeleteBtn.Location = new System.Drawing.Point(6, 120);
             this.catchAnimalDeleteBtn.Name = "catchAnimalDeleteBtn";
             this.catchAnimalDeleteBtn.Size = new System.Drawing.Size(301, 40);
             this.catchAnimalDeleteBtn.TabIndex = 0;
-            this.catchAnimalDeleteBtn.Text = "Удалить животное";
+            this.catchAnimalDeleteBtn.Text = "Удалить";
             this.catchAnimalDeleteBtn.UseVisualStyleBackColor = true;
+            this.catchAnimalDeleteBtn.Click += new System.EventHandler(this.catchAnimalDeleteBtn_Click);
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.catchCardFileOpenBtn);
             this.groupBox5.Controls.Add(this.label3);
             this.groupBox5.Controls.Add(this.catchCardFileList);
             this.groupBox5.Controls.Add(this.catchCardFileDeleteBtn);
             this.groupBox5.Controls.Add(this.catchCardFileUploadBtn);
             this.groupBox5.Location = new System.Drawing.Point(862, 159);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(313, 405);
+            this.groupBox5.Size = new System.Drawing.Size(313, 349);
             this.groupBox5.TabIndex = 55;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Управление файлами";
-            // 
-            // catchCardFileOpenBtn
-            // 
-            this.catchCardFileOpenBtn.Location = new System.Drawing.Point(6, 262);
-            this.catchCardFileOpenBtn.Name = "catchCardFileOpenBtn";
-            this.catchCardFileOpenBtn.Size = new System.Drawing.Size(301, 40);
-            this.catchCardFileOpenBtn.TabIndex = 6;
-            this.catchCardFileOpenBtn.Text = "Открыть файл";
-            this.catchCardFileOpenBtn.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -465,7 +424,7 @@
             // 
             // catchCardFileDeleteBtn
             // 
-            this.catchCardFileDeleteBtn.Location = new System.Drawing.Point(6, 354);
+            this.catchCardFileDeleteBtn.Location = new System.Drawing.Point(6, 298);
             this.catchCardFileDeleteBtn.Name = "catchCardFileDeleteBtn";
             this.catchCardFileDeleteBtn.Size = new System.Drawing.Size(301, 40);
             this.catchCardFileDeleteBtn.TabIndex = 1;
@@ -474,12 +433,20 @@
             // 
             // catchCardFileUploadBtn
             // 
-            this.catchCardFileUploadBtn.Location = new System.Drawing.Point(6, 308);
+            this.catchCardFileUploadBtn.Location = new System.Drawing.Point(6, 252);
             this.catchCardFileUploadBtn.Name = "catchCardFileUploadBtn";
             this.catchCardFileUploadBtn.Size = new System.Drawing.Size(301, 40);
             this.catchCardFileUploadBtn.TabIndex = 0;
             this.catchCardFileUploadBtn.Text = "Загрузить файл";
             this.catchCardFileUploadBtn.UseVisualStyleBackColor = true;
+            // 
+            // catchingActBindingSource
+            // 
+            this.catchingActBindingSource.DataSource = typeof(CatchingRegistry.Models.CatchingAct);
+            // 
+            // catchingActBindingSource1
+            // 
+            this.catchingActBindingSource1.DataSource = typeof(CatchingRegistry.Models.CatchingAct);
             // 
             // CatchingCard
             // 
@@ -494,6 +461,7 @@
             this.Controls.Add(this.catchAnimalsGrid);
             this.MaximizeBox = false;
             this.Name = "CatchingCard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Акт отлова";
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -505,6 +473,8 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -529,11 +499,6 @@
         private TextBox animalSizeBox;
         private Label label13;
         private Label label14;
-        private DataGridViewTextBoxColumn ColumnId;
-        private DataGridViewTextBoxColumn ColumnCategory;
-        private DataGridViewTextBoxColumn ColumnGender;
-        private DataGridViewTextBoxColumn ColumnSize;
-        private DataGridViewTextBoxColumn ColumnFeatures;
         private TextBox animalCheapNumBox;
         private Label label15;
         private GroupBox groupBox1;
@@ -549,8 +514,10 @@
         private Button municipalAddBtn;
         private Label label3;
         private ListBox catchCardFileList;
-        private Button catchCardFileOpenBtn;
         private Label label1;
         private TextBox catchAddressBox;
+        private BindingSource catchingActBindingSource;
+        private BindingSource catchingActBindingSource1;
+        private Button catchAnimalEditBtn;
     }
 }
