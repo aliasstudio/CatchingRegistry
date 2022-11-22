@@ -10,22 +10,9 @@ namespace CatchingRegistry.Views
         public Registry()
         {
             InitializeComponent();
-            registryGrid.DataSource = registryController.GetDataSource();
-
-
-            /*            registryGrid.Columns[0].HeaderText = "№";
-                        registryGrid.Columns[0].FillWeight = 8;
-                        registryGrid.Columns[1].HeaderText = "Дата";
-                        registryGrid.Columns[1].FillWeight = 12;
-                        registryGrid.Columns[2].HeaderText = "№ МК";
-                        registryGrid.Columns[2].FillWeight = 15;
-                        registryGrid.Columns[3].HeaderText = "Причина отлова";
-                        registryGrid.Columns[3].FillWeight = 30;
-                        registryGrid.Columns[4].HeaderText = "Адрес отлова";
-                        registryGrid.Columns[4].FillWeight = 35;*/
-
-
+            InitializeItems();
         }
+
         private void registryOpenBtn_Click(object sender, EventArgs e)
         {
             try
@@ -55,6 +42,22 @@ namespace CatchingRegistry.Views
             }
         }
 
+        private void InitializeItems()
+        {
+            registryGrid.DataSource = registryController.GetDataSource();
+
+            registryGrid.Columns[0].HeaderText = "№";
+            registryGrid.Columns[0].FillWeight = 8;
+            registryGrid.Columns[1].HeaderText = "Дата";
+            registryGrid.Columns[1].FillWeight = 12;
+            registryGrid.Columns[2].HeaderText = "№ МК";
+            registryGrid.Columns[2].FillWeight = 15;
+            registryGrid.Columns[3].HeaderText = "Причина отлова";
+            registryGrid.Columns[3].FillWeight = 30;
+            registryGrid.Columns[4].HeaderText = "Адрес отлова";
+            registryGrid.Columns[4].FillWeight = 35;
+            registryGrid.Columns[5].Visible = false;
+        }
         private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
     }
 }

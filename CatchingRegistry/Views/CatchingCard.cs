@@ -26,21 +26,75 @@ namespace CatchingRegistry.Views
         {
             cardController = new CatchingCardController(cardID);
             InitializeComponent();
+            InitializeItems();
+        }
 
+        private void InitializeItems()
+        {
             catchAnimalsGrid.DataSource = cardController.GetAnimalSource();
+
+            catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
+            catchAnimalsGrid.Columns[0].FillWeight = 12;
+            catchAnimalsGrid.Columns[1].HeaderText = "Категория";
+            catchAnimalsGrid.Columns[1].FillWeight = 13;
+            catchAnimalsGrid.Columns[2].HeaderText = "Пол";
+            catchAnimalsGrid.Columns[2].FillWeight = 10;
+            catchAnimalsGrid.Columns[3].HeaderText = "Размер";
+            catchAnimalsGrid.Columns[3].FillWeight = 15;
+            catchAnimalsGrid.Columns[4].HeaderText = "Особенности";
+            catchAnimalsGrid.Columns[4].FillWeight = 50;
+            catchAnimalsGrid.Columns[5].Visible = false;
+
+            FillCatchingActData();
+        }
+
+        private void FillMunicipalData()
+        {
+            var mpContract = cardController.GetMunicipalData();
+
+            //TODO: доделать заполнение комбобокса
+        }
+
+        private void FillCatchingActData()
+        {
+            var catchingAct = cardController.GetCatchingActData();
+            catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
+            catchPurposeBox.Text = catchingAct.CatchingPurpose;
+            catchAddressBox.Text = catchingAct.CatchingAddress;
+        }
+        private void FillAnimalData()
+        {
+            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
+            var animal = cardController.GetAnimalData(itemID);
+            animalCheapNumBox.Text = $"{animal.ID}";
+            animalCategoryCombo.Text = animal.Category;
+            animalGenderCombo.Text = animal.Gender;
+            animalSizeBox.Text = animal.Size;
+            animalFeaturesBox.Text = animal.Features;
+        }
+
+        private Animal CreateAnimal()
+        {
+            //Странный метод конечно, не знаю как назвать правильнее
+            return new Animal()
+            {
+                ID = int.Parse(animalCheapNumBox.Text),
+                Category = animalCategoryCombo.Text,
+                Gender = animalGenderCombo.Text,
+                Size = animalSizeBox.Text,
+                Features = animalFeaturesBox.Text
+            };
         }
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
-            cardController.AddAnimal(FillAnimalData(new Animal()));
+            cardController.AddAnimal(CreateAnimal());
         }
 
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
             var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            var editedAnimal = FillAnimalData(new Animal());
-            editedAnimal.ID = itemID;
-            cardController.EditAnimal(editedAnimal);
+            cardController.EditAnimal(itemID, CreateAnimal());
         }
 
         private void catchAnimalDeleteBtn_Click(object sender, EventArgs e)
@@ -51,19 +105,10 @@ namespace CatchingRegistry.Views
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
         {
-
+            //TODO: сделать сохранение карточки
+            // cardController.Save();
         }
 
-        private Animal FillAnimalData(Animal animal)
-        {
-            animal.ID = int.Parse(animalCheapNumBox.Text);
-            animal.Category = animalCategoryCombo.Text;
-            animal.Gender = animalGenderCombo.Text;
-            animal.Size = animalSizeBox.Text;
-            animal.Features = animalFeaturesBox.Text;
-
-            return animal;
-        }
-
+        private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) => FillAnimalData();
     }
 }

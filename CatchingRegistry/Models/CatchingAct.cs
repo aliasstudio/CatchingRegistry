@@ -14,7 +14,8 @@ namespace CatchingRegistry.Models
         public int MunicipalContractID { get; set; }
         public string CatchingPurpose { get; set; }
         public string CatchingAddress { get; set; }
-        public virtual ObservableListSource<Animal> Animals { get { return animals; } }
-        public virtual ObservableListSource<File> Files { get { return files; } }
+        public MunicipalContract MunicipalContract { get; set; }
+        public ObservableListSource<Animal> Animals { get { return animals; } }
+        public ObservableListSource<File> Files { get { return files; } }
     }
 }

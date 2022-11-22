@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.catchCardExportBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -65,16 +65,12 @@
             this.catchCardFileList = new System.Windows.Forms.ListBox();
             this.catchCardFileDeleteBtn = new System.Windows.Forms.Button();
             this.catchCardFileUploadBtn = new System.Windows.Forms.Button();
-            this.catchingActBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.catchingActBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // catchCardExportBtn
@@ -150,16 +146,31 @@
             // 
             this.catchAnimalsGrid.AllowUserToAddRows = false;
             this.catchAnimalsGrid.AllowUserToDeleteRows = false;
+            this.catchAnimalsGrid.AllowUserToResizeColumns = false;
+            this.catchAnimalsGrid.AllowUserToResizeRows = false;
+            this.catchAnimalsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.catchAnimalsGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.catchAnimalsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.catchAnimalsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.catchAnimalsGrid.Location = new System.Drawing.Point(11, 13);
             this.catchAnimalsGrid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.catchAnimalsGrid.Name = "catchAnimalsGrid";
             this.catchAnimalsGrid.ReadOnly = true;
             this.catchAnimalsGrid.RowHeadersWidth = 51;
+            this.catchAnimalsGrid.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.catchAnimalsGrid.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.catchAnimalsGrid.RowTemplate.Height = 25;
             this.catchAnimalsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.catchAnimalsGrid.Size = new System.Drawing.Size(845, 331);
             this.catchAnimalsGrid.TabIndex = 35;
+            this.catchAnimalsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.catchAnimalsGrid_CellClick);
             // 
             // catchCardSaveBtn
             // 
@@ -176,10 +187,10 @@
             this.animalCategoryCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.animalCategoryCombo.FormattingEnabled = true;
             this.animalCategoryCombo.Items.AddRange(new object[] {
-            "собака",
-            "щенок",
-            "кошка",
-            "котенок"});
+            "Собака",
+            "Щенок",
+            "Кошка",
+            "Котенок"});
             this.animalCategoryCombo.Location = new System.Drawing.Point(8, 113);
             this.animalCategoryCombo.Name = "animalCategoryCombo";
             this.animalCategoryCombo.Size = new System.Drawing.Size(220, 28);
@@ -198,8 +209,8 @@
             this.animalGenderCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.animalGenderCombo.FormattingEnabled = true;
             this.animalGenderCombo.Items.AddRange(new object[] {
-            "м",
-            "ж"});
+            "Мужской",
+            "Женский"});
             this.animalGenderCombo.Location = new System.Drawing.Point(239, 51);
             this.animalGenderCombo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.animalGenderCombo.Name = "animalGenderCombo";
@@ -440,14 +451,6 @@
             this.catchCardFileUploadBtn.Text = "Загрузить файл";
             this.catchCardFileUploadBtn.UseVisualStyleBackColor = true;
             // 
-            // catchingActBindingSource
-            // 
-            this.catchingActBindingSource.DataSource = typeof(CatchingRegistry.Models.CatchingAct);
-            // 
-            // catchingActBindingSource1
-            // 
-            this.catchingActBindingSource1.DataSource = typeof(CatchingRegistry.Models.CatchingAct);
-            // 
             // CatchingCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -473,8 +476,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.catchingActBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -516,8 +517,6 @@
         private ListBox catchCardFileList;
         private Label label1;
         private TextBox catchAddressBox;
-        private BindingSource catchingActBindingSource;
-        private BindingSource catchingActBindingSource1;
         private Button catchAnimalEditBtn;
     }
 }

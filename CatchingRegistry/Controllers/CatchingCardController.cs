@@ -25,7 +25,6 @@ namespace CatchingRegistry.Controllers
             else
             {
                 catchingAct = EntityService<CatchingAct>.GetByID(cardID);
-                EntityService.GetContext().Animals.Load();
                 animalsList = catchingAct.Animals.ToBindingList();
             }
         }
@@ -35,6 +34,15 @@ namespace CatchingRegistry.Controllers
             return new BindingListView<Animal>(animalsList);
         }
 
+
+        public Animal GetAnimalData(int animalID)
+        {
+            return animalsList.FirstOrDefault(x => x.ID == animalID);
+        }
+        public MunicipalContract GetMunicipalData() => catchingAct.MunicipalContract;
+
+        public CatchingAct GetCatchingActData() => catchingAct;
+
         public void AddAnimal(Animal animal)
         {
             if (animalsList.FirstOrDefault(x => x.ID == animal.ID) != null)
@@ -43,11 +51,11 @@ namespace CatchingRegistry.Controllers
             animalsList.Add(animal);
         }
 
-        public void EditAnimal(Animal animal)
+        public void EditAnimal(int animalID, Animal editedAnimal)
         {
-            var listItem = animalsList.FirstOrDefault(x => x.ID == animal.ID);
-            animal.CatchingActID = catchingAct.ID;
-            animalsList[animalsList.IndexOf(listItem)] = animal;
+            var listItem = animalsList.FirstOrDefault(x => x.ID == animalID);
+            editedAnimal.CatchingActID = catchingAct.ID;
+            animalsList[animalsList.IndexOf(listItem)] = editedAnimal;
         }
 
 

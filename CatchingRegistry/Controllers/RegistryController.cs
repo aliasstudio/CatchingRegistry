@@ -12,7 +12,12 @@ namespace CatchingRegistry.Controllers
     {
         public BindingListView<CatchingAct> GetDataSource()
         {
-            EntityService.GetContext().CatchingActs.Load();
+            EntityService
+                .GetContext().CatchingActs
+                .Include(x => x.MunicipalContract)
+                .Include(x => x.Animals)
+                .Include(x => x.Files)
+                .Load();
             return EntityService<CatchingAct>.GetDataSource();
         }
 
