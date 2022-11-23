@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.registryGrid = new System.Windows.Forms.DataGridView();
             this.applicationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.catchingActViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -43,7 +43,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.currentPageBox = new System.Windows.Forms.TextBox();
-            this.recordsCountBox = new System.Windows.Forms.TextBox();
+            this.registryPageSizeBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nextPageBtn = new System.Windows.Forms.Button();
             this.previousPageBtn = new System.Windows.Forms.Button();
@@ -66,14 +66,14 @@
             this.registryGrid.AllowUserToResizeRows = false;
             this.registryGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.registryGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.registryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.registryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.registryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.registryGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.registryGrid.Location = new System.Drawing.Point(3, 23);
@@ -172,7 +172,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.currentPageBox);
-            this.groupBox3.Controls.Add(this.recordsCountBox);
+            this.groupBox3.Controls.Add(this.registryPageSizeBox);
             this.groupBox3.Controls.Add(this.userNameLabel);
             this.groupBox3.Controls.Add(this.userRoleLabel);
             this.groupBox3.Controls.Add(this.label1);
@@ -192,12 +192,13 @@
             this.currentPageBox.Size = new System.Drawing.Size(83, 27);
             this.currentPageBox.TabIndex = 9;
             // 
-            // recordsCountBox
+            // registryPageSizeBox
             // 
-            this.recordsCountBox.Location = new System.Drawing.Point(7, 46);
-            this.recordsCountBox.Name = "recordsCountBox";
-            this.recordsCountBox.Size = new System.Drawing.Size(254, 27);
-            this.recordsCountBox.TabIndex = 3;
+            this.registryPageSizeBox.Location = new System.Drawing.Point(7, 46);
+            this.registryPageSizeBox.Name = "registryPageSizeBox";
+            this.registryPageSizeBox.Size = new System.Drawing.Size(254, 27);
+            this.registryPageSizeBox.TabIndex = 3;
+            this.registryPageSizeBox.TextChanged += new System.EventHandler(this.registryPageSizeBox_TextChanged);
             // 
             // label1
             // 
@@ -286,7 +287,7 @@
         private Label userRoleLabel;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
-        private TextBox recordsCountBox;
+        private TextBox registryPageSizeBox;
         private Label label1;
         private Button nextPageBtn;
         private Button previousPageBtn;

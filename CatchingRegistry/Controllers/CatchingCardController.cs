@@ -15,16 +15,22 @@ namespace CatchingRegistry.Controllers
 {
     public class CatchingCardController
     {
+        ApplicationContext catchingActContext;
+        EntityService<CatchingAct> entityService;
+
         private CatchingAct catchingAct;
         private BindingList<Animal> animalsList;
         public CatchingCardController(int cardID)
         {
+            catchingActContext = new();
+            entityService = new(catchingActContext);
+
             if (cardID < 0)
                 //TODO: обработать открытие формы для создания новой карточки
                 throw new NotImplementedException();
             else
             {
-                catchingAct = EntityService<CatchingAct>.GetByID(cardID);
+                catchingAct = entityService.GetByID(cardID);
                 animalsList = catchingAct.Animals.ToBindingList();
             }
         }

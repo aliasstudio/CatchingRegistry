@@ -6,28 +6,28 @@ using Equin.ApplicationFramework;
 
 namespace CatchingRegistry.Services
 {
-    public static class EntityService {
-        static readonly ApplicationContext context = new();
-        public static ApplicationContext GetContext() => context;
-    }
-
-    public static class EntityService<T> where T : class
+    public class EntityService<T> where T : class
     {
-        static ApplicationContext context = EntityService.GetContext();
-        static DbSet<T> dbSet = context.Set<T>();
+        private ApplicationContext context;
+        private DbSet<T> dbSet;
+        public EntityService(ApplicationContext context)
+        {
+            this.context = context;
+            dbSet = context.Set<T>();
+        }
 
-        public static BindingListView<T> GetDataSource()
+        public BindingListView<T> GetDataSource()
         {
             return new BindingListView<T>(dbSet.Local.ToBindingList());
         }
 
-        public static IQueryable<T>? GetAllBy(Expression<Func<T, bool>> predicate) => dbSet.Where(predicate);
+        public IQueryable<T>? GetAllBy(Expression<Func<T, bool>> predicate) => dbSet.Where(predicate);
 
-        public static T? GetBy(Expression<Func<T, bool>> predicate) => dbSet.FirstOrDefault(predicate);
+        public T? GetBy(Expression<Func<T, bool>> predicate) => dbSet.FirstOrDefault(predicate);
 
-        public static T? GetByID(int ID) => dbSet.Find(ID);
+        public T? GetByID(int ID) => dbSet.Find(ID);
 
-        public static void Add(T entity)
+        public void Add(T entity)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace CatchingRegistry.Services
             }
         }
 
-        public static void Delete(int ID)
+        public void Delete(int ID)
         {
             var item = GetByID(ID);
             try
@@ -53,7 +53,7 @@ namespace CatchingRegistry.Services
             }
         }
 
-        public static void Edit(T entity)
+        public void Edit(T entity)
         {
             try
             {

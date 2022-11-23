@@ -35,6 +35,7 @@ namespace CatchingRegistry.Views
             try { 
                 var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
                 registryController.Delete(itemID);
+                UpdateGrid();
             }
             catch (Exception ex)
             {
@@ -43,7 +44,7 @@ namespace CatchingRegistry.Views
         }
         private void InitializeItems()
         {
-            registryGrid.DataSource = registryController.GetDataSource();
+            UpdateGrid();
 
             registryGrid.Columns[0].HeaderText = "№";
             registryGrid.Columns[0].FillWeight = 8;
@@ -56,17 +57,36 @@ namespace CatchingRegistry.Views
             registryGrid.Columns[4].HeaderText = "Адрес отлова";
             registryGrid.Columns[4].FillWeight = 35;
             registryGrid.Columns[5].Visible = false;
+
+            registryPageSizeBox.Text = "5";
         }
         private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
 
         private void nextPageBtn_Click(object sender, EventArgs e)
         {
-            registryController.NextPage();
+            registryController.CurrentPage++;
+            UpdateGrid();
         }
 
         private void previousPageBtn_Click(object sender, EventArgs e)
         {
-            registryController.PreviosPage();
+            registryController.CurrentPage--;
+            UpdateGrid();
+        }
+
+        private void UpdateGrid()
+        {
+            registryGrid.DataSource = registryController.GetPage();
+            currentPageBox.Text = $"{registryController.CurrentPage} / {registryController.TotalPages}";
+        }
+
+        private void registryPageSizeBox_TextChanged(object sender, EventArgs e)
+        {
+            if(int.TryParse(registryPageSizeBox.Text, out int pageSize))
+            {
+                registryController.PageSize = pageSize;
+                UpdateGrid();
+            }
         }
     }
 }

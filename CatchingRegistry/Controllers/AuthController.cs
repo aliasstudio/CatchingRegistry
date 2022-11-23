@@ -5,13 +5,15 @@ namespace CatchingRegistry.Controllers
 {
     public class AuthController
     {
+        static ApplicationContext authContext = new();
+        EntityService<User> entityService = new(authContext);
         public User? AuthorizedUser { get; private set; } = null;
         public void Authorize(string userName, string userPassword)
         {
             if (userName.Length < 1 || userPassword.Length < 1)
                 throw new Exception("Одно из полей не заполненно");
 
-            var user = EntityService<User>.GetBy(
+            var user = entityService.GetBy(
                 user 
                 => user.Name == userName
                 && user.Password == userPassword
