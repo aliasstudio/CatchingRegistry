@@ -41,7 +41,6 @@ namespace CatchingRegistry.Views
                 MessageBox.Show($"Ни одна запись не выделена. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void InitializeItems()
         {
             registryGrid.DataSource = registryController.GetDataSource();
@@ -59,5 +58,15 @@ namespace CatchingRegistry.Views
             registryGrid.Columns[5].Visible = false;
         }
         private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
+
+        private void nextPageBtn_Click(object sender, EventArgs e)
+        {
+            registryController.NextPage();
+        }
+
+        private void previousPageBtn_Click(object sender, EventArgs e)
+        {
+            registryController.PreviosPage();
+        }
     }
 }

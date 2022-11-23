@@ -216,6 +216,7 @@
             this.nextPageBtn.TabIndex = 1;
             this.nextPageBtn.Text = ">";
             this.nextPageBtn.UseVisualStyleBackColor = true;
+            this.nextPageBtn.Click += new System.EventHandler(this.nextPageBtn_Click);
             // 
             // previousPageBtn
             // 
@@ -225,6 +226,7 @@
             this.previousPageBtn.TabIndex = 0;
             this.previousPageBtn.Text = "<";
             this.previousPageBtn.UseVisualStyleBackColor = true;
+            this.previousPageBtn.Click += new System.EventHandler(this.previousPageBtn_Click);
             // 
             // municipalListOpenBtn
             // 
