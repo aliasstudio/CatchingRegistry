@@ -7,8 +7,8 @@ namespace CatchingRegistry.Models
 {
     public class CatchingAct
     {
-        private readonly ObservableListSource<Animal> animals = new ObservableListSource<Animal>();
-        private readonly ObservableListSource<File> files = new ObservableListSource<File>();
+        private readonly ObservableListSource<Animal> animals = new();
+        private readonly ObservableListSource<File> files = new();
         public int ID { get; set; }
         public string Date { get; set; }
         public int MunicipalContractID { get; set; }

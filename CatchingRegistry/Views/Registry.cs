@@ -42,6 +42,30 @@ namespace CatchingRegistry.Views
                 MessageBox.Show($"Ни одна запись не выделена. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void nextPageBtn_Click(object sender, EventArgs e)
+        {
+            registryController.CurrentPage++;
+            UpdateGrid();
+        }
+
+        private void previousPageBtn_Click(object sender, EventArgs e)
+        {
+            registryController.CurrentPage--;
+            UpdateGrid();
+        }
+
+        private void registryPageSizeBox_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(registryPageSizeBox.Text, out int pageSize))
+            {
+                registryController.PageSize = pageSize;
+                UpdateGrid();
+            }
+        }
+
+        private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
+
         private void InitializeItems()
         {
             UpdateGrid();
@@ -60,33 +84,11 @@ namespace CatchingRegistry.Views
 
             registryPageSizeBox.Text = "5";
         }
-        private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
-
-        private void nextPageBtn_Click(object sender, EventArgs e)
-        {
-            registryController.CurrentPage++;
-            UpdateGrid();
-        }
-
-        private void previousPageBtn_Click(object sender, EventArgs e)
-        {
-            registryController.CurrentPage--;
-            UpdateGrid();
-        }
 
         private void UpdateGrid()
         {
             registryGrid.DataSource = registryController.GetPage();
             currentPageBox.Text = $"{registryController.CurrentPage} / {registryController.TotalPages}";
-        }
-
-        private void registryPageSizeBox_TextChanged(object sender, EventArgs e)
-        {
-            if(int.TryParse(registryPageSizeBox.Text, out int pageSize))
-            {
-                registryController.PageSize = pageSize;
-                UpdateGrid();
-            }
         }
     }
 }

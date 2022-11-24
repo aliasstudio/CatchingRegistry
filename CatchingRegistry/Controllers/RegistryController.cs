@@ -13,10 +13,9 @@ namespace CatchingRegistry.Controllers
         ApplicationContext registryContext;
         EntityService<CatchingAct> entityService;
 
-        int pageSize = 5;
         int currentPage = 1;
-        public int PageSize { get; set; }
-        public int TotalPages => (int)Math.Ceiling((double)new ApplicationContext().CatchingActs.Count() / pageSize);
+        public int PageSize { get; set; } = 5;
+        public int TotalPages => (int)Math.Ceiling((double)new ApplicationContext().CatchingActs.Count() / PageSize);
         public int CurrentPage {
             get => currentPage;
             set {
@@ -37,8 +36,8 @@ namespace CatchingRegistry.Controllers
             entityService = new(registryContext);
 
             registryContext.CatchingActs
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((currentPage - 1) * PageSize)
+                .Take(PageSize)
                 .Load();
 
             return entityService.GetDataSource();

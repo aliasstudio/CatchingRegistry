@@ -21,11 +21,9 @@ namespace CatchingRegistry.Controllers
 
         public List<MunicipalContract> GetAllByOrganizationID(int organizationID)
         {
-
             return entityService
-                .GetAllBy((contract) => contract.Organization.ID == organizationID)
+                .GetAllBy(contract => contract.Organization.ID == organizationID)
                 .ToList();
-
         }
     }
 }
