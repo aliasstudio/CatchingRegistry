@@ -16,7 +16,9 @@ namespace CatchingRegistry
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-            optionsBuilder.UseSqlite($"DataSource={path}\\DB\\app.db");
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlite(@$"DataSource={path}\DB\app.db");
         }
     }
 }

@@ -17,5 +17,10 @@ namespace CatchingRegistry.Views
         {
             InitializeComponent();
         }
+
+        private void filterSearchBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

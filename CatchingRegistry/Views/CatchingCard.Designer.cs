@@ -81,6 +81,7 @@
             this.catchCardExportBtn.TabIndex = 0;
             this.catchCardExportBtn.Text = "Экспорт в Word";
             this.catchCardExportBtn.UseVisualStyleBackColor = true;
+            this.catchCardExportBtn.Click += new System.EventHandler(this.catchCardExportBtn_Click);
             // 
             // label2
             // 
@@ -450,6 +451,7 @@
             this.catchCardFileUploadBtn.TabIndex = 0;
             this.catchCardFileUploadBtn.Text = "Загрузить файл";
             this.catchCardFileUploadBtn.UseVisualStyleBackColor = true;
+            this.catchCardFileUploadBtn.Click += new System.EventHandler(this.catchCardFileUploadBtn_Click);
             // 
             // CatchingCard
             // 

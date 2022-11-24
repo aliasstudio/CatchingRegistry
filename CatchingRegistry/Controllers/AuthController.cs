@@ -7,7 +7,7 @@ namespace CatchingRegistry.Controllers
     {
         static ApplicationContext authContext = new();
         EntityService<User> entityService = new(authContext);
-        public User? AuthorizedUser { get; private set; } = null;
+        public static User? AuthorizedUser { get; private set; } = null;
         public void Authorize(string userName, string userPassword)
         {
             if (userName.Length < 1 || userPassword.Length < 1)

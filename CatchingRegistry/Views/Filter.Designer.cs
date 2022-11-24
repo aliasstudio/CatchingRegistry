@@ -57,6 +57,7 @@
             this.filterSearchBtn.TabIndex = 2;
             this.filterSearchBtn.Text = "Ок";
             this.filterSearchBtn.UseVisualStyleBackColor = true;
+            this.filterSearchBtn.Click += new System.EventHandler(this.filterSearchBtn_Click);
             // 
             // Filter
             // 

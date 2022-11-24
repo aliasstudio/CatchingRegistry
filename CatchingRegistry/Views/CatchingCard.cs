@@ -22,9 +22,11 @@ namespace CatchingRegistry.Views
     public partial class CatchingCard : Form
     {
         CatchingCardController cardController;
+        MunicipalController municipalController;
         public CatchingCard(int cardID)
         {
             cardController = new CatchingCardController(cardID);
+            municipalController = new MunicipalController();
             InitializeComponent();
             InitializeItems();
         }
@@ -46,13 +48,14 @@ namespace CatchingRegistry.Views
             catchAnimalsGrid.Columns[5].Visible = false;
 
             FillCatchingActData();
+            FillMunicipalData();
         }
 
         private void FillMunicipalData()
         {
-            var mpContract = cardController.GetMunicipalData();
-
-            //TODO: доделать заполнение комбобокса
+            var orgID = AuthController.AuthorizedUser.Organization.ID;
+            var contractIDs = municipalController.GetAllByOrganizationID(orgID);
+            municipalNumCombo.DataSource = contractIDs.Select(contract => $"№{contract.ID}").ToList();
         }
 
         private void FillCatchingActData()
@@ -75,7 +78,8 @@ namespace CatchingRegistry.Views
 
         private Animal CreateAnimal()
         {
-            //Странный метод конечно, не знаю как назвать правильнее
+            // Странный метод конечно, не знаю как назвать правильнее
+            // Норм, с пивом пойдет
             return new Animal()
             {
                 ID = int.Parse(animalCheapNumBox.Text),
@@ -110,5 +114,15 @@ namespace CatchingRegistry.Views
         }
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) => FillAnimalData();
+
+        private void catchCardExportBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void catchCardFileUploadBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
