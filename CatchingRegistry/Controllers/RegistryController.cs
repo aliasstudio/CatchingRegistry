@@ -14,7 +14,7 @@ namespace CatchingRegistry.Controllers
         EntityService<CatchingAct> entityService;
 
         int currentPage = 1;
-        public int PageSize { get; set; } = 5;
+        public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling((double)new ApplicationContext().CatchingActs.Count() / PageSize);
         public int CurrentPage {
             get => currentPage;
