@@ -1,18 +1,29 @@
 ﻿using CatchingRegistry.Controllers;
-using CatchingRegistry.Models;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace CatchingRegistry.Views
 {
-    public partial class Auth : Form
+    public partial class Auth : MaterialForm
     {
         private AuthController authController = new();
         public Auth()
         {
             InitializeComponent();
+            InitializeTheme();
 
             //Debug
             userNameBox.Text = "admin";
             userPasswordBox.Text = "admin";
+        }
+
+        private void InitializeTheme()
+        {
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = true;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Pink200, TextShade.WHITE);
         }
 
         private void authBtn_Click(object sender, EventArgs e)
