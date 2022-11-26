@@ -1,39 +1,24 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using Microsoft.Office.Interop.Word;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Xceed.Words.NET;
-using Word = Microsoft.Office.Interop.Word;
-using System.Reflection;
+﻿using Equin.ApplicationFramework;
+using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 using Microsoft.EntityFrameworkCore;
-using CatchingRegistry.Controllers;
-using CatchingRegistry.Services;
 
 namespace CatchingRegistry.Views
 {
     public partial class CatchingCard : Form
     {
-        CatchingCardController cardController;
-        MunicipalController municipalController;
+        private CatchingAct catchingAct;
+
         public CatchingCard(int cardID)
         {
-            cardController = new CatchingCardController(cardID);
-            municipalController = new MunicipalController();
+            catchingAct = CatchingCardController.GetByID(cardID);
             InitializeComponent();
             InitializeItems();
         }
 
         private void InitializeItems()
         {
-            catchAnimalsGrid.DataSource = cardController.GetAnimalSource();
+            catchAnimalsGrid.DataSource = new BindingListView<Animal>(catchingAct.Animals.ToBindingList());
 
             catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
             catchAnimalsGrid.Columns[0].FillWeight = 12;
@@ -53,76 +38,59 @@ namespace CatchingRegistry.Views
 
         private void FillMunicipalData()
         {
-            var orgID = AuthController.AuthorizedUser.Organization.ID;
+/*            var orgID = AuthController.AuthorizedUser.Organization.ID;
             var contractIDs = municipalController.GetAllByOrganizationID(orgID);
-            municipalNumCombo.DataSource = contractIDs.Select(contract => $"№{contract.ID}").ToList();
+            municipalNumCombo.DataSource = contractIDs.Select(contract => $"№{contract.ID}").ToList();*/
         }
 
         private void FillCatchingActData()
         {
-            var catchingAct = cardController.GetCatchingActData();
             catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
             catchPurposeBox.Text = catchingAct.CatchingPurpose;
             catchAddressBox.Text = catchingAct.CatchingAddress;
         }
+
+        private string GetAnimalValueAtIndex(int index)
+            => catchAnimalsGrid[index, catchAnimalsGrid.SelectedRows[0].Index].Value.ToString();
+
         private void FillAnimalData()
         {
-            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            var animal = cardController.GetAnimalData(itemID);
-            animalCheapNumBox.Text = $"{animal.ID}";
-            animalCategoryCombo.Text = animal.Category;
-            animalGenderCombo.Text = animal.Gender;
-            animalSizeBox.Text = animal.Size;
-            animalFeaturesBox.Text = animal.Features;
+            animalCheapNumBox.Text = GetAnimalValueAtIndex(0);
+            animalCategoryCombo.Text = GetAnimalValueAtIndex(1);
+            animalGenderCombo.Text = GetAnimalValueAtIndex(2);
+            animalSizeBox.Text = GetAnimalValueAtIndex(3);
+            animalFeaturesBox.Text = GetAnimalValueAtIndex(4);
         }
 
-        private Animal CreateAnimal()
+        private Animal CreateAnimalFromData() => new()
         {
-            // Странный метод конечно, не знаю как назвать правильнее
-            // Норм, с пивом пойдет
-            return new Animal()
-            {
-                ID = int.Parse(animalCheapNumBox.Text),
-                Category = animalCategoryCombo.Text,
-                Gender = animalGenderCombo.Text,
-                Size = animalSizeBox.Text,
-                Features = animalFeaturesBox.Text
-            };
-        }
+            ID = int.Parse(animalCheapNumBox.Text),
+            Category = animalCategoryCombo.Text,
+            Gender = animalGenderCombo.Text,
+            Size = animalSizeBox.Text,
+            Features = animalFeaturesBox.Text
+        };
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
-        {
-            cardController.AddAnimal(CreateAnimal());
-        }
-
+            => CatchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
-        {
-            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            cardController.EditAnimal(itemID, CreateAnimal());
-        }
+            => CatchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
 
         private void catchAnimalDeleteBtn_Click(object sender, EventArgs e)
-        {
-            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            cardController.DeleteAnimal(itemID);
-        }
+            => CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
-        {
-            //TODO: сделать сохранение карточки
-            // cardController.Save();
-        }
+            => CatchingCardController.Save(catchingAct);
 
-        private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) => FillAnimalData();
+        private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
+            => FillAnimalData();
 
         private void catchCardExportBtn_Click(object sender, EventArgs e)
-        {
-
-        }
+            => CatchingCardController.Save(catchingAct);
 
         private void catchCardFileUploadBtn_Click(object sender, EventArgs e)
         {
-
+            //CatchingCardController.UploadFile(catchingAct, file);
         }
     }
 }

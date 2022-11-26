@@ -1,87 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CatchingRegistry.Models;
-using Equin.ApplicationFramework;
+﻿using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
-using System.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CatchingRegistry.Services;
-using System.ComponentModel;
 
 namespace CatchingRegistry.Controllers
 {
     public class CatchingCardController
     {
-        ApplicationContext catchingActContext;
-        EntityService<CatchingAct> entityService;
+        static ApplicationContext ctx = new();
 
-        private CatchingAct catchingAct;
-        private BindingList<Animal> animalsList;
-        public CatchingCardController(int cardID)
+        public static CatchingAct GetByID(int actID) => ctx.CatchingActs.Find(actID);
+        public static void Delete(int actID) => ctx.CatchingActs.Remove(GetByID(actID));
+
+        public static void Save(CatchingAct catchingAct)
         {
-            catchingActContext = new();
-            entityService = new(catchingActContext);
-
-            if (cardID < 0)
-                //TODO: обработать открытие формы для создания новой карточки
-                throw new NotImplementedException();
+            var act = GetByID(catchingAct.ID);
+            if (act != null)
+                ctx.CatchingActs.Update(act);
             else
-            {
-                catchingAct = entityService.GetByID(cardID);
-                animalsList = catchingAct.Animals.ToBindingList();
-            }
+                ctx.CatchingActs.Add(act);
         }
 
-        public BindingListView<Animal> GetAnimalSource()
-        {
-            return new BindingListView<Animal>(animalsList);
-        }
+        public static void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
+        public static void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
+            [catchingAct.Animals.IndexOf(
+                catchingAct.Animals.FirstOrDefault(x => x.ID == animal.ID)
+            )] = animal;
+        public static void RemoveAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Remove(animal);
 
-
-        public Animal GetAnimalData(int animalID)
-        {
-            return animalsList.FirstOrDefault(x => x.ID == animalID);
-        }
-        public MunicipalContract GetMunicipalData() => catchingAct.MunicipalContract;
-
-        public CatchingAct GetCatchingActData() => catchingAct;
-
-        public void AddAnimal(Animal animal)
-        {
-            if (animalsList.FirstOrDefault(x => x.ID == animal.ID) != null)
-                throw new Exception("Животное с этим номером чипа уже добавлено");
-            animal.CatchingActID = catchingAct.ID;
-            animalsList.Add(animal);
-        }
-
-        public void EditAnimal(int animalID, Animal editedAnimal)
-        {
-            var listItem = animalsList.FirstOrDefault(x => x.ID == animalID);
-            editedAnimal.CatchingActID = catchingAct.ID;
-            animalsList[animalsList.IndexOf(listItem)] = editedAnimal;
-        }
-
-
-        public void DeleteAnimal(int ID)
-        {
-            var listItem = animalsList.FirstOrDefault(x => x.ID == ID);
-            animalsList.Remove(listItem);
-        }
-
-        public void AddFile()
-        {
-
-        }
-
-        public void DeleteFile()
-        {
-
-        }
-
-        public void ExportToWord()
+        public static void ExportToWord(CatchingAct catchingAct)
         {
 
         }

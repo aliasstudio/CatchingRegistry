@@ -36,6 +36,7 @@ namespace CatchingRegistry.Controllers
             entityService = new(registryContext);
 
             registryContext.CatchingActs
+                .Include(x => x.Animals)
                 .Skip((currentPage - 1) * PageSize)
                 .Take(PageSize)
                 .Load();

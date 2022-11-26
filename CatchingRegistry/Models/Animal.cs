@@ -6,6 +6,7 @@ namespace CatchingRegistry.Models
 {
     public class Animal
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         public string Category { get; set; }
         public string Gender { get; set; }
