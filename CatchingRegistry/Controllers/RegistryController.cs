@@ -1,16 +1,10 @@
-﻿using CatchingRegistry.Services;
-using CatchingRegistry.Models;
-using System.Data;
-using System.ComponentModel;
-using Equin.ApplicationFramework;
-using Microsoft.EntityFrameworkCore;
-
+﻿using CatchingRegistry.Models;
 
 namespace CatchingRegistry.Controllers
 {
     public class RegistryController
     {
-        ApplicationContext context;
+        static ApplicationContext ctx = new();
 
         private int currentPage = 1;
         public int PageSize { get; set; } = 10;
@@ -24,23 +18,15 @@ namespace CatchingRegistry.Controllers
             }
         }
 
-        public RegistryController()
-        {
-            context = new();
-        }
-
         public List<CatchingAct> GetPage()
         {
-            return context.CatchingActs
+            return ctx.CatchingActs
                 .Skip((currentPage - 1) * PageSize)
                 .Take(PageSize)
                 .ToList();
         }
 
         public void Delete(int ID)
-        {
-            context.CatchingActs.Remove(new CatchingAct { ID = 66 });
-            context.SaveChanges();
-        }
+            => ctx.CatchingActs.Remove(CatchingCardController.GetByID(ID));
     }
 }

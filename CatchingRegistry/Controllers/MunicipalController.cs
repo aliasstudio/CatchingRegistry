@@ -1,10 +1,4 @@
 ﻿using CatchingRegistry.Models;
-using CatchingRegistry.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CatchingRegistry.Controllers
 {
@@ -19,7 +13,6 @@ namespace CatchingRegistry.Controllers
                 instance = new MunicipalController();
             return instance;
         }
-
 
         public List<MunicipalContract> GetAllByOrganizationID(int organizationID)
         {

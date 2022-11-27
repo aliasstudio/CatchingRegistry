@@ -1,7 +1,6 @@
 ﻿using Equin.ApplicationFramework;
 using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
-using Microsoft.EntityFrameworkCore;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
 
@@ -10,37 +9,36 @@ namespace CatchingRegistry.Views
     public partial class CatchingCard : Form
     {
         private MunicipalController municipalController;
-        private CatchingAct catchingAct;
-        private static List<Models.File> files = new();
-
+        private CatchingAct catchingAct = new();
 
         public CatchingCard()
         {
-            municipalController = MunicipalController.GetInstance();
-            catchingAct = new();
-
             InitializeComponent();
-            InitializeDataGrid();
-            FillMunicipalCombo();
+            InitializeItems();
         }
 
         public CatchingCard(int cardID)
         {
-            municipalController = MunicipalController.GetInstance();
             catchingAct = CatchingCardController.GetByID(cardID);
-
             InitializeComponent();
+            InitializeItems();
+        }
+
+        private void InitializeItems()
+        {
+            municipalController = MunicipalController.GetInstance();
+
+            foreach (var file in catchingAct.Files)
+                catchCardFileList.Items.Add(file.Path.Split("\\").Last());
+
             InitializeDataGrid();
             FillCatchingActData();
             FillMunicipalCombo();
         }
 
-
         private void InitializeDataGrid()
         {
-            catchAnimalsGrid.DataSource = catchingAct.Animals == null 
-                ? new List<CatchingAct>() 
-                : catchingAct.Animals;
+            catchAnimalsGrid.DataSource = catchingAct.Animals == null ? new List<Animal>() : catchingAct.Animals;
 
             catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
             catchAnimalsGrid.Columns[0].FillWeight = 12;
@@ -100,11 +98,7 @@ namespace CatchingRegistry.Views
             => CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
-        {
-            catchingAct.Files = files;
-
-            CatchingCardController.Save(catchingAct);
-        }
+            => CatchingCardController.Save(catchingAct);
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
@@ -174,28 +168,27 @@ namespace CatchingRegistry.Views
         {
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            var path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-
-
-
-            string selectedFileName = openFileDialog.SafeFileName;
-            string selectedFileFullPath = openFileDialog.FileName;
-            string newFilePath = @$"{path}\Files\municipal{catchingAct.MunicipalContractID}\act{catchingAct.ID}";
-
-
-            Directory.CreateDirectory(Path.GetDirectoryName(@$"{newFilePath}\"));
-
-            if (!System.IO.File.Exists($@"{newFilePath}\{selectedFileName}"))
+            try
             {
-                System.IO.File.Copy(selectedFileFullPath, @$"{newFilePath}\{selectedFileName}");
-                catchCardFileList.Items.Add(selectedFileName);
+                CatchingCardController.UploadFile(catchingAct, openFileDialog.FileName);
+                catchCardFileList.Items.Add(openFileDialog.SafeFileName);
+            } catch(Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки файла. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
-            files.Add(new Models.File
+        private void catchCardFileDeleteBtn_Click(object sender, EventArgs e)
+        {
+            try
             {
-                Path = selectedFileName,
-                CatchingActID = catchingAct.ID
-            });
+                CatchingCardController.RemoveFile(catchingAct, catchCardFileList.SelectedIndex);
+                catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка удаления файла. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
