@@ -24,13 +24,17 @@ namespace CatchingRegistry.Controllers
         public static void Save(CatchingAct catchingAct)
         {
             var act = GetByID(catchingAct.ID);
+
+            foreach (var file in AttachedFiles)
+                catchingAct.Files.Add(new AttachedFile() { Path = file.Name, CatchingActID = act.ID });
+
+
             if (act != null)
                 ctx.CatchingActs.Update(act);
             else
                 ctx.CatchingActs.Add(act);
 
             ctx.SaveChanges();
-
         }
 
 
