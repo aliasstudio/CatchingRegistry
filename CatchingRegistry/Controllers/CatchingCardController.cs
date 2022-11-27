@@ -9,7 +9,6 @@ namespace CatchingRegistry.Controllers
     {
         private static CatchingCardController instance;
         static ApplicationContext ctx = new();
-        static List<FileStream> AttachedFiles = new List<FileStream>();
 
         public static CatchingCardController GetInstance()
         {
@@ -24,6 +23,7 @@ namespace CatchingRegistry.Controllers
         public static void Save(CatchingAct catchingAct)
         {
             var act = GetByID(catchingAct.ID);
+
             if (act != null)
                 ctx.CatchingActs.Update(act);
             else
@@ -41,27 +41,29 @@ namespace CatchingRegistry.Controllers
             )] = animal;
         public static void RemoveAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Remove(animal);
 
-        public static void UploadFile(CatchingAct catchingAct, string filePath)
+        public static void UpdateFiles(CatchingAct newCatchingAct)
         {
-            //var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-            //var fileSavePath = @$"{programPath}\Files\municipal{catchingAct.MunicipalContractID}\act{catchingAct.ID}";
-            //var fileName = filePath.Split("\\").Last();
-            //var absolutePath = @$"\Files\municipal{catchingAct.MunicipalContractID}\act{catchingAct.ID}\{fileName}";
-            AttachedFiles.Add(File.Create(filePath));
-            //catchingAct.Files.Add(new AttachedFile() { Path = absolutePath, CatchingActID = catchingAct.ID });
+            var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+            var fileSavePath = @$"{programPath}\Files\municipal{newCatchingAct.MunicipalContractID}\act{newCatchingAct.ID}";
 
-            //Directory.CreateDirectory(Path.GetDirectoryName(@$"{fileSavePath}\"));
+            foreach (var file in newCatchingAct.Files)
+            {
+                var fileName = file.Path.Split("\\");
+                if (fileName.Length > 1)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(@$"{fileSavePath}\"));
+                    File.Copy(file.Path, @$"{fileSavePath}\{fileName.Last()}");
+                    file.Path = fileName.Last();
+                }
+            }
 
-            //if (!File.Exists($@"{fileSavePath}\{fileName}"))
-            //{
-            //AttachedFiles.Add(File.Create(filePath));
-            //File.Copy(filePath, @$"{fileSavePath}\{fileName}");
-                //catchingAct.Files.Add(new AttachedFile() { Path = fileSavePath, CatchingActID = catchingAct.ID });
-            //}
+            string[] files = Directory.GetFiles(fileSavePath).Select(file => file.Split("\\").Last()).ToArray();
+
+            foreach (var fileName in files)
+                if (!newCatchingAct.Files.Select(x => x.Path).Contains(fileName))
+                    File.Delete(@$"{fileSavePath}\{fileName}");
+            
         }
-        public static void RemoveFile(CatchingAct catchingAct, int fileID)
-            => catchingAct.Files.RemoveAt(fileID);
-
 
         public static void ExportToWord(CatchingAct catchingAct)
         {

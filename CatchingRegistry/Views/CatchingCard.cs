@@ -29,7 +29,7 @@ namespace CatchingRegistry.Views
             municipalController = MunicipalController.GetInstance();
 
             foreach (var file in catchingAct.Files)
-                catchCardFileList.Items.Add(file.Path.Split("\\").Last());
+                catchCardFileList.Items.Add(file.Path);
 
             InitializeDataGrid();
             FillCatchingActData();
@@ -98,7 +98,10 @@ namespace CatchingRegistry.Views
             => CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.Save(catchingAct);
+        {
+            CatchingCardController.UpdateFiles(catchingAct);
+            CatchingCardController.Save(catchingAct);
+        }
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
@@ -170,9 +173,15 @@ namespace CatchingRegistry.Views
                 return;
             try
             {
-                CatchingCardController.UploadFile(catchingAct, openFileDialog.FileName);
+                catchingAct.Files.Add(new AttachedFile
+                {
+                    Path = openFileDialog.FileName,
+                    CatchingActID = catchingAct.ID
+                });
                 catchCardFileList.Items.Add(openFileDialog.SafeFileName);
-            } catch(Exception ex)
+
+            } 
+            catch(Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки файла. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -182,13 +191,21 @@ namespace CatchingRegistry.Views
         {
             try
             {
-                CatchingCardController.RemoveFile(catchingAct, catchCardFileList.SelectedIndex);
+                var fileName = (string)catchCardFileList.Items[catchCardFileList.SelectedIndex];
+                AttachedFile selectedFile = null;
+
+                catchingAct.Files.Remove(catchingAct.Files.Single(x => x.Path.Split("\\").Last() == fileName));
                 catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка удаления файла. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CatchingCard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            catchingAct.Files.RemoveAll(file => file.Path.Split(@"\").Length > 1);
         }
     }
 }
