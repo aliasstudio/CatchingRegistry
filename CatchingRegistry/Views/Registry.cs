@@ -37,7 +37,7 @@ namespace CatchingRegistry.Views
         }
         private void registryAddBtn_Click(object sender, EventArgs e)
         {
-            new CatchingCard(-1).Show();
+            new CatchingCard().Show();
         }
 
         private void registryDeleteBtn_Click(object sender, EventArgs e)

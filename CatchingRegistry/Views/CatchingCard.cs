@@ -2,23 +2,45 @@
 using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 using Microsoft.EntityFrameworkCore;
+using Word = Microsoft.Office.Interop.Word;
+using System.Reflection;
 
 namespace CatchingRegistry.Views
 {
     public partial class CatchingCard : Form
     {
+        private MunicipalController municipalController;
         private CatchingAct catchingAct;
+        private static List<Models.File> files = new();
+
+
+        public CatchingCard()
+        {
+            municipalController = MunicipalController.GetInstance();
+            catchingAct = new();
+
+            InitializeComponent();
+            InitializeDataGrid();
+            FillMunicipalCombo();
+        }
 
         public CatchingCard(int cardID)
         {
+            municipalController = MunicipalController.GetInstance();
             catchingAct = CatchingCardController.GetByID(cardID);
+
             InitializeComponent();
-            InitializeItems();
+            InitializeDataGrid();
+            FillCatchingActData();
+            FillMunicipalCombo();
         }
 
-        private void InitializeItems()
+
+        private void InitializeDataGrid()
         {
-            catchAnimalsGrid.DataSource = new BindingListView<Animal>(catchingAct.Animals.ToBindingList());
+            catchAnimalsGrid.DataSource = catchingAct.Animals == null 
+                ? new List<CatchingAct>() 
+                : catchingAct.Animals;
 
             catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
             catchAnimalsGrid.Columns[0].FillWeight = 12;
@@ -31,16 +53,6 @@ namespace CatchingRegistry.Views
             catchAnimalsGrid.Columns[4].HeaderText = "Особенности";
             catchAnimalsGrid.Columns[4].FillWeight = 50;
             catchAnimalsGrid.Columns[5].Visible = false;
-
-            FillCatchingActData();
-            FillMunicipalData();
-        }
-
-        private void FillMunicipalData()
-        {
-/*            var orgID = AuthController.AuthorizedUser.Organization.ID;
-            var contractIDs = municipalController.GetAllByOrganizationID(orgID);
-            municipalNumCombo.DataSource = contractIDs.Select(contract => $"№{contract.ID}").ToList();*/
         }
 
         private void FillCatchingActData()
@@ -48,6 +60,14 @@ namespace CatchingRegistry.Views
             catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
             catchPurposeBox.Text = catchingAct.CatchingPurpose;
             catchAddressBox.Text = catchingAct.CatchingAddress;
+        }
+
+        private void FillMunicipalCombo()
+        {
+            municipalNumCombo.DataSource = municipalController
+                .GetAllByOrganizationID(AuthController.AuthorizedUser.Organization.ID)
+                .Select(contract => $"№{contract.ID}")
+                .ToList();
         }
 
         private string GetAnimalValueAtIndex(int index)
@@ -80,17 +100,102 @@ namespace CatchingRegistry.Views
             => CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.Save(catchingAct);
+        {
+            catchingAct.Files = files;
+
+            CatchingCardController.Save(catchingAct);
+        }
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
 
         private void catchCardExportBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.Save(catchingAct);
+        {
+            var dictionary = new Dictionary<string, string>
+            {
+                {
+                    "{actNumber}",
+                    "12"
+                },
+                {
+                    "{locality}",
+                    "City"
+                },
+                {
+                    "{catchingActDate}",
+                    "Custom2313"
+                }
+            };
+
+
+            string path = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
+
+            Word.Application wordApp = new Word.Application();
+
+            Word.Document document = wordApp.Documents.OpenNoRepairDialog(path, ReadOnly: true);
+
+            ReplaceWordStub(document, dictionary);
+
+            Word.Table table = document.Tables[1];
+            var rowsCount = table.Rows.Count;
+            var columnsCount = table.Columns.Count;
+
+            // Добавление животных в таблицу
+            for (int i = 0; i < catchingAct.Animals.Count; i++)
+            {
+                table.Cell(i, 0).Range.Text = catchingAct.Animals[i].ID.ToString();
+                table.Cell(i, 1).Range.Text = catchingAct.Animals[i].Category;
+                table.Cell(i, 2).Range.Text = catchingAct.Animals[i].Gender;
+                table.Cell(i, 3).Range.Text = catchingAct.Animals[i].Size;
+                table.Cell(i, 4).Range.Text = catchingAct.Animals[i].Features;
+            }
+
+            // Добавление строки
+            object oMissing = Missing.Value;
+            table.Rows.Add(oMissing);
+
+            document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName}\Docs\result.docx");
+
+            document.Close();
+            wordApp.Quit();
+        }
+
+        private void ReplaceWordStub(Word.Document wordDocument, Dictionary<string, string> dictionary)
+        {
+            foreach (var record in dictionary)
+            {
+                var range = wordDocument.Content;
+                range.Find.ClearFormatting();
+                range.Find.Execute(FindText: record.Key, ReplaceWith: record.Value);
+            }
+        }
 
         private void catchCardFileUploadBtn_Click(object sender, EventArgs e)
         {
-            //CatchingCardController.UploadFile(catchingAct, file);
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            var path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+
+
+
+            string selectedFileName = openFileDialog.SafeFileName;
+            string selectedFileFullPath = openFileDialog.FileName;
+            string newFilePath = @$"{path}\Files\municipal{catchingAct.MunicipalContractID}\act{catchingAct.ID}";
+
+
+            Directory.CreateDirectory(Path.GetDirectoryName(@$"{newFilePath}\"));
+
+            if (!System.IO.File.Exists($@"{newFilePath}\{selectedFileName}"))
+            {
+                System.IO.File.Copy(selectedFileFullPath, @$"{newFilePath}\{selectedFileName}");
+                catchCardFileList.Items.Add(selectedFileName);
+            }
+
+            files.Add(new Models.File
+            {
+                Path = selectedFileName,
+                CatchingActID = catchingAct.ID
+            });
         }
     }
 }

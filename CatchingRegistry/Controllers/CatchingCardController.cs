@@ -1,22 +1,26 @@
 ﻿using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
+using File = CatchingRegistry.Models.File;
+
 
 namespace CatchingRegistry.Controllers
 {
     public class CatchingCardController
     {
-        static ApplicationContext ctx = new();
+        static ApplicationContext context = new();
 
-        public static CatchingAct GetByID(int actID) => ctx.CatchingActs.Find(actID);
-        public static void Delete(int actID) => ctx.CatchingActs.Remove(GetByID(actID));
+        public static CatchingAct GetByID(int actID) => context.CatchingActs.Find(actID);
+        public static void Delete(int actID) => context.CatchingActs.Remove(GetByID(actID));
 
         public static void Save(CatchingAct catchingAct)
         {
             var act = GetByID(catchingAct.ID);
             if (act != null)
-                ctx.CatchingActs.Update(act);
+                context.CatchingActs.Update(act);
             else
-                ctx.CatchingActs.Add(act);
+                context.CatchingActs.Add(act);
+
+            context.SaveChanges();
         }
 
         public static void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
@@ -29,6 +33,11 @@ namespace CatchingRegistry.Controllers
         public static void ExportToWord(CatchingAct catchingAct)
         {
 
+        }
+
+        public static void UploadFile(CatchingAct catchingAct, string fileName, int catchingActID)
+        {
+         
         }
     }
 }

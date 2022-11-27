@@ -1,5 +1,6 @@
 ﻿using CatchingRegistry.Models;
 using Microsoft.EntityFrameworkCore;
+using File = CatchingRegistry.Models.File;
 
 namespace CatchingRegistry
 {
@@ -11,6 +12,9 @@ namespace CatchingRegistry
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<MunicipalContract> MunicipalContracts { get; set; }
         public DbSet<Animal> Animals { get; set; }
+
+        public DbSet<File> Files { get; set; }
+
         public ApplicationContext() => Database.EnsureCreated();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

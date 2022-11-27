@@ -10,13 +10,13 @@ namespace CatchingRegistry.Controllers
 {
     public class RegistryController
     {
-        ApplicationContext registryContext;
-        EntityService<CatchingAct> entityService;
+        ApplicationContext context;
 
-        int currentPage = 1;
+        private int currentPage = 1;
         public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling((double)new ApplicationContext().CatchingActs.Count() / PageSize);
-        public int CurrentPage {
+        public int CurrentPage 
+        {
             get => currentPage;
             set {
                 if (value > 0 && value <= TotalPages)
@@ -26,27 +26,21 @@ namespace CatchingRegistry.Controllers
 
         public RegistryController()
         {
-            registryContext = new();
-            entityService = new(registryContext);
+            context = new();
         }
 
-        public BindingListView<CatchingAct> GetPage()
+        public List<CatchingAct> GetPage()
         {
-            registryContext = new();
-            entityService = new(registryContext);
-
-            registryContext.CatchingActs
-                .Include(x => x.Animals)
+            return context.CatchingActs
                 .Skip((currentPage - 1) * PageSize)
                 .Take(PageSize)
-                .Load();
-
-            return entityService.GetDataSource();
+                .ToList();
         }
 
         public void Delete(int ID)
         {
-            entityService.Delete(ID);
+            context.CatchingActs.Remove(new CatchingAct { ID = 66 });
+            context.SaveChanges();
         }
     }
 }

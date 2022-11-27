@@ -10,19 +10,21 @@ namespace CatchingRegistry.Controllers
 {
     public class MunicipalController
     {
-        private ApplicationContext contractContext;
-        private EntityService<MunicipalContract> entityService;
+        private static MunicipalController instance;
+        private static ApplicationContext ctx = new();
 
-        public MunicipalController()
+        public static MunicipalController GetInstance()
         {
-            contractContext = new();
-            entityService = new(contractContext);
+            if (instance == null)
+                instance = new MunicipalController();
+            return instance;
         }
+
 
         public List<MunicipalContract> GetAllByOrganizationID(int organizationID)
         {
-            return entityService
-                .GetAllBy(contract => contract.Organization.ID == organizationID)
+            return ctx.MunicipalContracts
+                .Where(contract => contract.Organization.ID == organizationID)
                 .ToList();
         }
     }
