@@ -11,6 +11,7 @@ namespace CatchingRegistry.Controllers
         {
             if (instance == null)
                 instance = new MunicipalController();
+            ctx = new();
             return instance;
         }
 

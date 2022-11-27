@@ -8,6 +8,7 @@ namespace CatchingRegistry.Views
 {
     public partial class CatchingCard : Form
     {
+        private CatchingCardController catchingCardController;
         private MunicipalController municipalController;
         private CatchingAct catchingAct = new();
 
@@ -26,6 +27,7 @@ namespace CatchingRegistry.Views
 
         private void InitializeItems()
         {
+            catchingCardController = CatchingCardController.GetInstance();
             municipalController = MunicipalController.GetInstance();
 
             foreach (var file in catchingAct.Files)

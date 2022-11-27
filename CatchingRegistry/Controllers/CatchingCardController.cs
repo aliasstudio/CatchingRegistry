@@ -14,6 +14,7 @@ namespace CatchingRegistry.Controllers
         {
             if (instance == null)
                 instance = new CatchingCardController();
+            ctx = new();
             return instance;
         }
 
@@ -62,7 +63,11 @@ namespace CatchingRegistry.Controllers
             foreach (var fileName in files)
                 if (!newCatchingAct.Files.Select(x => x.Path).Contains(fileName))
                     File.Delete(@$"{fileSavePath}\{fileName}");
-            
+        }
+
+        public static List<AttachedFile> GetAllFiles(CatchingAct catchingAct)
+        {
+            return ctx.CatchingActs.Single(x => x.ID == catchingAct.ID).Files;
         }
 
         public static void ExportToWord(CatchingAct catchingAct)
