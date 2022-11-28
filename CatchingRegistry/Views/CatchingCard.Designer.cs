@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.catchCardSaveBtn = new MaterialSkin.Controls.MaterialButton();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.label7 = new MaterialSkin.Controls.MaterialLabel();
             this.catchCardExportBtn = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.catchCardFileUploadBtn = new MaterialSkin.Controls.MaterialButton();
@@ -45,15 +45,13 @@
             this.catchAnimalDeleteBtn = new MaterialSkin.Controls.MaterialButton();
             this.catchCardFileList = new MaterialSkin.Controls.MaterialListBox();
             this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
+            this.catchAnimalsCountLabel = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel9 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel10 = new MaterialSkin.Controls.MaterialLabel();
-            this.label6 = new MaterialSkin.Controls.MaterialLabel();
             this.catchDatePicker = new Siticone.Desktop.UI.WinForms.SiticoneDateTimePicker();
             this.municipalNumCombo = new Siticone.Desktop.UI.WinForms.SiticoneComboBox();
-            this.catchCityBox = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialLabel12 = new MaterialSkin.Controls.MaterialLabel();
             this.catchPurposeBox = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
             this.materialLabel13 = new MaterialSkin.Controls.MaterialLabel();
@@ -71,6 +69,7 @@
             this.catchAnimalsGrid = new Siticone.Desktop.UI.WinForms.SiticoneDataGridView();
             this.catchAddressBox = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialLabel19 = new MaterialSkin.Controls.MaterialLabel();
+            this.catchNumberLabel = new MaterialSkin.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,18 +98,18 @@
             this.catchCardSaveBtn.UseVisualStyleBackColor = true;
             this.catchCardSaveBtn.Click += new System.EventHandler(this.catchCardSaveBtn_Click);
             // 
-            // materialLabel1
+            // label7
             // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel1.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
-            this.materialLabel1.Location = new System.Drawing.Point(901, 69);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(106, 24);
-            this.materialLabel1.TabIndex = 57;
-            this.materialLabel1.Text = "Акт отлова";
+            this.label7.AutoSize = true;
+            this.label7.Depth = 0;
+            this.label7.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label7.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
+            this.label7.Location = new System.Drawing.Point(901, 69);
+            this.label7.MouseState = MaterialSkin.MouseState.HOVER;
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(106, 24);
+            this.label7.TabIndex = 57;
+            this.label7.Text = "Акт отлова";
             // 
             // catchCardExportBtn
             // 
@@ -289,17 +288,17 @@
             this.materialLabel4.TabIndex = 68;
             this.materialLabel4.Text = "Кол-во отловленных животных:";
             // 
-            // materialLabel5
+            // catchAnimalsCountLabel
             // 
-            this.materialLabel5.Depth = 0;
-            this.materialLabel5.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel5.Location = new System.Drawing.Point(1145, 186);
-            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel5.Name = "materialLabel5";
-            this.materialLabel5.Size = new System.Drawing.Size(37, 19);
-            this.materialLabel5.TabIndex = 69;
-            this.materialLabel5.Text = "0";
-            this.materialLabel5.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.catchAnimalsCountLabel.Depth = 0;
+            this.catchAnimalsCountLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.catchAnimalsCountLabel.Location = new System.Drawing.Point(1145, 186);
+            this.catchAnimalsCountLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.catchAnimalsCountLabel.Name = "catchAnimalsCountLabel";
+            this.catchAnimalsCountLabel.Size = new System.Drawing.Size(37, 19);
+            this.catchAnimalsCountLabel.TabIndex = 69;
+            this.catchAnimalsCountLabel.Text = "0";
+            this.catchAnimalsCountLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // materialLabel6
             // 
@@ -351,18 +350,6 @@
             this.materialLabel10.TabIndex = 80;
             this.materialLabel10.Text = "Дата отлова";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Depth = 0;
-            this.label6.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label6.Location = new System.Drawing.Point(19, 570);
-            this.label6.MouseState = MaterialSkin.MouseState.HOVER;
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(140, 19);
-            this.label6.TabIndex = 84;
-            this.label6.Text = "Населенный пункт";
-            // 
             // catchDatePicker
             // 
             this.catchDatePicker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
@@ -402,42 +389,12 @@
             this.municipalNumCombo.TabIndex = 86;
             this.municipalNumCombo.TextOffset = new System.Drawing.Point(8, 0);
             // 
-            // catchCityBox
-            // 
-            this.catchCityBox.AnimateReadOnly = false;
-            this.catchCityBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.catchCityBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.catchCityBox.Depth = 0;
-            this.catchCityBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.catchCityBox.HideSelection = true;
-            this.catchCityBox.LeadingIcon = null;
-            this.catchCityBox.Location = new System.Drawing.Point(19, 592);
-            this.catchCityBox.MaxLength = 32767;
-            this.catchCityBox.MouseState = MaterialSkin.MouseState.OUT;
-            this.catchCityBox.Name = "catchCityBox";
-            this.catchCityBox.PasswordChar = '\0';
-            this.catchCityBox.PrefixSuffixText = null;
-            this.catchCityBox.ReadOnly = false;
-            this.catchCityBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.catchCityBox.SelectedText = "";
-            this.catchCityBox.SelectionLength = 0;
-            this.catchCityBox.SelectionStart = 0;
-            this.catchCityBox.ShortcutsEnabled = true;
-            this.catchCityBox.Size = new System.Drawing.Size(373, 36);
-            this.catchCityBox.TabIndex = 87;
-            this.catchCityBox.TabStop = false;
-            this.catchCityBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.catchCityBox.TrailingIcon = null;
-            this.catchCityBox.UseAccent = false;
-            this.catchCityBox.UseSystemPasswordChar = false;
-            this.catchCityBox.UseTallSize = false;
-            // 
             // materialLabel12
             // 
             this.materialLabel12.AutoSize = true;
             this.materialLabel12.Depth = 0;
             this.materialLabel12.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel12.Location = new System.Drawing.Point(19, 705);
+            this.materialLabel12.Location = new System.Drawing.Point(19, 640);
             this.materialLabel12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel12.Name = "materialLabel12";
             this.materialLabel12.Size = new System.Drawing.Size(96, 19);
@@ -451,7 +408,7 @@
             this.catchPurposeBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.catchPurposeBox.Depth = 0;
             this.catchPurposeBox.HideSelection = true;
-            this.catchPurposeBox.Location = new System.Drawing.Point(19, 731);
+            this.catchPurposeBox.Location = new System.Drawing.Point(19, 662);
             this.catchPurposeBox.MaxLength = 32767;
             this.catchPurposeBox.MouseState = MaterialSkin.MouseState.OUT;
             this.catchPurposeBox.Name = "catchPurposeBox";
@@ -462,7 +419,7 @@
             this.catchPurposeBox.SelectionLength = 0;
             this.catchPurposeBox.SelectionStart = 0;
             this.catchPurposeBox.ShortcutsEnabled = true;
-            this.catchPurposeBox.Size = new System.Drawing.Size(373, 93);
+            this.catchPurposeBox.Size = new System.Drawing.Size(373, 162);
             this.catchPurposeBox.TabIndex = 91;
             this.catchPurposeBox.TabStop = false;
             this.catchPurposeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -707,44 +664,44 @@
             this.catchAnimalsGrid.AllowUserToAddRows = false;
             this.catchAnimalsGrid.AllowUserToDeleteRows = false;
             this.catchAnimalsGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.catchAnimalsGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.catchAnimalsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.catchAnimalsGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.catchAnimalsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.catchAnimalsGrid.ColumnHeadersHeight = 40;
             this.catchAnimalsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.catchAnimalsGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.catchAnimalsGrid.DefaultCellStyle = dataGridViewCellStyle7;
             this.catchAnimalsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.catchAnimalsGrid.Location = new System.Drawing.Point(-5, 64);
             this.catchAnimalsGrid.Margin = new System.Windows.Forms.Padding(0);
             this.catchAnimalsGrid.Name = "catchAnimalsGrid";
             this.catchAnimalsGrid.ReadOnly = true;
             this.catchAnimalsGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.catchAnimalsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.catchAnimalsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.catchAnimalsGrid.RowHeadersVisible = false;
             this.catchAnimalsGrid.RowHeadersWidth = 51;
             this.catchAnimalsGrid.RowTemplate.Height = 30;
@@ -782,7 +739,7 @@
             this.catchAddressBox.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.catchAddressBox.HideSelection = true;
             this.catchAddressBox.LeadingIcon = null;
-            this.catchAddressBox.Location = new System.Drawing.Point(19, 662);
+            this.catchAddressBox.Location = new System.Drawing.Point(19, 592);
             this.catchAddressBox.MaxLength = 32767;
             this.catchAddressBox.MouseState = MaterialSkin.MouseState.OUT;
             this.catchAddressBox.Name = "catchAddressBox";
@@ -808,18 +765,31 @@
             this.materialLabel19.AutoSize = true;
             this.materialLabel19.Depth = 0;
             this.materialLabel19.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel19.Location = new System.Drawing.Point(19, 636);
+            this.materialLabel19.Location = new System.Drawing.Point(19, 570);
             this.materialLabel19.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel19.Name = "materialLabel19";
             this.materialLabel19.Size = new System.Drawing.Size(103, 19);
             this.materialLabel19.TabIndex = 106;
             this.materialLabel19.Text = "Адрес отлова";
             // 
+            // catchNumberLabel
+            // 
+            this.catchNumberLabel.Depth = 0;
+            this.catchNumberLabel.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.catchNumberLabel.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
+            this.catchNumberLabel.Location = new System.Drawing.Point(1013, 69);
+            this.catchNumberLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.catchNumberLabel.Name = "catchNumberLabel";
+            this.catchNumberLabel.Size = new System.Drawing.Size(169, 24);
+            this.catchNumberLabel.TabIndex = 108;
+            this.catchNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // CatchingCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 840);
+            this.Controls.Add(this.catchNumberLabel);
             this.Controls.Add(this.catchAddressBox);
             this.Controls.Add(this.materialLabel19);
             this.Controls.Add(this.catchAnimalsGrid);
@@ -837,15 +807,13 @@
             this.Controls.Add(this.animalCheapNumBox);
             this.Controls.Add(this.catchPurposeBox);
             this.Controls.Add(this.materialLabel12);
-            this.Controls.Add(this.catchCityBox);
             this.Controls.Add(this.municipalNumCombo);
             this.Controls.Add(this.catchDatePicker);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.materialLabel10);
             this.Controls.Add(this.materialLabel9);
             this.Controls.Add(this.materialLabel7);
             this.Controls.Add(this.materialLabel6);
-            this.Controls.Add(this.materialLabel5);
+            this.Controls.Add(this.catchAnimalsCountLabel);
             this.Controls.Add(this.materialLabel4);
             this.Controls.Add(this.catchCardFileList);
             this.Controls.Add(this.catchAnimalDeleteBtn);
@@ -856,7 +824,7 @@
             this.Controls.Add(this.catchCardFileUploadBtn);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.catchCardExportBtn);
-            this.Controls.Add(this.materialLabel1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.catchCardSaveBtn);
             this.DrawerWidth = 0;
             this.MaximizeBox = false;
@@ -874,7 +842,7 @@
         #endregion
         private OpenFileDialog openFileDialog;
         private MaterialSkin.Controls.MaterialButton catchCardSaveBtn;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private MaterialSkin.Controls.MaterialLabel label7;
         private MaterialSkin.Controls.MaterialButton catchCardExportBtn;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialButton catchCardFileUploadBtn;
@@ -885,15 +853,13 @@
         private MaterialSkin.Controls.MaterialButton catchAnimalDeleteBtn;
         private MaterialSkin.Controls.MaterialListBox catchCardFileList;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
-        private MaterialSkin.Controls.MaterialLabel materialLabel5;
+        private MaterialSkin.Controls.MaterialLabel catchAnimalsCountLabel;
         private MaterialSkin.Controls.MaterialLabel materialLabel6;
         private MaterialSkin.Controls.MaterialLabel materialLabel7;
         private MaterialSkin.Controls.MaterialLabel materialLabel9;
         private MaterialSkin.Controls.MaterialLabel materialLabel10;
-        private MaterialSkin.Controls.MaterialLabel label6;
         private Siticone.Desktop.UI.WinForms.SiticoneDateTimePicker catchDatePicker;
         private Siticone.Desktop.UI.WinForms.SiticoneComboBox municipalNumCombo;
-        private MaterialSkin.Controls.MaterialTextBox2 catchCityBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel12;
         private MaterialSkin.Controls.MaterialMultiLineTextBox2 catchPurposeBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel13;
@@ -911,5 +877,6 @@
         private Siticone.Desktop.UI.WinForms.SiticoneDataGridView catchAnimalsGrid;
         private MaterialSkin.Controls.MaterialTextBox2 catchAddressBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel19;
+        private MaterialSkin.Controls.MaterialLabel catchNumberLabel;
     }
 }
