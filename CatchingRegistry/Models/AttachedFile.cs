@@ -7,7 +7,7 @@ namespace CatchingRegistry.Models
     public class AttachedFile
     {
         public int ID { get; set; }
-        public string Path { get; set; }
+        public string Name { get; set; }
         public int CatchingActID { get; set; }
     }
 }

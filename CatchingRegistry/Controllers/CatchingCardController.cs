@@ -9,29 +9,35 @@ namespace CatchingRegistry.Controllers
     {
         private static CatchingCardController instance;
         static ApplicationContext ctx = new();
+        static List<FileInfo> AttachedFiles = new();
 
         public static CatchingCardController GetInstance()
         {
             if (instance == null)
                 instance = new CatchingCardController();
             ctx = new();
+
             return instance;
         }
 
-        public static CatchingAct GetByID(int actID) => ctx.CatchingActs.Find(actID);
+        public static CatchingAct? GetByID(int actID) => ctx.CatchingActs.Find(actID);
         public static void Delete(int actID) => ctx.CatchingActs.Remove(GetByID(actID));
 
         public static void Save(CatchingAct catchingAct)
         {
-            var act = GetByID(catchingAct.ID);
-
-            if (act != null)
-                ctx.CatchingActs.Update(act);
+            if (ctx.CatchingActs.Contains(catchingAct))
+                ctx.CatchingActs.Update(catchingAct);
             else
-                ctx.CatchingActs.Add(act);
-
-            ctx.SaveChanges();
-
+                ctx.CatchingActs.Add(catchingAct);
+            try
+            {
+                ctx.SaveChanges();
+                UpdateFiles(catchingAct);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка сохранения акта. {ex}");
+            }
         }
 
 
@@ -42,33 +48,51 @@ namespace CatchingRegistry.Controllers
             )] = animal;
         public static void RemoveAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Remove(animal);
 
-        public static void UpdateFiles(CatchingAct newCatchingAct)
+        public static void AddFile(CatchingAct catchingAct, string filePath)
+        {
+            var fileName = filePath.Split("\\").Last();
+            AttachedFiles.Add(new FileInfo(filePath));
+            catchingAct.Files.Add(new AttachedFile()
+            {
+                Name = fileName,
+                CatchingActID = catchingAct.ID
+            });
+        }
+        public static void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
+        {
+            var file = AttachedFiles.FirstOrDefault(x => x.Name.Contains(attachedFile.Name));
+            if (file != null)
+                AttachedFiles.Remove(file);
+
+            catchingAct.Files.Remove(attachedFile);
+            ctx.Files.Remove(attachedFile);
+        }
+
+        private static void UpdateFiles(CatchingAct catchingAct)
         {
             var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-            var fileSavePath = @$"{programPath}\Files\municipal{newCatchingAct.MunicipalContractID}\act{newCatchingAct.ID}";
+            var fileSavePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
 
-            foreach (var file in newCatchingAct.Files)
+            Directory.CreateDirectory(fileSavePath);
+            //Загрузка прикрепленных файлов
+            foreach(var file in AttachedFiles)
             {
-                var fileName = file.Path.Split("\\");
-                if (fileName.Length > 1)
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(@$"{fileSavePath}\"));
-                    File.Copy(file.Path, @$"{fileSavePath}\{fileName.Last()}");
-                    file.Path = fileName.Last();
-                }
+                var fileName = file.Name.Split("\\").Last();
+                file.CopyTo(@$"{fileSavePath}\{fileName}", true);
             }
-
-            string[] files = Directory.GetFiles(fileSavePath).Select(file => file.Split("\\").Last()).ToArray();
-
-            foreach (var fileName in files)
-                if (!newCatchingAct.Files.Select(x => x.Path).Contains(fileName))
-                    File.Delete(@$"{fileSavePath}\{fileName}");
+            //Проверка на лишние файлы после редактирования
+            var localFiles = Directory.GetFiles(fileSavePath);
+            if (localFiles.Count() > 0)
+                foreach (var file in Directory.GetFiles(fileSavePath))
+                {
+                    var fileName = file.Split("\\").Last();
+                    if (catchingAct.Files.FirstOrDefault(x => x.Name == fileName) == null)
+                        File.Delete(file);
+                }
+            else
+                Directory.Delete(fileSavePath);
         }
 
-        public static List<AttachedFile> GetAllFiles(CatchingAct catchingAct)
-        {
-            return ctx.CatchingActs.Single(x => x.ID == catchingAct.ID).Files;
-        }
 
         public static void ExportToWord(CatchingAct catchingAct)
         {

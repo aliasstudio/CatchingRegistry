@@ -6,11 +6,13 @@ namespace CatchingRegistry.Views
 {
     public partial class Auth : MaterialForm
     {
-        private AuthController authController = new();
+        private AuthController authController;
         public Auth()
         {
             InitializeComponent();
             InitializeTheme();
+
+            authController = AuthController.GetInstance();
 
             //Debug
             userNameBox.Text = "admin";

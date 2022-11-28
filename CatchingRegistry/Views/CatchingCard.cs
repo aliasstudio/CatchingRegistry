@@ -1,5 +1,4 @@
-﻿using Equin.ApplicationFramework;
-using CatchingRegistry.Controllers;
+﻿using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
@@ -10,10 +9,11 @@ namespace CatchingRegistry.Views
     {
         private CatchingCardController catchingCardController;
         private MunicipalController municipalController;
-        private CatchingAct catchingAct = new();
+        private CatchingAct catchingAct;
 
         public CatchingCard()
         {
+            catchingAct = new();
             InitializeComponent();
             InitializeItems();
         }
@@ -30,12 +30,16 @@ namespace CatchingRegistry.Views
             catchingCardController = CatchingCardController.GetInstance();
             municipalController = MunicipalController.GetInstance();
 
-            foreach (var file in catchingAct.Files)
-                catchCardFileList.Items.Add(file.Path);
-
             InitializeDataGrid();
-            FillCatchingActData();
-            FillMunicipalCombo();
+
+            if (catchingAct.MunicipalContract != null)
+            {
+                foreach (var file in catchingAct.Files)
+                    catchCardFileList.Items.Add(file.Name.Split("\\").Last());
+
+                FillCatchingActData();
+                FillMunicipalCombo();
+            }
         }
 
         private void InitializeDataGrid()
@@ -100,10 +104,7 @@ namespace CatchingRegistry.Views
             => CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
-        {
-            CatchingCardController.UpdateFiles(catchingAct);
-            CatchingCardController.Save(catchingAct);
-        }
+            => CatchingCardController.Save(catchingAct);
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
@@ -171,43 +172,27 @@ namespace CatchingRegistry.Views
 
         private void catchCardFileUploadBtn_Click(object sender, EventArgs e)
         {
+            //
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            try
-            {
-                catchingAct.Files.Add(new AttachedFile
-                {
-                    Path = openFileDialog.FileName,
-                    CatchingActID = catchingAct.ID
-                });
+            var file = catchingAct.Files.FirstOrDefault(x => x.Name == openFileDialog.SafeFileName);
+            CatchingCardController.AddFile(catchingAct, openFileDialog.FileName);
+            if (file == null)
                 catchCardFileList.Items.Add(openFileDialog.SafeFileName);
-
-            } 
-            catch(Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки файла. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void catchCardFileDeleteBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var fileName = (string)catchCardFileList.Items[catchCardFileList.SelectedIndex];
-                AttachedFile selectedFile = null;
-
-                catchingAct.Files.Remove(catchingAct.Files.Single(x => x.Path.Split("\\").Last() == fileName));
-                catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка удаления файла. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].ToString().Split("\\").Last();
+            var file = catchingAct.Files.FirstOrDefault(x => x.Name == fileName);
+            CatchingCardController.RemoveFile(catchingAct, file);
+            catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
         }
 
         private void CatchingCard_FormClosed(object sender, FormClosedEventArgs e)
         {
-            catchingAct.Files.RemoveAll(file => file.Path.Split(@"\").Length > 1);
+/*            if (catchingAct.MunicipalContract != null)
+                catchingAct.Files.RemoveAll(file => file.Path.Split(@"\").Length > 1);*/
         }
     }
 }
