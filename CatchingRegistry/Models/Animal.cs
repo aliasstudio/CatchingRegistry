@@ -11,6 +11,7 @@ namespace CatchingRegistry.Models
         public string Category { get; set; }
         public string Gender { get; set; }
         public string Size { get; set; }
+        public string Color { get; set; }
         public string Features { get; set; }
         public int CatchingActID { get; set; }
     }
