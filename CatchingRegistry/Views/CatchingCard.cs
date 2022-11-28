@@ -21,7 +21,7 @@ namespace CatchingRegistry.Views
 
         public CatchingCard(int cardID)
         {
-            catchingAct = CatchingCardController.GetByID(cardID);
+            catchingAct = catchingCardController.GetByID(cardID);
             InitializeComponent();
             InitializeItems();
         }
@@ -46,7 +46,7 @@ namespace CatchingRegistry.Views
 
         private void InitializeDataGrid()
         {
-            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
 
             catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
             catchAnimalsGrid.Columns[0].FillWeight = 12;
@@ -99,23 +99,23 @@ namespace CatchingRegistry.Views
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
-            CatchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
-            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+            catchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
         }
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
-            CatchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
-            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+            catchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
         }
 
         private void catchAnimalDeleteBtn_Click(object sender, EventArgs e)
         {
-            CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
-            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+            catchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
         }
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.Save(catchingAct);
+            => catchingCardController.Save(catchingAct);
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
@@ -183,11 +183,10 @@ namespace CatchingRegistry.Views
 
         private void catchCardFileUploadBtn_Click(object sender, EventArgs e)
         {
-            //
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
             var file = catchingAct.Files.FirstOrDefault(x => x.Name == openFileDialog.SafeFileName);
-            CatchingCardController.AddFile(catchingAct, openFileDialog.FileName);
+            catchingCardController.AddFile(catchingAct, openFileDialog.FileName);
             if (file == null)
                 catchCardFileList.Items.Add(openFileDialog.SafeFileName);
         }
@@ -196,14 +195,8 @@ namespace CatchingRegistry.Views
         {
             var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].ToString().Split("\\").Last();
             var file = catchingAct.Files.FirstOrDefault(x => x.Name == fileName);
-            CatchingCardController.RemoveFile(catchingAct, file);
+            catchingCardController.RemoveFile(catchingAct, file);
             catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
-        }
-
-        private void CatchingCard_FormClosed(object sender, FormClosedEventArgs e)
-        {
-/*            if (catchingAct.MunicipalContract != null)
-                catchingAct.Files.RemoveAll(file => file.Path.Split(@"\").Length > 1);*/
         }
     }
 }

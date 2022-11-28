@@ -8,8 +8,8 @@ namespace CatchingRegistry.Controllers
     public class CatchingCardController
     {
         private static CatchingCardController instance;
-        static ApplicationContext ctx = new();
-        static List<FileInfo> AttachedFiles = new();
+        private static ApplicationContext ctx = new();
+        private static List<FileInfo> AttachedFiles = new();
 
         public static CatchingCardController GetInstance()
         {
@@ -20,10 +20,14 @@ namespace CatchingRegistry.Controllers
             return instance;
         }
 
-        public static CatchingAct? GetByID(int actID) => ctx.CatchingActs.Find(actID);
-        public static void Delete(int actID) => ctx.CatchingActs.Remove(GetByID(actID));
+        public CatchingAct? GetByID(int actID) => ctx.CatchingActs.FirstOrDefault(x => x.ID == actID);
+        public void Delete(int actID) 
+        { 
+            ctx.CatchingActs.Remove(GetByID(actID));
+            ctx.SaveChanges();
+        }
 
-        public static void Save(CatchingAct catchingAct)
+        public void Save(CatchingAct catchingAct)
         {
             if (ctx.CatchingActs.Contains(catchingAct))
                 ctx.CatchingActs.Update(catchingAct);
@@ -40,16 +44,16 @@ namespace CatchingRegistry.Controllers
             }
         }
 
-        public static List<Animal> GetAnimals(CatchingAct catchingAct)
+        public List<Animal> GetAnimals(CatchingAct catchingAct)
             => catchingAct.Animals.ToList();
-        public static void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
-        public static void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
+        public void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
+        public void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
             [catchingAct.Animals.IndexOf(
                 catchingAct.Animals.FirstOrDefault(x => x.ID == animal.ID)
             )] = animal;
-        public static void RemoveAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Remove(animal);
+        public void RemoveAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Remove(animal);
 
-        public static void AddFile(CatchingAct catchingAct, string filePath)
+        public void AddFile(CatchingAct catchingAct, string filePath)
         {
             var fileName = filePath.Split("\\").Last();
             AttachedFiles.Add(new FileInfo(filePath));
@@ -67,7 +71,7 @@ namespace CatchingRegistry.Controllers
                     });
             }
         }
-        public static void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
+        public void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
         {
             var file = AttachedFiles.FirstOrDefault(x => x.Name.Contains(attachedFile.Name));
             if (file != null)
@@ -77,7 +81,7 @@ namespace CatchingRegistry.Controllers
             catchingAct.Files.Remove(attachedFile);
         }
 
-        private static void UpdateFiles(CatchingAct catchingAct)
+        private void UpdateFiles(CatchingAct catchingAct)
         {
             var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
             var fileSavePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
@@ -103,7 +107,7 @@ namespace CatchingRegistry.Controllers
         }
 
 
-        public static void ExportToWord(CatchingAct catchingAct)
+        public void ExportToWord(CatchingAct catchingAct)
         {
 
         }

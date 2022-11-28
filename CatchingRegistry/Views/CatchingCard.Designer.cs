@@ -498,7 +498,6 @@
             this.Name = "CatchingCard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Акт отлова";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CatchingCard_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

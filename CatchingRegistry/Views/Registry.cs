@@ -6,7 +6,9 @@ namespace CatchingRegistry.Views
 {
     public partial class Registry : MaterialForm
     {
-        RegistryController registryController = new();
+        private RegistryController registryController;
+        private CatchingCardController catchingCardController;
+
         public Registry()
         {
             InitializeComponent();
@@ -44,12 +46,12 @@ namespace CatchingRegistry.Views
         {
             try { 
                 var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
-                registryController.Delete(itemID);
+                catchingCardController.Delete(itemID);
                 UpdateGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ни одна запись не выделена. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка удаления записи. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -82,6 +84,9 @@ namespace CatchingRegistry.Views
 
         private void InitializeItems()
         {
+            catchingCardController = CatchingCardController.GetInstance();
+            registryController = RegistryController.GetInstance();
+
             UpdateGrid();
 
             registryGrid.Columns[0].HeaderText = "№";

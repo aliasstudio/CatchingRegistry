@@ -6,7 +6,8 @@ namespace CatchingRegistry.Controllers
 {
     public class RegistryController
     {
-        static ApplicationContext ctx = new();
+        private static RegistryController instance;
+        private static ApplicationContext ctx = new();
 
         private int currentPage = 1;
         public int PageSize { get; set; } = 10;
@@ -19,6 +20,16 @@ namespace CatchingRegistry.Controllers
                     currentPage = value;
             }
         }
+
+        public static RegistryController GetInstance()
+        {
+            if (instance == null)
+                instance = new RegistryController();
+            ctx = new();
+
+            return instance;
+        }
+
         public List<CatchingAct> GetPage()
         {
             return ctx.CatchingActs
@@ -31,8 +42,5 @@ namespace CatchingRegistry.Controllers
         {
             return GetPage().Where(predicate).ToList();
         }
-
-        public void Delete(int ID)
-            => ctx.CatchingActs.Remove(CatchingCardController.GetByID(ID));
     }
 }
