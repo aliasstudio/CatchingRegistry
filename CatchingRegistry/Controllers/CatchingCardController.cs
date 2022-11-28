@@ -40,7 +40,8 @@ namespace CatchingRegistry.Controllers
             }
         }
 
-
+        public static List<Animal> GetAnimals(CatchingAct catchingAct)
+            => catchingAct.Animals.ToList();
         public static void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
         public static void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
             [catchingAct.Animals.IndexOf(
@@ -52,20 +53,26 @@ namespace CatchingRegistry.Controllers
         {
             var fileName = filePath.Split("\\").Last();
             AttachedFiles.Add(new FileInfo(filePath));
-            catchingAct.Files.Add(new AttachedFile()
-            {
-                Name = fileName,
-                CatchingActID = catchingAct.ID
-            });
+            //Проверка на совпадение файлов
+            var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+            var fileSavePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
+            var existFile = Directory.GetFiles(fileSavePath).FirstOrDefault(x => x.Equals(@$"{fileSavePath}\{fileName}"));
+
+            if(existFile == null)
+                catchingAct.Files.Add(new AttachedFile()
+                {
+                    Name = fileName,
+                    CatchingActID = catchingAct.ID
+                });
         }
         public static void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
         {
             var file = AttachedFiles.FirstOrDefault(x => x.Name.Contains(attachedFile.Name));
             if (file != null)
                 AttachedFiles.Remove(file);
-
-            catchingAct.Files.Remove(attachedFile);
+            //Bug
             ctx.Files.Remove(attachedFile);
+            catchingAct.Files.Remove(attachedFile);
         }
 
         private static void UpdateFiles(CatchingAct catchingAct)

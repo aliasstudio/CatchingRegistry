@@ -1,4 +1,6 @@
 ﻿using CatchingRegistry.Models;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace CatchingRegistry.Controllers
 {
@@ -17,13 +19,17 @@ namespace CatchingRegistry.Controllers
                     currentPage = value;
             }
         }
-
         public List<CatchingAct> GetPage()
         {
             return ctx.CatchingActs
                 .Skip((currentPage - 1) * PageSize)
                 .Take(PageSize)
                 .ToList();
+        }
+
+        public List<CatchingAct> GetPage(Func<CatchingAct, bool> predicate)
+        {
+            return GetPage().Where(predicate).ToList();
         }
 
         public void Delete(int ID)

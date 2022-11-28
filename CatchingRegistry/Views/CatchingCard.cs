@@ -2,6 +2,7 @@
 using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace CatchingRegistry.Views
 {
@@ -31,6 +32,8 @@ namespace CatchingRegistry.Views
             municipalController = MunicipalController.GetInstance();
 
             InitializeDataGrid();
+            FillMunicipalCombo();
+
 
             if (catchingAct.MunicipalContract != null)
             {
@@ -38,13 +41,12 @@ namespace CatchingRegistry.Views
                     catchCardFileList.Items.Add(file.Name.Split("\\").Last());
 
                 FillCatchingActData();
-                FillMunicipalCombo();
             }
         }
 
         private void InitializeDataGrid()
         {
-            catchAnimalsGrid.DataSource = catchingAct.Animals == null ? new List<Animal>() : catchingAct.Animals;
+            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
 
             catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
             catchAnimalsGrid.Columns[0].FillWeight = 12;
@@ -96,12 +98,21 @@ namespace CatchingRegistry.Views
         };
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
+        {
+            CatchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+        }
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
+        {
+            CatchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+        }
 
         private void catchAnimalDeleteBtn_Click(object sender, EventArgs e)
-            => CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
+        {
+            CatchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = CatchingCardController.GetAnimals(catchingAct);
+        }
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
             => CatchingCardController.Save(catchingAct);
