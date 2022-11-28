@@ -109,5 +109,10 @@ namespace CatchingRegistry.Views
             registryGrid.DataSource = registryController.GetPage();
             currentPageBox.Text = $"{registryController.CurrentPage} / {registryController.TotalPages}";
         }
+
+        private void filterBtn_Click(object sender, EventArgs e)
+        {
+            new Filter(registryGrid).Show();
+        }
     }
 }

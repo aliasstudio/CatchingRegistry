@@ -28,46 +28,188 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.filterTextBox = new System.Windows.Forms.TextBox();
+            this.catchingNumberTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.filterSearchBtn = new System.Windows.Forms.Button();
+            this.filterApplyBtn = new System.Windows.Forms.Button();
+            this.actNumberCheckBox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTextBox = new System.Windows.Forms.TextBox();
+            this.dateCheckBox = new System.Windows.Forms.CheckBox();
+            this.contractNumberCheckBox = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.catchingPurposeCheckBox = new System.Windows.Forms.CheckBox();
+            this.catchingAddressCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // filterTextBox
+            // catchingNumberTextBox
             // 
-            this.filterTextBox.Location = new System.Drawing.Point(12, 32);
-            this.filterTextBox.Name = "filterTextBox";
-            this.filterTextBox.Size = new System.Drawing.Size(205, 27);
-            this.filterTextBox.TabIndex = 0;
+            this.catchingNumberTextBox.Location = new System.Drawing.Point(33, 33);
+            this.catchingNumberTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.catchingNumberTextBox.Name = "catchingNumberTextBox";
+            this.catchingNumberTextBox.Size = new System.Drawing.Size(180, 23);
+            this.catchingNumberTextBox.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(33, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 20);
+            this.label1.Size = new System.Drawing.Size(87, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Поиск по слову";
+            this.label1.Text = "№ акта отлова";
             // 
-            // filterSearchBtn
+            // filterApplyBtn
             // 
-            this.filterSearchBtn.Location = new System.Drawing.Point(12, 65);
-            this.filterSearchBtn.Name = "filterSearchBtn";
-            this.filterSearchBtn.Size = new System.Drawing.Size(205, 34);
-            this.filterSearchBtn.TabIndex = 2;
-            this.filterSearchBtn.Text = "Ок";
-            this.filterSearchBtn.UseVisualStyleBackColor = true;
-            this.filterSearchBtn.Click += new System.EventHandler(this.filterSearchBtn_Click);
+            this.filterApplyBtn.Location = new System.Drawing.Point(27, 321);
+            this.filterApplyBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.filterApplyBtn.Name = "filterApplyBtn";
+            this.filterApplyBtn.Size = new System.Drawing.Size(179, 26);
+            this.filterApplyBtn.TabIndex = 2;
+            this.filterApplyBtn.Text = "Применить";
+            this.filterApplyBtn.UseVisualStyleBackColor = true;
+            this.filterApplyBtn.Click += new System.EventHandler(this.filterApplyBtn_Click);
+            // 
+            // actNumberCheckBox
+            // 
+            this.actNumberCheckBox.AutoSize = true;
+            this.actNumberCheckBox.Location = new System.Drawing.Point(12, 37);
+            this.actNumberCheckBox.Name = "actNumberCheckBox";
+            this.actNumberCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.actNumberCheckBox.TabIndex = 3;
+            this.actNumberCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(33, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 15);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Дата";
+            // 
+            // dateTextBox
+            // 
+            this.dateTextBox.Location = new System.Drawing.Point(33, 85);
+            this.dateTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTextBox.Name = "dateTextBox";
+            this.dateTextBox.Size = new System.Drawing.Size(180, 23);
+            this.dateTextBox.TabIndex = 5;
+            // 
+            // dateCheckBox
+            // 
+            this.dateCheckBox.AutoSize = true;
+            this.dateCheckBox.Location = new System.Drawing.Point(12, 89);
+            this.dateCheckBox.Name = "dateCheckBox";
+            this.dateCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.dateCheckBox.TabIndex = 6;
+            this.dateCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // contractNumberCheckBox
+            // 
+            this.contractNumberCheckBox.AutoSize = true;
+            this.contractNumberCheckBox.Location = new System.Drawing.Point(12, 138);
+            this.contractNumberCheckBox.Name = "contractNumberCheckBox";
+            this.contractNumberCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.contractNumberCheckBox.TabIndex = 7;
+            this.contractNumberCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(33, 134);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(180, 23);
+            this.textBox1.TabIndex = 8;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(33, 187);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(180, 23);
+            this.textBox2.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(33, 117);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(176, 15);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "№ муниципального контракта";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(33, 170);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 15);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Причина отлова";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(33, 238);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(180, 23);
+            this.textBox3.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(33, 221);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 15);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Адрес отлова";
+            // 
+            // catchingPurposeCheckBox
+            // 
+            this.catchingPurposeCheckBox.AutoSize = true;
+            this.catchingPurposeCheckBox.Location = new System.Drawing.Point(12, 191);
+            this.catchingPurposeCheckBox.Name = "catchingPurposeCheckBox";
+            this.catchingPurposeCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.catchingPurposeCheckBox.TabIndex = 14;
+            this.catchingPurposeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // catchingAddressCheckBox
+            // 
+            this.catchingAddressCheckBox.AutoSize = true;
+            this.catchingAddressCheckBox.Location = new System.Drawing.Point(12, 242);
+            this.catchingAddressCheckBox.Name = "catchingAddressCheckBox";
+            this.catchingAddressCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.catchingAddressCheckBox.TabIndex = 15;
+            this.catchingAddressCheckBox.UseVisualStyleBackColor = true;
             // 
             // Filter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(230, 115);
-            this.Controls.Add(this.filterSearchBtn);
+            this.ClientSize = new System.Drawing.Size(252, 358);
+            this.Controls.Add(this.catchingAddressCheckBox);
+            this.Controls.Add(this.catchingPurposeCheckBox);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.contractNumberCheckBox);
+            this.Controls.Add(this.dateCheckBox);
+            this.Controls.Add(this.dateTextBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.actNumberCheckBox);
+            this.Controls.Add(this.filterApplyBtn);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.filterTextBox);
+            this.Controls.Add(this.catchingNumberTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Filter";
             this.Text = "Filter";
             this.ResumeLayout(false);
@@ -77,8 +219,26 @@
 
         #endregion
 
-        private TextBox filterTextBox;
+        private TextBox catchingNumberTextBox;
         private Label label1;
-        private Button filterSearchBtn;
+        private Button filterApplyBtn;
+        [CustomName("213")]
+        private CheckBox actNumberCheckBox;
+        private Label label2;
+        private TextBox dateTextBox;
+        [CustomName("213")]
+        private CheckBox dateCheckBox;
+        [CustomName("213")]
+        private CheckBox contractNumberCheckBox;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label3;
+        private Label label4;
+        private TextBox textBox3;
+        private Label label5;
+        [CustomName("213")]
+        private CheckBox catchingPurposeCheckBox;
+        [CustomName("213")]
+        private CheckBox catchingAddressCheckBox;
     }
 }
