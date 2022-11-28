@@ -35,9 +35,17 @@ namespace CatchingRegistry.Controllers
             }
         }
 
+<<<<<<< Updated upstream
         public BindingListView<Animal> GetAnimalSource()
         {
             return new BindingListView<Animal>(animalsList);
+=======
+        public CatchingAct? GetByID(int actID) => ctx.CatchingActs.Find(actID);
+        public void Delete(int actID) 
+        { 
+            ctx.CatchingActs.Remove(GetByID(actID));
+            ctx.SaveChanges();
+>>>>>>> Stashed changes
         }
 
 
