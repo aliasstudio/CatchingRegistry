@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.catchCardExportBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -66,6 +66,8 @@
             this.catchCardFileDeleteBtn = new System.Windows.Forms.Button();
             this.catchCardFileUploadBtn = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.catchCityBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -97,7 +99,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 113);
+            this.label6.Location = new System.Drawing.Point(162, 109);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 15);
             this.label6.TabIndex = 23;
@@ -155,14 +157,14 @@
             this.catchAnimalsGrid.AllowUserToResizeRows = false;
             this.catchAnimalsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.catchAnimalsGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.catchAnimalsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.catchAnimalsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.catchAnimalsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.catchAnimalsGrid.Location = new System.Drawing.Point(10, 10);
             this.catchAnimalsGrid.Name = "catchAnimalsGrid";
@@ -315,6 +317,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.catchCityBox);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.catchAddressBox);
             this.groupBox2.Controls.Add(this.municipalAddBtn);
@@ -344,10 +348,10 @@
             // 
             // catchAddressBox
             // 
-            this.catchAddressBox.Location = new System.Drawing.Point(5, 131);
+            this.catchAddressBox.Location = new System.Drawing.Point(165, 128);
             this.catchAddressBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.catchAddressBox.Name = "catchAddressBox";
-            this.catchAddressBox.Size = new System.Drawing.Size(325, 23);
+            this.catchAddressBox.Size = new System.Drawing.Size(164, 23);
             this.catchAddressBox.TabIndex = 41;
             // 
             // municipalAddBtn
@@ -482,11 +486,27 @@
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             // 
+            // catchCityBox
+            // 
+            this.catchCityBox.Location = new System.Drawing.Point(6, 128);
+            this.catchCityBox.Name = "catchCityBox";
+            this.catchCityBox.Size = new System.Drawing.Size(152, 23);
+            this.catchCityBox.TabIndex = 43;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 15);
+            this.label4.TabIndex = 44;
+            this.label4.Text = "Город";
+            // 
             // CatchingCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 538);
+            this.ClientSize = new System.Drawing.Size(1039, 541);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -551,5 +571,7 @@
         private TextBox catchAddressBox;
         private Button catchAnimalEditBtn;
         private OpenFileDialog openFileDialog;
+        private Label label4;
+        private TextBox catchCityBox;
     }
 }

@@ -3,6 +3,7 @@ using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace CatchingRegistry.Views
 {
@@ -21,7 +22,10 @@ namespace CatchingRegistry.Views
 
         public CatchingCard(int cardID)
         {
+            catchingCardController = CatchingCardController.GetInstance();
             catchingAct = catchingCardController.GetByID(cardID);
+
+
             InitializeComponent();
             InitializeItems();
         }
@@ -30,6 +34,7 @@ namespace CatchingRegistry.Views
         {
             catchingCardController = CatchingCardController.GetInstance();
             municipalController = MunicipalController.GetInstance();
+
 
             InitializeDataGrid();
             FillMunicipalCombo();
@@ -65,7 +70,8 @@ namespace CatchingRegistry.Views
         {
             catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
             catchPurposeBox.Text = catchingAct.CatchingPurpose;
-            catchAddressBox.Text = catchingAct.CatchingAddress;
+            catchCityBox.Text = catchingAct.CatchingAddress.Split("&")[0];
+            catchAddressBox.Text = catchingAct.CatchingAddress.Split("&")[1];
         }
 
         private void FillMunicipalCombo()
@@ -122,19 +128,58 @@ namespace CatchingRegistry.Views
 
         private void catchCardExportBtn_Click(object sender, EventArgs e)
         {
+            var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate);
+            var catchingActDate = DateTime.Parse(catchingAct.Date);
+
             var dictionary = new Dictionary<string, string>
             {
                 {
                     "{actNumber}",
-                    "12"
+                    catchingAct.ID.ToString()
                 },
                 {
                     "{locality}",
-                    "City"
+                    catchingAct.CatchingAddress.Split("&")[0].ToString()
+                },
+                {
+                    "{catchingActAddress}",
+                    catchingAct.CatchingAddress.Split("&")[1].ToString()
                 },
                 {
                     "{catchingActDate}",
-                    "Custom2313"
+                    catchingActDate.Day.ToString()
+                },
+                {
+                    "{catchingActMonth}",
+                    catchingActDate.Month.ToString()
+                },
+                {
+                    "{catchingActYear}",
+                    catchingActDate.Year.ToString()
+                },
+                {
+                    "{organisationName}",
+                    AuthController.AuthorizedUser.Organization.Name.ToString()
+                },
+                {
+                    "{contractNumber}",
+                    catchingAct.MunicipalContract.ID.ToString()
+                },
+                {
+                    "{contractDate}",
+                    contractDate.Day.ToString()
+                },
+                {
+                    "{contractMonth}",
+                    contractDate.Month.ToString()
+                },
+                {
+                    "{contractYear}",
+                    contractDate.Year.ToString()
+                },
+                {
+                    "{municipalName}",
+                    catchingAct.MunicipalContract.MunicipalName.ToString()
                 }
             };
 
@@ -154,16 +199,19 @@ namespace CatchingRegistry.Views
             // Добавление животных в таблицу
             for (int i = 0; i < catchingAct.Animals.Count; i++)
             {
-                table.Cell(i, 0).Range.Text = catchingAct.Animals[i].ID.ToString();
-                table.Cell(i, 1).Range.Text = catchingAct.Animals[i].Category;
-                table.Cell(i, 2).Range.Text = catchingAct.Animals[i].Gender;
-                table.Cell(i, 3).Range.Text = catchingAct.Animals[i].Size;
-                table.Cell(i, 4).Range.Text = catchingAct.Animals[i].Features;
+                // Добавление строки
+                object oMissing = Missing.Value;
+                table.Rows.Add(oMissing);
+
+                table.Cell(i + 2, 1).Range.Text = $"{i+1}";
+                table.Cell(i + 2, 2).Range.Text = catchingAct.Animals[i].Category;
+                table.Cell(i + 2, 3).Range.Text = catchingAct.Animals[i].Gender;
+                table.Cell(i + 2, 4).Range.Text = catchingAct.Animals[i].Size;
+
+                table.Cell(i + 2, 6).Range.Text = catchingAct.Animals[i].Features;
+                table.Cell(i + 2, 7).Range.Text = catchingAct.Animals[i].ID.ToString();
             }
 
-            // Добавление строки
-            object oMissing = Missing.Value;
-            table.Rows.Add(oMissing);
 
             document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName}\Docs\result.docx");
 
