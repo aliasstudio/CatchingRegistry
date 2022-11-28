@@ -36,7 +36,7 @@ namespace CatchingRegistry.Controllers
                 .Skip((currentPage - 1) * PageSize)
                 .Take(PageSize)
                 .ToList()
-                .Select(x => { x.CatchingAddress = string.Join("", x.CatchingAddress.Split("&")); return x; })
+                .Select(x => { x.CatchingAddress = string.Join(", ", x.CatchingAddress.Split("&")); return x; })
                 .ToList();
         }
 

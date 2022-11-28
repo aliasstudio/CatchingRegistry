@@ -2,12 +2,12 @@
 using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using System.Globalization;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace CatchingRegistry.Views
 {
-    public partial class CatchingCard : Form
+    public partial class CatchingCard : MaterialForm
     {
         private CatchingCardController catchingCardController;
         private MunicipalController municipalController;
@@ -15,38 +15,50 @@ namespace CatchingRegistry.Views
 
         public CatchingCard()
         {
+            InitializeControllers();
             catchingAct = new();
+
             InitializeComponent();
             InitializeItems();
+            InitializeTheme();
         }
 
         public CatchingCard(int cardID)
         {
-            catchingCardController = CatchingCardController.GetInstance();
+            InitializeControllers();
             catchingAct = catchingCardController.GetByID(cardID);
-
 
             InitializeComponent();
             InitializeItems();
+            InitializeTheme();
+        }
+        private void InitializeTheme()
+        {
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = true;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Pink200, TextShade.WHITE);
         }
 
         private void InitializeItems()
         {
-            catchingCardController = CatchingCardController.GetInstance();
-            municipalController = MunicipalController.GetInstance();
-
-
             InitializeDataGrid();
             FillMunicipalCombo();
-
 
             if (catchingAct.MunicipalContract != null)
             {
                 foreach (var file in catchingAct.Files)
-                    catchCardFileList.Items.Add(file.Name.Split("\\").Last());
+                    catchCardFileList.Items.Add(new MaterialListBoxItem(file.Name.Split("\\").Last()));
 
                 FillCatchingActData();
             }
+        }
+
+        private void InitializeControllers()
+        {
+            catchingCardController = CatchingCardController.GetInstance();
+            municipalController = MunicipalController.GetInstance();
         }
 
         private void InitializeDataGrid()
@@ -61,9 +73,11 @@ namespace CatchingRegistry.Views
             catchAnimalsGrid.Columns[2].FillWeight = 10;
             catchAnimalsGrid.Columns[3].HeaderText = "Размер";
             catchAnimalsGrid.Columns[3].FillWeight = 15;
-            catchAnimalsGrid.Columns[4].HeaderText = "Особенности";
-            catchAnimalsGrid.Columns[4].FillWeight = 50;
-            catchAnimalsGrid.Columns[5].Visible = false;
+            catchAnimalsGrid.Columns[4].HeaderText = "Окрас";
+            catchAnimalsGrid.Columns[4].FillWeight = 15;
+            catchAnimalsGrid.Columns[5].HeaderText = "Особенности";
+            catchAnimalsGrid.Columns[5].FillWeight = 35;
+            catchAnimalsGrid.Columns[6].Visible = false;
         }
 
         private void FillCatchingActData()
@@ -82,8 +96,10 @@ namespace CatchingRegistry.Views
                 .ToList();
         }
 
-        private string GetAnimalValueAtIndex(int index)
-            => catchAnimalsGrid[index, catchAnimalsGrid.SelectedRows[0].Index].Value.ToString();
+        private string? GetAnimalValueAtIndex(int index)
+            => catchAnimalsGrid[index, catchAnimalsGrid.SelectedRows[0].Index].Value == null
+               ? ""
+               : catchAnimalsGrid[index, catchAnimalsGrid.SelectedRows[0].Index].Value.ToString();
 
         private void FillAnimalData()
         {
@@ -91,7 +107,8 @@ namespace CatchingRegistry.Views
             animalCategoryCombo.Text = GetAnimalValueAtIndex(1);
             animalGenderCombo.Text = GetAnimalValueAtIndex(2);
             animalSizeBox.Text = GetAnimalValueAtIndex(3);
-            animalFeaturesBox.Text = GetAnimalValueAtIndex(4);
+            animalСolorBox.Text = GetAnimalValueAtIndex(4);
+            animalFeaturesBox.Text = GetAnimalValueAtIndex(5);
         }
 
         private Animal CreateAnimalFromData() => new()
@@ -100,6 +117,7 @@ namespace CatchingRegistry.Views
             Category = animalCategoryCombo.Text,
             Gender = animalGenderCombo.Text,
             Size = animalSizeBox.Text,
+            Color = animalСolorBox.Text,
             Features = animalFeaturesBox.Text
         };
 
@@ -236,7 +254,7 @@ namespace CatchingRegistry.Views
             var file = catchingAct.Files.FirstOrDefault(x => x.Name == openFileDialog.SafeFileName);
             catchingCardController.AddFile(catchingAct, openFileDialog.FileName);
             if (file == null)
-                catchCardFileList.Items.Add(openFileDialog.SafeFileName);
+                catchCardFileList.Items.Add(new MaterialListBoxItem(openFileDialog.SafeFileName));
         }
 
         private void catchCardFileDeleteBtn_Click(object sender, EventArgs e)
