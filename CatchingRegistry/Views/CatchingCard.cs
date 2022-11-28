@@ -263,7 +263,7 @@ namespace CatchingRegistry.Views
 
         private void catchCardFileDeleteBtn_Click(object sender, EventArgs e)
         {
-            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].ToString().Split("\\").Last();
+            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].Text.Split("\\").Last();
             var file = catchingAct.Files.FirstOrDefault(x => x.Name == fileName);
             catchingCardController.RemoveFile(catchingAct, file);
             catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
