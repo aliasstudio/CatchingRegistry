@@ -209,14 +209,13 @@ namespace CatchingRegistry.Views
 
 
 
-                
-                registryGrid.DataSource = registryController.GetPage(queryBuilder.ToString());
+                records = registryController.GetPage(queryBuilder.ToString());
+                registryGrid.DataSource = records.Skip((currentPage - 1) * PageSize).Take(PageSize).ToList();
+                totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
 
-
-
-                if (registryController.TotalPages < 2)
-                    registryController.CurrentPage = 1;
-                currentPageBox.Text = $"{registryController.CurrentPage} / {registryController.TotalPages}";
+                if (totalPages < 2)
+                    currentPage = 1;
+                currentPageBox.Text = $"{currentPage} / {totalPages}";
             }
         }
     }

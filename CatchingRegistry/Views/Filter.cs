@@ -24,6 +24,8 @@ namespace CatchingRegistry.Views
             this.registryController = RegistryController.GetInstance();
             this.columnName = columnName;
             this.dictionary = dictionary;
+
+            catchingNumberTextBox.Text = dictionary[columnName];
         }
 
         private void filterApplyBtn_Click(object sender, EventArgs e)
