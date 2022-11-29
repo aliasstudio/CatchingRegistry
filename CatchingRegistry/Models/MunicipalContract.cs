@@ -10,6 +10,7 @@ namespace CatchingRegistry.Models
         public string ContractDate { get; set; }
         public string MunicipalName { get; set; }
         public string LocalGovernment { get; set; }
+        public string City { get; set; }
         public virtual Organization Organization { get; set; }
 
     }

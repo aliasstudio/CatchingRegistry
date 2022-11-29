@@ -61,6 +61,12 @@ namespace CatchingRegistry.Views
             municipalController = MunicipalController.GetInstance();
         }
 
+        private void InitializeControllers()
+        {
+            catchingCardController = CatchingCardController.GetInstance();
+            municipalController = MunicipalController.GetInstance();
+        }
+
         private void InitializeDataGrid()
         {
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
@@ -84,8 +90,10 @@ namespace CatchingRegistry.Views
         {
             catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
             catchPurposeBox.Text = catchingAct.CatchingPurpose;
-            catchCityBox.Text = catchingAct.CatchingAddress.Split("&")[0];
-            catchAddressBox.Text = catchingAct.CatchingAddress.Split("&")[1];
+            catchAddressBox.Text = catchingAct.CatchingAddress;
+            municipalNumCombo.Text = $"№{catchingAct.MunicipalContractID}";
+            catchNumberLabel.Text = $"№ {catchingAct.ID}";
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
         private void FillMunicipalCombo()
@@ -118,13 +126,14 @@ namespace CatchingRegistry.Views
             Gender = animalGenderCombo.Text,
             Size = animalSizeBox.Text,
             Color = animalСolorBox.Text,
-            Features = animalFeaturesBox.Text
+            Features = animalFeaturesBox.Text,
         };
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
             catchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
@@ -134,8 +143,9 @@ namespace CatchingRegistry.Views
 
         private void catchAnimalDeleteBtn_Click(object sender, EventArgs e)
         {
-            catchingCardController.RemoveAnimal(catchingAct, CreateAnimalFromData());
+            catchingCardController.RemoveAnimal(catchingAct, int.Parse(GetAnimalValueAtIndex(0)));
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
@@ -259,7 +269,7 @@ namespace CatchingRegistry.Views
 
         private void catchCardFileDeleteBtn_Click(object sender, EventArgs e)
         {
-            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].ToString().Split("\\").Last();
+            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].Text.Split("\\").Last();
             var file = catchingAct.Files.FirstOrDefault(x => x.Name == fileName);
             catchingCardController.RemoveFile(catchingAct, file);
             catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);

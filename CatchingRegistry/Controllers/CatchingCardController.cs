@@ -45,13 +45,14 @@ namespace CatchingRegistry.Controllers
         }
 
         public List<Animal> GetAnimals(CatchingAct catchingAct)
-            => catchingAct.Animals.ToList();
+            => catchingAct.Animals != null ? catchingAct.Animals.ToList() : new List<Animal>();
         public void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
         public void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
             [catchingAct.Animals.IndexOf(
                 catchingAct.Animals.FirstOrDefault(x => x.ID == animal.ID)
             )] = animal;
-        public void RemoveAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Remove(animal);
+        public void RemoveAnimal(CatchingAct catchingAct, int animalID)
+            => catchingAct.Animals.Remove(catchingAct.Animals.FirstOrDefault(x => x.ID == animalID));
 
         public void AddFile(CatchingAct catchingAct, string filePath)
         {
