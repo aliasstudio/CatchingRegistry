@@ -1,4 +1,5 @@
 ﻿using CatchingRegistry.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -11,7 +12,14 @@ namespace CatchingRegistry.Controllers
 
         private int currentPage = 1;
         public int PageSize { get; set; } = 10;
-        public int TotalPages => (int)Math.Ceiling((double)new ApplicationContext().CatchingActs.Count() / PageSize);
+
+        private int totalPages;
+        public int TotalPages
+        {
+            get => totalPages;
+            set => totalPages = value;
+        }
+
         public int CurrentPage 
         {
             get => currentPage;
@@ -33,16 +41,13 @@ namespace CatchingRegistry.Controllers
         public List<CatchingAct> GetPage()
         {
             return ctx.CatchingActs
-                .Skip((currentPage - 1) * PageSize)
-                .Take(PageSize)
-                .ToList()
-                .Select(x => { x.CatchingAddress = string.Join(", ", x.CatchingAddress.Split("&")); return x; })
                 .ToList();
         }
 
-        public List<CatchingAct> GetPage(Func<CatchingAct, bool> predicate)
+        public List<CatchingAct> GetPage(string query)
         {
-            return GetPage().Where(predicate).ToList();
+            var res = ctx.CatchingActs.FromSqlRaw(query).ToList();
+            return res;
         }
     }
 }
