@@ -11,8 +11,18 @@ namespace CatchingRegistry.Views
         private RegistryController registryController;
         private CatchingCardController catchingCardController;
         private Dictionary<string, string> registryFilter;
+        private QueryBuilder queryBuilder;
         private List<CatchingAct> records;
         private int currentPage = 1;
+        public int CurrentPage
+        {
+            get => currentPage;
+            set
+            {
+                if (value > 0 && value <= totalPages)
+                    currentPage = value;
+            }
+        }
         private int totalPages = 1;
         public int PageSize { get; set; } = 10;
 
@@ -27,8 +37,10 @@ namespace CatchingRegistry.Views
 
             registryPageSizeBox.Value = 10;
             totalPages = records.Count() / PageSize;
-            currentPageBox.Text = $"{currentPage} / {totalPages}";
+            currentPageBox.Text = $"{CurrentPage} / {totalPages}";
+            queryBuilder = QueryBuilder.GetInstance();
         }
+
 
         private void InitializeFilter()
         {
@@ -80,15 +92,8 @@ namespace CatchingRegistry.Views
         private void pageSizeApplyBtn_Click(object sender, EventArgs e)
         {
             PageSize = registryPageSizeBox.Value;
-            totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
-            currentPage = 1;
-            currentPageBox.Text = $"{currentPage} / {totalPages}";
-            registryGrid.DataSource = records.Skip((currentPage - 1) * PageSize).Take(PageSize).ToList();
-
-            //registryController.PageSize = registryPageSizeBox.Value;
-            //if (registryController.TotalPages < 2)
-            //    registryController.CurrentPage = 1;
-            //UpdateGrid();
+            CurrentPage = 1;
+            UpdateNavigationItems();
         }
 
         private void registryPageSizeBox_ValueChanged(object sender, EventArgs e)
@@ -96,34 +101,23 @@ namespace CatchingRegistry.Views
             pageSliderLabel.Text = registryPageSizeBox.Value.ToString();
         }
 
+        public void UpdateNavigationItems()
+        {
+            registryGrid.DataSource = records.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+            totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
+            currentPageBox.Text = $"{CurrentPage} / {totalPages}";
+        }
+
         private void nextPageBtn_Click(object sender, EventArgs e)
         {
-            currentPage++;
-            if (currentPage > totalPages || currentPage < 1)
-            {
-                currentPage--;
-                return;
-            }
-
-            registryGrid.DataSource = records.Skip((currentPage - 1) * PageSize).Take(PageSize).ToList();
-            currentPageBox.Text = $"{currentPage} / {totalPages}";
-            //registryController.CurrentPage++;
-            //UpdateGrid();
+            CurrentPage++;
+            UpdateNavigationItems();
         }
 
         private void previousPageBtn_Click(object sender, EventArgs e)
         {
-            currentPage--;
-            if (currentPage > totalPages || currentPage < 1)
-            {
-                currentPage++;
-                return;
-            }
-
-            registryGrid.DataSource = records.Skip((currentPage - 1) * PageSize).Take(PageSize).ToList();
-            currentPageBox.Text = $"{currentPage} / {totalPages}";
-            //registryController.CurrentPage--;
-            //UpdateGrid();
+            CurrentPage--;
+            UpdateNavigationItems();
         }
 
         private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
@@ -137,7 +131,7 @@ namespace CatchingRegistry.Views
         private void InitializeDataGrid()
         {
             records = registryController.GetPage();
-            registryGrid.DataSource = records.Skip((currentPage - 1) * PageSize).Take(PageSize).ToList();
+            registryGrid.DataSource = records.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
 
             registryGrid.Columns[0].HeaderText = "ID";
             registryGrid.Columns[0].FillWeight = 8;
@@ -150,72 +144,18 @@ namespace CatchingRegistry.Views
             registryGrid.Columns[4].HeaderText = "Адрес отлова";
             registryGrid.Columns[4].FillWeight = 35;
             registryGrid.Columns[5].Visible = false;
-
         }
-
 
         private void registryGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var columnName = registryGrid.Columns[e.ColumnIndex].Name;
             var filterFormResponse = new Filter(registryFilter, columnName).ShowDialog();
 
-
             if (filterFormResponse == DialogResult.OK)
             {
-                StringBuilder queryBuilder = new StringBuilder("SELECT ");
-                List<string> filterConditions = new List<string>();
-
-
-
-
-                foreach (KeyValuePair<string, string> filter in registryFilter)
-                {
-                    queryBuilder.Append($"{filter.Key}");
-
-                    if (registryFilter.Last().Key != filter.Key)
-                        queryBuilder.Append(", ");
-                    else
-                        queryBuilder.Append(" ");
-                }
-
-
-
-                queryBuilder.Append("FROM CatchingActs");
-
-
-
-
-                // TODO: Для двух и более параметров добавить AND
-                foreach (KeyValuePair<string, string> filter in registryFilter)
-                {
-                    if (filter.Value != "")
-                    {
-                        if (!queryBuilder.ToString().Contains(" WHERE "))
-                            queryBuilder.Append(" WHERE ");
-
-                        filterConditions.Add($" {filter.Key} LIKE '%{filter.Value}%'");
-                    }
-                }
-
-                if (filterConditions.Count > 1)
-                {
-                    var conditions = string.Join(" AND ", filterConditions);
-                    queryBuilder.Append(conditions);
-                }
-                else if (filterConditions.Count == 1)
-                {
-                    queryBuilder.Append(filterConditions[0]);
-                }
-
-
-
-                records = registryController.GetPage(queryBuilder.ToString());
-                registryGrid.DataSource = records.Skip((currentPage - 1) * PageSize).Take(PageSize).ToList();
-                totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
-
-                if (totalPages < 2)
-                    currentPage = 1;
-                currentPageBox.Text = $"{currentPage} / {totalPages}";
+                var query = queryBuilder.SelectFrom("CatchingActs").ByCondition(registryFilter).GetResult();
+                records = registryController.GetPage(query);
+                UpdateNavigationItems();
             }
         }
     }

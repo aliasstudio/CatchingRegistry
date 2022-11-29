@@ -61,12 +61,6 @@ namespace CatchingRegistry.Views
             municipalController = MunicipalController.GetInstance();
         }
 
-        private void InitializeControllers()
-        {
-            catchingCardController = CatchingCardController.GetInstance();
-            municipalController = MunicipalController.GetInstance();
-        }
-
         private void InitializeDataGrid()
         {
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
