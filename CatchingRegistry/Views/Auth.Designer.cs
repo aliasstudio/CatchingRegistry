@@ -33,6 +33,7 @@
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.userNameBox = new MaterialSkin.Controls.MaterialTextBox();
             this.authBtn = new MaterialSkin.Controls.MaterialButton();
+            this.siticoneControlBox1 = new Siticone.Desktop.UI.WinForms.SiticoneControlBox();
             this.SuspendLayout();
             // 
             // materialLabel1
@@ -121,10 +122,22 @@
             this.authBtn.UseVisualStyleBackColor = true;
             this.authBtn.Click += new System.EventHandler(this.authBtn_Click);
             // 
+            // siticoneControlBox1
+            // 
+            this.siticoneControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.siticoneControlBox1.ControlBoxStyle = Siticone.Desktop.UI.WinForms.Enums.ControlBoxStyle.Custom;
+            this.siticoneControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
+            this.siticoneControlBox1.IconColor = System.Drawing.Color.White;
+            this.siticoneControlBox1.Location = new System.Drawing.Point(368, -2);
+            this.siticoneControlBox1.Name = "siticoneControlBox1";
+            this.siticoneControlBox1.Size = new System.Drawing.Size(32, 26);
+            this.siticoneControlBox1.TabIndex = 10;
+            // 
             // Auth
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(400, 333);
+            this.Controls.Add(this.siticoneControlBox1);
             this.Controls.Add(this.authBtn);
             this.Controls.Add(this.userNameBox);
             this.Controls.Add(this.materialLabel2);
@@ -148,5 +161,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialTextBox userNameBox;
         private MaterialSkin.Controls.MaterialButton authBtn;
+        private Siticone.Desktop.UI.WinForms.SiticoneControlBox siticoneControlBox1;
     }
 }

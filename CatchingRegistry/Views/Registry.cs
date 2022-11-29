@@ -47,7 +47,7 @@ namespace CatchingRegistry.Views
             registryFilter = new Dictionary<string, string>();
             foreach (DataGridViewColumn column in registryGrid.Columns)
                 if (column.Visible)
-                    registryFilter.Add(column.Name, "");
+                    registryFilter.Add(column.HeaderText, "");
         }
 
         private void InitializeTheme()
@@ -146,9 +146,9 @@ namespace CatchingRegistry.Views
             registryGrid.Columns[5].Visible = false;
         }
 
-        private void registryGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void registryGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var columnName = registryGrid.Columns[e.ColumnIndex].Name;
+            var columnName = registryGrid.Columns[e.ColumnIndex].HeaderText;
             var filterFormResponse = new Filter(registryFilter, columnName).ShowDialog();
 
             if (filterFormResponse == DialogResult.OK)

@@ -25,13 +25,23 @@ namespace CatchingRegistry.Views
             this.columnName = columnName;
             this.dictionary = dictionary;
 
-            catchingNumberTextBox.Text = dictionary[columnName];
+            filterLabel.Text = columnName;
+            filterBox.Text = dictionary[columnName];
         }
 
         private void filterApplyBtn_Click(object sender, EventArgs e)
         {
-            dictionary[columnName] = catchingNumberTextBox.Text;
+            //BUG пустое значение дропает ошибку
+            dictionary[columnName] = filterBox.Text;
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void filterResetBtn_Click(object sender, EventArgs e)
+        {
+            //TODO: сброс фильтра
+/*            filterBox.Text = "";
+            dictionary[columnName] = filterBox.Text;
+            this.DialogResult = DialogResult.OK;*/
         }
     }
 }
