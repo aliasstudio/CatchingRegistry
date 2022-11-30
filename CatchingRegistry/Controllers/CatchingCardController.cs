@@ -1,5 +1,6 @@
 using CatchingRegistry.Models;
 using System.Linq;
+using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
 
 
@@ -110,7 +111,105 @@ namespace CatchingRegistry.Controllers
 
         public void ExportToWord(CatchingAct catchingAct)
         {
+            var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate);
+            var catchingActDate = DateTime.Parse(catchingAct.Date);
 
+            var dictionary = new Dictionary<string, string>
+            {
+                {
+                    "{actNumber}",
+                    catchingAct.ID.ToString()
+                },
+                {
+                    "{locality}",
+                    catchingAct.MunicipalContract.City
+                },
+                {
+                    "{catchingActAddress}",
+                    catchingAct.CatchingAddress
+                },
+                {
+                    "{catchingActDate}",
+                    catchingActDate.Day.ToString()
+                },
+                {
+                    "{catchingActMonth}",
+                    catchingActDate.Month.ToString()
+                },
+                {
+                    "{catchingActYear}",
+                    catchingActDate.Year.ToString()
+                },
+                {
+                    "{organisationName}",
+                    AuthController.AuthorizedUser.Organization.Name.ToString()
+                },
+                {
+                    "{contractNumber}",
+                    catchingAct.MunicipalContract.ID.ToString()
+                },
+                {
+                    "{contractDate}",
+                    contractDate.Day.ToString()
+                },
+                {
+                    "{contractMonth}",
+                    contractDate.Month.ToString()
+                },
+                {
+                    "{contractYear}",
+                    contractDate.Year.ToString()
+                },
+                {
+                    "{municipalName}",
+                    catchingAct.MunicipalContract.MunicipalName.ToString()
+                }
+            };
+
+
+            string path = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
+
+            Word.Application wordApp = new Word.Application();
+
+            Word.Document document = wordApp.Documents.OpenNoRepairDialog(path, ReadOnly: true);
+
+            ReplaceWordStub(document, dictionary);
+
+            Word.Table table = document.Tables[1];
+            var rowsCount = table.Rows.Count;
+            var columnsCount = table.Columns.Count;
+
+            // Добавление животных в таблицу
+            for (int i = 0; i < catchingAct.Animals.Count; i++)
+            {
+                // Добавление строки
+                object oMissing = Missing.Value;
+                table.Rows.Add(oMissing);
+
+                table.Cell(i + 2, 1).Range.Text = $"{i + 1}";
+                table.Cell(i + 2, 2).Range.Text = catchingAct.Animals[i].Category;
+                table.Cell(i + 2, 3).Range.Text = catchingAct.Animals[i].Gender;
+                table.Cell(i + 2, 4).Range.Text = catchingAct.Animals[i].Size;
+                table.Cell(i + 2, 5).Range.Text = catchingAct.Animals[i].Color;
+                table.Cell(i + 2, 6).Range.Text = catchingAct.Animals[i].Features;
+                table.Cell(i + 2, 7).Range.Text = catchingAct.Animals[i].ID.ToString();
+            }
+
+
+            document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName}\Docs\result.docx");
+
+            document.Close();
+            wordApp.Quit();
+        }
+
+        private void ReplaceWordStub(Word.Document wordDocument, Dictionary<string, string> dictionary)
+        {
+            foreach (var record in dictionary)
+            {
+                var range = wordDocument.Content;
+                range.Find.ClearFormatting();
+                range.Find.Execute(FindText: record.Key, ReplaceWith: record.Value);
+            }
         }
     }
 }
