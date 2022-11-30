@@ -1,4 +1,4 @@
-﻿using CatchingRegistry.Models;
+using CatchingRegistry.Models;
 using System.Linq;
 using Word = Microsoft.Office.Interop.Word;
 

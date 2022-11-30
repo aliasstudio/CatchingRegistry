@@ -1,4 +1,4 @@
-﻿namespace CatchingRegistry.Views
+namespace CatchingRegistry.Views
 {
     partial class CatchingCard
     {
@@ -69,7 +69,6 @@
             this.catchAnimalsGrid = new Siticone.Desktop.UI.WinForms.SiticoneDataGridView();
             this.catchAddressBox = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialLabel19 = new MaterialSkin.Controls.MaterialLabel();
-            this.catchNumberLabel = new MaterialSkin.Controls.MaterialLabel();
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -360,7 +359,8 @@
             this.catchDatePicker.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.catchDatePicker.CheckedState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.catchDatePicker.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.catchDatePicker.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.catchDatePicker.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.catchDatePicker.ForeColor = System.Drawing.Color.Black;
             this.catchDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Long;
             this.catchDatePicker.Location = new System.Drawing.Point(19, 531);
             this.catchDatePicker.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
@@ -379,7 +379,7 @@
             this.municipalNumCombo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.municipalNumCombo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.municipalNumCombo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.municipalNumCombo.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.municipalNumCombo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.municipalNumCombo.ForeColor = System.Drawing.Color.Black;
             this.municipalNumCombo.ItemHeight = 30;
             this.municipalNumCombo.Location = new System.Drawing.Point(19, 464);
@@ -573,7 +573,7 @@
             this.animalCategoryCombo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.animalCategoryCombo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.animalCategoryCombo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.animalCategoryCombo.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.animalCategoryCombo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.animalCategoryCombo.ForeColor = System.Drawing.Color.Black;
             this.animalCategoryCombo.ItemHeight = 30;
             this.animalCategoryCombo.Items.AddRange(new object[] {
@@ -597,7 +597,7 @@
             this.animalGenderCombo.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.animalGenderCombo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.animalGenderCombo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.animalGenderCombo.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.animalGenderCombo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.animalGenderCombo.ForeColor = System.Drawing.Color.Black;
             this.animalGenderCombo.ItemHeight = 30;
             this.animalGenderCombo.Items.AddRange(new object[] {
@@ -772,24 +772,11 @@
             this.materialLabel19.TabIndex = 106;
             this.materialLabel19.Text = "Адрес отлова";
             // 
-            // catchNumberLabel
-            // 
-            this.catchNumberLabel.Depth = 0;
-            this.catchNumberLabel.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.catchNumberLabel.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
-            this.catchNumberLabel.Location = new System.Drawing.Point(1013, 69);
-            this.catchNumberLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.catchNumberLabel.Name = "catchNumberLabel";
-            this.catchNumberLabel.Size = new System.Drawing.Size(169, 24);
-            this.catchNumberLabel.TabIndex = 108;
-            this.catchNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // CatchingCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 840);
-            this.Controls.Add(this.catchNumberLabel);
             this.Controls.Add(this.catchAddressBox);
             this.Controls.Add(this.materialLabel19);
             this.Controls.Add(this.catchAnimalsGrid);
@@ -877,6 +864,5 @@
         private Siticone.Desktop.UI.WinForms.SiticoneDataGridView catchAnimalsGrid;
         private MaterialSkin.Controls.MaterialTextBox2 catchAddressBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel19;
-        private MaterialSkin.Controls.MaterialLabel catchNumberLabel;
     }
 }

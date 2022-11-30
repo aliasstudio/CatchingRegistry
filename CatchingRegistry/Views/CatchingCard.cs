@@ -1,4 +1,4 @@
-﻿using CatchingRegistry.Controllers;
+using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
@@ -82,11 +82,11 @@ namespace CatchingRegistry.Views
 
         private void FillCatchingActData()
         {
+            Text = $"Акт отлова №{catchingAct.ID}";
             catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
             catchPurposeBox.Text = catchingAct.CatchingPurpose;
             catchAddressBox.Text = catchingAct.CatchingAddress;
             municipalNumCombo.Text = $"№{catchingAct.MunicipalContractID}";
-            catchNumberLabel.Text = $"№ {catchingAct.ID}";
             catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
@@ -161,11 +161,11 @@ namespace CatchingRegistry.Views
                 },
                 {
                     "{locality}",
-                    catchingAct.CatchingAddress.Split("&")[0].ToString()
+                    catchingAct.MunicipalContract.City
                 },
                 {
                     "{catchingActAddress}",
-                    catchingAct.CatchingAddress.Split("&")[1].ToString()
+                    catchingAct.CatchingAddress
                 },
                 {
                     "{catchingActDate}",
