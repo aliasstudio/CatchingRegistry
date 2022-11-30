@@ -1,16 +1,62 @@
 using CatchingRegistry.Controllers;
 using CatchingRegistry.Models;
-using CatchingRegistry.Services;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System.Text;
 
 namespace CatchingRegistry.Views
 {
-    public partial class Registry : Form
+    public partial class Registry : MaterialForm
     {
-        RegistryController registryController = new();
+        private RegistryController registryController;
+        private CatchingCardController catchingCardController;
+        private Dictionary<string, string> registryFilter;
+        private QueryBuilder queryBuilder;
+        private List<CatchingAct> records;
+        private int currentPage = 1;
+        public int CurrentPage
+        {
+            get => currentPage;
+            set
+            {
+                if (value > 0 && value <= totalPages)
+                    currentPage = value;
+            }
+        }
+        private int totalPages = 1;
+        public int PageSize { get; set; } = 10;
+
+
         public Registry()
         {
             InitializeComponent();
-            InitializeItems();
+            InitializeControllers();
+            InitializeDataGrid();
+            InitializeTheme();
+            InitializeFilter();
+
+            registryPageSizeBox.Value = 10;
+            totalPages = records.Count() / PageSize;
+            currentPageBox.Text = $"{CurrentPage} / {totalPages}";
+            queryBuilder = QueryBuilder.GetInstance();
+        }
+
+
+        private void InitializeFilter()
+        {
+            registryFilter = new Dictionary<string, string>();
+            foreach (DataGridViewColumn column in registryGrid.Columns)
+                if (column.Visible)
+                    registryFilter.Add(column.Name, "");
+        }
+
+        private void InitializeTheme()
+        {
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.EnforceBackcolorOnAllComponents = true;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Pink200, TextShade.WHITE);
         }
 
         private void registryOpenBtn_Click(object sender, EventArgs e)
@@ -27,26 +73,67 @@ namespace CatchingRegistry.Views
         }
         private void registryAddBtn_Click(object sender, EventArgs e)
         {
-            new CatchingCard(-1).Show();
+            new CatchingCard().Show();
         }
 
         private void registryDeleteBtn_Click(object sender, EventArgs e)
         {
-            try { 
+            try 
+            { 
                 var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
-                registryController.Delete(itemID);
-                UpdateGrid();
+                catchingCardController.Delete(itemID);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ни одна запись не выделена. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка удаления записи. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void InitializeItems()
-        {
-            UpdateGrid();
 
-            registryGrid.Columns[0].HeaderText = "№";
+        private void pageSizeApplyBtn_Click(object sender, EventArgs e)
+        {
+            PageSize = registryPageSizeBox.Value;
+            CurrentPage = 1;
+            UpdateNavigationItems();
+        }
+
+        private void registryPageSizeBox_ValueChanged(object sender, EventArgs e)
+        {
+            pageSliderLabel.Text = registryPageSizeBox.Value.ToString();
+        }
+
+        public void UpdateNavigationItems()
+        {
+            registryGrid.DataSource = records.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+            totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
+            currentPageBox.Text = $"{CurrentPage} / {totalPages}";
+        }
+
+        private void nextPageBtn_Click(object sender, EventArgs e)
+        {
+            CurrentPage++;
+            UpdateNavigationItems();
+        }
+
+        private void previousPageBtn_Click(object sender, EventArgs e)
+        {
+            CurrentPage--;
+            UpdateNavigationItems();
+        }
+
+        private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
+
+        private void InitializeControllers()
+        {
+            catchingCardController = CatchingCardController.GetInstance();
+            registryController = RegistryController.GetInstance();
+        }
+
+        private void InitializeDataGrid()
+        {
+            records = registryController.GetPage();
+            registryGrid.DataSource = records.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+
+            registryGrid.Columns[0].HeaderText = "ID";
             registryGrid.Columns[0].FillWeight = 8;
             registryGrid.Columns[1].HeaderText = "Дата";
             registryGrid.Columns[1].FillWeight = 12;
@@ -57,36 +144,27 @@ namespace CatchingRegistry.Views
             registryGrid.Columns[4].HeaderText = "Адрес отлова";
             registryGrid.Columns[4].FillWeight = 35;
             registryGrid.Columns[5].Visible = false;
-
-            registryPageSizeBox.Text = "5";
-        }
-        private void Registry_FormClosed(object sender, FormClosedEventArgs e) => Application.Exit();
-
-        private void nextPageBtn_Click(object sender, EventArgs e)
-        {
-            registryController.CurrentPage++;
-            UpdateGrid();
         }
 
-        private void previousPageBtn_Click(object sender, EventArgs e)
+        private void registryGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            registryController.CurrentPage--;
-            UpdateGrid();
-        }
+            var column = registryGrid.Columns[e.ColumnIndex];
+            var filterFormResponse = new Filter(registryFilter, column).ShowDialog();
 
-        private void UpdateGrid()
-        {
-            registryGrid.DataSource = registryController.GetPage();
-            currentPageBox.Text = $"{registryController.CurrentPage} / {registryController.TotalPages}";
-        }
-
-        private void registryPageSizeBox_TextChanged(object sender, EventArgs e)
-        {
-            if(int.TryParse(registryPageSizeBox.Text, out int pageSize))
+            if (filterFormResponse == DialogResult.OK)
             {
-                registryController.PageSize = pageSize;
-                UpdateGrid();
+                var query = queryBuilder.SelectFrom("CatchingActs").ByCondition(registryFilter).GetResult();
+                records = registryController.GetPage(query);
+                UpdateNavigationItems();
             }
+        }
+
+        private void resetFilterBtn_Click(object sender, EventArgs e)
+        {
+            InitializeFilter();
+            var query = queryBuilder.SelectFrom("CatchingActs").ByCondition(registryFilter).GetResult();
+            records = registryController.GetPage(query);
+            UpdateNavigationItems();
         }
     }
 }

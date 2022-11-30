@@ -22,6 +22,20 @@ namespace CatchingRegistry.Models
                     "Куратор ВетСлужбы",
                     "Оператор по отлову"
                 };*/
+        public PosibilityType Posibility { get; set; } = PosibilityType.Observer;
 
+        public VisibilityType Visibility { get; set; } = VisibilityType.Organization;
+
+        public enum PosibilityType
+        {
+            Redactor,
+            Observer
+        }
+        public enum VisibilityType
+        {
+            All,
+            Organization,
+            Municipality
+        }
     }
 }

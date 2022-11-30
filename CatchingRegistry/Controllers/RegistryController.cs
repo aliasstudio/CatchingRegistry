@@ -1,23 +1,27 @@
-﻿using CatchingRegistry.Services;
-using CatchingRegistry.Models;
-using System.Data;
-using System.ComponentModel;
-using Equin.ApplicationFramework;
+﻿using CatchingRegistry.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace CatchingRegistry.Controllers
 {
     public class RegistryController
     {
-        ApplicationContext registryContext;
-        EntityService<CatchingAct> entityService;
+        private static RegistryController instance;
+        private static ApplicationContext ctx = new();
 
-        int pageSize = 5;
-        int currentPage = 1;
-        public int PageSize { get; set; }
-        public int TotalPages => (int)Math.Ceiling((double)new ApplicationContext().CatchingActs.Count() / pageSize);
-        public int CurrentPage {
+        private int currentPage = 1;
+        public int PageSize { get; set; } = 10;
+
+        private int totalPages;
+        public int TotalPages
+        {
+            get => totalPages;
+            set => totalPages = value;
+        }
+
+        public int CurrentPage 
+        {
             get => currentPage;
             set {
                 if (value > 0 && value <= TotalPages)
@@ -25,28 +29,25 @@ namespace CatchingRegistry.Controllers
             }
         }
 
-        public RegistryController()
+        public static RegistryController GetInstance()
         {
-            registryContext = new();
-            entityService = new(registryContext);
+            if (instance == null)
+                instance = new RegistryController();
+            ctx = new();
+
+            return instance;
         }
 
-        public BindingListView<CatchingAct> GetPage()
+        public List<CatchingAct> GetPage()
         {
-            registryContext = new();
-            entityService = new(registryContext);
-
-            registryContext.CatchingActs
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .Load();
-
-            return entityService.GetDataSource();
+            return ctx.CatchingActs
+                .ToList();
         }
 
-        public void Delete(int ID)
+        public List<CatchingAct> GetPage(string query)
         {
-            entityService.Delete(ID);
+            var res = ctx.CatchingActs.FromSqlRaw(query).ToList();
+            return res;
         }
     }
 }

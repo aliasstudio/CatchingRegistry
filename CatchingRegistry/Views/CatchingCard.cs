@@ -1,37 +1,14 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using Microsoft.Office.Interop.Word;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Xceed.Words.NET;
+using CatchingRegistry.Controllers;
+using CatchingRegistry.Models;
 using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
-<<<<<<< Updated upstream
-using CatchingRegistry.Models;
-using Microsoft.EntityFrameworkCore;
-using CatchingRegistry.Controllers;
-using CatchingRegistry.Services;
-=======
 using MaterialSkin;
 using MaterialSkin.Controls;
->>>>>>> Stashed changes
 
 namespace CatchingRegistry.Views
 {
     public partial class CatchingCard : MaterialForm
     {
-<<<<<<< Updated upstream
-        CatchingCardController cardController;
-        public CatchingCard(int cardID)
-        {
-            cardController = new CatchingCardController(cardID);
-=======
         private CatchingCardController catchingCardController;
         private MunicipalController municipalController;
         private CatchingAct catchingAct;
@@ -40,6 +17,7 @@ namespace CatchingRegistry.Views
         {
             InitializeControllers();
             catchingAct = new();
+
             InitializeComponent();
             InitializeItems();
             InitializeTheme();
@@ -49,17 +27,13 @@ namespace CatchingRegistry.Views
         {
             InitializeControllers();
             catchingAct = catchingCardController.GetByID(cardID);
->>>>>>> Stashed changes
+
             InitializeComponent();
             InitializeItems();
             InitializeTheme();
         }
-
         private void InitializeTheme()
         {
-<<<<<<< Updated upstream
-            catchAnimalsGrid.DataSource = cardController.GetAnimalSource();
-=======
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.EnforceBackcolorOnAllComponents = true;
             materialSkinManager.AddFormToManage(this);
@@ -90,7 +64,6 @@ namespace CatchingRegistry.Views
         private void InitializeDataGrid()
         {
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
->>>>>>> Stashed changes
 
             catchAnimalsGrid.Columns[0].HeaderText = "№ чипа";
             catchAnimalsGrid.Columns[0].FillWeight = 12;
@@ -100,85 +73,174 @@ namespace CatchingRegistry.Views
             catchAnimalsGrid.Columns[2].FillWeight = 10;
             catchAnimalsGrid.Columns[3].HeaderText = "Размер";
             catchAnimalsGrid.Columns[3].FillWeight = 15;
-<<<<<<< Updated upstream
-            catchAnimalsGrid.Columns[4].HeaderText = "Особенности";
-            catchAnimalsGrid.Columns[4].FillWeight = 50;
-            catchAnimalsGrid.Columns[5].Visible = false;
-
-            FillCatchingActData();
-        }
-
-        private void FillMunicipalData()
-        {
-            var mpContract = cardController.GetMunicipalData();
-
-            //TODO: доделать заполнение комбобокса
-=======
             catchAnimalsGrid.Columns[4].HeaderText = "Окрас";
             catchAnimalsGrid.Columns[4].FillWeight = 15;
             catchAnimalsGrid.Columns[5].HeaderText = "Особенности";
             catchAnimalsGrid.Columns[5].FillWeight = 35;
             catchAnimalsGrid.Columns[6].Visible = false;
->>>>>>> Stashed changes
         }
 
         private void FillCatchingActData()
         {
-            var catchingAct = cardController.GetCatchingActData();
+            Text = $"Акт отлова №{catchingAct.ID}";
             catchDatePicker.Value = DateTime.Parse(catchingAct.Date);
             catchPurposeBox.Text = catchingAct.CatchingPurpose;
             catchAddressBox.Text = catchingAct.CatchingAddress;
-        }
-        private void FillAnimalData()
-        {
-            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            var animal = cardController.GetAnimalData(itemID);
-            animalCheapNumBox.Text = $"{animal.ID}";
-            animalCategoryCombo.Text = animal.Category;
-            animalGenderCombo.Text = animal.Gender;
-            animalSizeBox.Text = animal.Size;
-            animalFeaturesBox.Text = animal.Features;
+            municipalNumCombo.Text = $"№{catchingAct.MunicipalContractID}";
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
-        private Animal CreateAnimal()
+        private void FillMunicipalCombo()
         {
-            //Странный метод конечно, не знаю как назвать правильнее
-            return new Animal()
-            {
-                ID = int.Parse(animalCheapNumBox.Text),
-                Category = animalCategoryCombo.Text,
-                Gender = animalGenderCombo.Text,
-                Size = animalSizeBox.Text,
-                Features = animalFeaturesBox.Text
-            };
+            municipalNumCombo.DataSource = municipalController
+                .GetAllByOrganizationID(AuthController.AuthorizedUser.Organization.ID)
+                .Select(contract => $"№{contract.ID}")
+                .ToList();
         }
+
+        private string? GetAnimalValueAtIndex(int index)
+            => catchAnimalsGrid[index, catchAnimalsGrid.SelectedRows[0].Index].Value == null
+               ? ""
+               : catchAnimalsGrid[index, catchAnimalsGrid.SelectedRows[0].Index].Value.ToString();
+
+        private void FillAnimalData()
+        {
+            animalCheapNumBox.Text = GetAnimalValueAtIndex(0);
+            animalCategoryCombo.Text = GetAnimalValueAtIndex(1);
+            animalGenderCombo.Text = GetAnimalValueAtIndex(2);
+            animalSizeBox.Text = GetAnimalValueAtIndex(3);
+            animalСolorBox.Text = GetAnimalValueAtIndex(4);
+            animalFeaturesBox.Text = GetAnimalValueAtIndex(5);
+        }
+
+        private Animal CreateAnimalFromData() => new()
+        {
+            ID = int.Parse(animalCheapNumBox.Text),
+            Category = animalCategoryCombo.Text,
+            Gender = animalGenderCombo.Text,
+            Size = animalSizeBox.Text,
+            Color = animalСolorBox.Text,
+            Features = animalFeaturesBox.Text,
+        };
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
-            cardController.AddAnimal(CreateAnimal());
+            catchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
-
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
-            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            cardController.EditAnimal(itemID, CreateAnimal());
+            catchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
         }
 
         private void catchAnimalDeleteBtn_Click(object sender, EventArgs e)
         {
-            var itemID = (int)catchAnimalsGrid[0, catchAnimalsGrid.SelectedRows[0].Index].Value;
-            cardController.DeleteAnimal(itemID);
+            catchingCardController.RemoveAnimal(catchingAct, int.Parse(GetAnimalValueAtIndex(0)));
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
+            => catchingCardController.Save(catchingAct);
+
+        private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
+            => FillAnimalData();
+
+        private void catchCardExportBtn_Click(object sender, EventArgs e)
         {
-            //TODO: сделать сохранение карточки
-            // cardController.Save();
+            var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate);
+            var catchingActDate = DateTime.Parse(catchingAct.Date);
+
+            var dictionary = new Dictionary<string, string>
+            {
+                {
+                    "{actNumber}",
+                    catchingAct.ID.ToString()
+                },
+                {
+                    "{locality}",
+                    catchingAct.MunicipalContract.City
+                },
+                {
+                    "{catchingActAddress}",
+                    catchingAct.CatchingAddress
+                },
+                {
+                    "{catchingActDate}",
+                    catchingActDate.Day.ToString()
+                },
+                {
+                    "{catchingActMonth}",
+                    catchingActDate.Month.ToString()
+                },
+                {
+                    "{catchingActYear}",
+                    catchingActDate.Year.ToString()
+                },
+                {
+                    "{organisationName}",
+                    AuthController.AuthorizedUser.Organization.Name.ToString()
+                },
+                {
+                    "{contractNumber}",
+                    catchingAct.MunicipalContract.ID.ToString()
+                },
+                {
+                    "{contractDate}",
+                    contractDate.Day.ToString()
+                },
+                {
+                    "{contractMonth}",
+                    contractDate.Month.ToString()
+                },
+                {
+                    "{contractYear}",
+                    contractDate.Year.ToString()
+                },
+                {
+                    "{municipalName}",
+                    catchingAct.MunicipalContract.MunicipalName.ToString()
+                }
+            };
+
+
+            string path = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
+
+            Word.Application wordApp = new Word.Application();
+
+            Word.Document document = wordApp.Documents.OpenNoRepairDialog(path, ReadOnly: true);
+
+            ReplaceWordStub(document, dictionary);
+
+            Word.Table table = document.Tables[1];
+            var rowsCount = table.Rows.Count;
+            var columnsCount = table.Columns.Count;
+
+            // Добавление животных в таблицу
+            for (int i = 0; i < catchingAct.Animals.Count; i++)
+            {
+                // Добавление строки
+                object oMissing = Missing.Value;
+                table.Rows.Add(oMissing);
+
+                table.Cell(i + 2, 1).Range.Text = $"{i+1}";
+                table.Cell(i + 2, 2).Range.Text = catchingAct.Animals[i].Category;
+                table.Cell(i + 2, 3).Range.Text = catchingAct.Animals[i].Gender;
+                table.Cell(i + 2, 4).Range.Text = catchingAct.Animals[i].Size;
+
+                table.Cell(i + 2, 6).Range.Text = catchingAct.Animals[i].Features;
+                table.Cell(i + 2, 7).Range.Text = catchingAct.Animals[i].ID.ToString();
+            }
+
+
+            document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName}\Docs\result.docx");
+
+            document.Close();
+            wordApp.Quit();
         }
 
-<<<<<<< Updated upstream
-        private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) => FillAnimalData();
-=======
         private void ReplaceWordStub(Word.Document wordDocument, Dictionary<string, string> dictionary)
         {
             foreach (var record in dictionary)
@@ -201,11 +263,10 @@ namespace CatchingRegistry.Views
 
         private void catchCardFileDeleteBtn_Click(object sender, EventArgs e)
         {
-            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].ToString().Split("\\").Last();
+            var fileName = catchCardFileList.Items[catchCardFileList.SelectedIndex].Text.Split("\\").Last();
             var file = catchingAct.Files.FirstOrDefault(x => x.Name == fileName);
             catchingCardController.RemoveFile(catchingAct, file);
             catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
         }
->>>>>>> Stashed changes
     }
 }
