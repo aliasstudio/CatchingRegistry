@@ -16,23 +16,22 @@ namespace CatchingRegistry.Views
     {
         private RegistryController registryController;
         private Dictionary<string, string> dictionary;
-        private string columnName;
+        private DataGridViewColumn column;
 
-        public Filter(Dictionary<string, string> dictionary, string columnName)
+        public Filter(Dictionary<string, string> dictionary, DataGridViewColumn column)
         {
             InitializeComponent();
             this.registryController = RegistryController.GetInstance();
-            this.columnName = columnName;
+            this.column = column;
             this.dictionary = dictionary;
 
-            filterLabel.Text = columnName;
-            filterBox.Text = dictionary[columnName];
+            filterLabel.Text = column.HeaderText;
+            filterBox.Text = dictionary[column.Name];
         }
 
         private void filterApplyBtn_Click(object sender, EventArgs e)
         {
-            //BUG пустое значение дропает ошибку
-            dictionary[columnName] = filterBox.Text;
+            dictionary[column.Name] = filterBox.Text;
             this.DialogResult = DialogResult.OK;
         }
 

@@ -35,10 +35,20 @@
             this.filterBox = new Siticone.Desktop.UI.WinForms.SiticoneTextBox();
             this.filterApplyBtn = new MaterialSkin.Controls.MaterialButton();
             this.filterLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.filterResetBtn = new MaterialSkin.Controls.MaterialButton();
             this.siticoneHtmlLabel1 = new Siticone.Desktop.UI.WinForms.SiticoneHtmlLabel();
             siticoneSeparator1 = new Siticone.Desktop.UI.WinForms.SiticoneSeparator();
             this.SuspendLayout();
+            // 
+            // siticoneSeparator1
+            // 
+            siticoneSeparator1.BackColor = System.Drawing.Color.Transparent;
+            siticoneSeparator1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            siticoneSeparator1.FillThickness = 26;
+            siticoneSeparator1.Location = new System.Drawing.Point(-2, 0);
+            siticoneSeparator1.Name = "siticoneSeparator1";
+            siticoneSeparator1.Size = new System.Drawing.Size(261, 26);
+            siticoneSeparator1.TabIndex = 8;
+            siticoneSeparator1.UseTransparentBackground = true;
             // 
             // siticoneBorderlessForm1
             // 
@@ -84,12 +94,12 @@
             this.filterApplyBtn.Depth = 0;
             this.filterApplyBtn.HighEmphasis = true;
             this.filterApplyBtn.Icon = null;
-            this.filterApplyBtn.Location = new System.Drawing.Point(22, 99);
+            this.filterApplyBtn.Location = new System.Drawing.Point(22, 101);
             this.filterApplyBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.filterApplyBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.filterApplyBtn.Name = "filterApplyBtn";
             this.filterApplyBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.filterApplyBtn.Size = new System.Drawing.Size(117, 38);
+            this.filterApplyBtn.Size = new System.Drawing.Size(237, 38);
             this.filterApplyBtn.TabIndex = 5;
             this.filterApplyBtn.Text = "Применить";
             this.filterApplyBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -108,38 +118,6 @@
             this.filterLabel.Size = new System.Drawing.Size(107, 19);
             this.filterLabel.TabIndex = 6;
             this.filterLabel.Text = "materialLabel1";
-            // 
-            // filterResetBtn
-            // 
-            this.filterResetBtn.AutoSize = false;
-            this.filterResetBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.filterResetBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.filterResetBtn.Depth = 0;
-            this.filterResetBtn.HighEmphasis = true;
-            this.filterResetBtn.Icon = null;
-            this.filterResetBtn.Location = new System.Drawing.Point(144, 99);
-            this.filterResetBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.filterResetBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.filterResetBtn.Name = "filterResetBtn";
-            this.filterResetBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.filterResetBtn.Size = new System.Drawing.Size(117, 38);
-            this.filterResetBtn.TabIndex = 7;
-            this.filterResetBtn.Text = "Сброс";
-            this.filterResetBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.filterResetBtn.UseAccentColor = false;
-            this.filterResetBtn.UseVisualStyleBackColor = true;
-            this.filterResetBtn.Click += new System.EventHandler(this.filterResetBtn_Click);
-            // 
-            // siticoneSeparator1
-            // 
-            siticoneSeparator1.BackColor = System.Drawing.Color.Transparent;
-            siticoneSeparator1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            siticoneSeparator1.FillThickness = 26;
-            siticoneSeparator1.Location = new System.Drawing.Point(-2, 0);
-            siticoneSeparator1.Name = "siticoneSeparator1";
-            siticoneSeparator1.Size = new System.Drawing.Size(261, 26);
-            siticoneSeparator1.TabIndex = 8;
-            siticoneSeparator1.UseTransparentBackground = true;
             // 
             // siticoneHtmlLabel1
             // 
@@ -160,7 +138,6 @@
             this.Controls.Add(this.siticoneHtmlLabel1);
             this.Controls.Add(this.siticoneControlBox1);
             this.Controls.Add(siticoneSeparator1);
-            this.Controls.Add(this.filterResetBtn);
             this.Controls.Add(this.filterLabel);
             this.Controls.Add(this.filterApplyBtn);
             this.Controls.Add(this.filterBox);
@@ -178,7 +155,6 @@
         private Siticone.Desktop.UI.WinForms.SiticoneControlBox siticoneControlBox1;
         private MaterialSkin.Controls.MaterialButton filterApplyBtn;
         private Siticone.Desktop.UI.WinForms.SiticoneTextBox filterBox;
-        private MaterialSkin.Controls.MaterialButton filterResetBtn;
         private MaterialSkin.Controls.MaterialLabel filterLabel;
         private Siticone.Desktop.UI.WinForms.SiticoneSeparator siticoneSeparator1;
         private Siticone.Desktop.UI.WinForms.SiticoneHtmlLabel siticoneHtmlLabel1;

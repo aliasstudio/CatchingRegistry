@@ -148,8 +148,8 @@ namespace CatchingRegistry.Views
 
         private void registryGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var columnName = registryGrid.Columns[e.ColumnIndex].Name;
-            var filterFormResponse = new Filter(registryFilter, columnName).ShowDialog();
+            var column = registryGrid.Columns[e.ColumnIndex];
+            var filterFormResponse = new Filter(registryFilter, column).ShowDialog();
 
             if (filterFormResponse == DialogResult.OK)
             {
