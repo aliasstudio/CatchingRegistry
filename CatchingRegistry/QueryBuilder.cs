@@ -39,7 +39,9 @@ namespace CatchingRegistry
 
         public string GetResult()
         {
-            stringbuilder.Append(" WHERE ");
+            if(conditions.Count > 0)
+                stringbuilder.Append(" WHERE ");
+
             var conditionString = string.Join(" AND ", conditions);
             stringbuilder.Append(conditionString);
             return stringbuilder.ToString();

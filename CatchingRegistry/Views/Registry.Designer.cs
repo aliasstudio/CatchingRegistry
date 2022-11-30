@@ -48,6 +48,7 @@
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             this.pageSliderLabel = new MaterialSkin.Controls.MaterialLabel();
             this.registryGrid = new Siticone.Desktop.UI.WinForms.SiticoneDataGridView();
+            this.resetFilterBtn = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -369,11 +370,32 @@
             this.registryGrid.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.registryGrid.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.registryGrid_ColumnHeaderMouseDoubleClick);
             // 
+            // resetFilterBtn
+            // 
+            this.resetFilterBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.resetFilterBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.resetFilterBtn.Depth = 0;
+            this.resetFilterBtn.HighEmphasis = true;
+            this.resetFilterBtn.Icon = null;
+            this.resetFilterBtn.Location = new System.Drawing.Point(721, 555);
+            this.resetFilterBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.resetFilterBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.resetFilterBtn.Name = "resetFilterBtn";
+            this.resetFilterBtn.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.resetFilterBtn.Size = new System.Drawing.Size(154, 36);
+            this.resetFilterBtn.TabIndex = 32;
+            this.resetFilterBtn.Text = "Убрать фильтры";
+            this.resetFilterBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.resetFilterBtn.UseAccentColor = false;
+            this.resetFilterBtn.UseVisualStyleBackColor = true;
+            this.resetFilterBtn.Click += new System.EventHandler(this.resetFilterBtn_Click);
+            // 
             // Registry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1188, 610);
+            this.Controls.Add(this.resetFilterBtn);
             this.Controls.Add(this.registryGrid);
             this.Controls.Add(this.pageSliderLabel);
             this.Controls.Add(this.materialLabel3);
@@ -422,5 +444,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
         private MaterialSkin.Controls.MaterialLabel pageSliderLabel;
         private Siticone.Desktop.UI.WinForms.SiticoneDataGridView registryGrid;
+        private MaterialSkin.Controls.MaterialButton resetFilterBtn;
     }
 }

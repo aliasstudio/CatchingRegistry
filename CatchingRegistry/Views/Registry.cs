@@ -47,7 +47,7 @@ namespace CatchingRegistry.Views
             registryFilter = new Dictionary<string, string>();
             foreach (DataGridViewColumn column in registryGrid.Columns)
                 if (column.Visible)
-                    registryFilter.Add(column.HeaderText, "");
+                    registryFilter.Add(column.Name, "");
         }
 
         private void InitializeTheme()
@@ -148,7 +148,7 @@ namespace CatchingRegistry.Views
 
         private void registryGrid_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var columnName = registryGrid.Columns[e.ColumnIndex].HeaderText;
+            var columnName = registryGrid.Columns[e.ColumnIndex].Name;
             var filterFormResponse = new Filter(registryFilter, columnName).ShowDialog();
 
             if (filterFormResponse == DialogResult.OK)
@@ -157,6 +157,14 @@ namespace CatchingRegistry.Views
                 records = registryController.GetPage(query);
                 UpdateNavigationItems();
             }
+        }
+
+        private void resetFilterBtn_Click(object sender, EventArgs e)
+        {
+            InitializeFilter();
+            var query = queryBuilder.SelectFrom("CatchingActs").ByCondition(registryFilter).GetResult();
+            records = registryController.GetPage(query);
+            UpdateNavigationItems();
         }
     }
 }
