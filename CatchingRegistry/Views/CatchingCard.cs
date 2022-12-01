@@ -18,6 +18,8 @@ namespace CatchingRegistry.Views
         {
             InitializeControllers();
             catchingAct = new();
+            catchingAct.Animals = new List<Animal>();
+            catchingAct.Files = new List<AttachedFile>();
 
             InitializeComponent();
             InitializeItems();
@@ -143,14 +145,21 @@ namespace CatchingRegistry.Views
             catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
-        private void catchCardSaveBtn_Click(object sender, EventArgs e) 
+        private void catchCardSaveBtn_Click(object sender, EventArgs e)
         {
-            catchingAct.MunicipalContractID = int.Parse(municipalNumCombo.Text.Substring(1));
-            catchingAct.CatchingPurpose = catchPurposeBox.Text;
-            catchingAct.CatchingAddress = catchAddressBox.Text;
-            catchingAct.Date = catchDatePicker.Value.ToString("dd.MM.yyyy");
-            catchingCardController.Save(catchingAct);
-            Close();
+            try
+            {
+                catchingAct.MunicipalContractID = int.Parse(municipalNumCombo.Text.Substring(1));
+                catchingAct.CatchingPurpose = catchPurposeBox.Text;
+                catchingAct.CatchingAddress = catchAddressBox.Text;
+                catchingAct.Date = catchDatePicker.Value.ToString("dd.MM.yyyy");
+                catchingCardController.Save(catchingAct);
+                MessageBox.Show("Акт успешно сохранен");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 

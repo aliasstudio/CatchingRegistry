@@ -1,4 +1,5 @@
 ﻿using CatchingRegistry.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CatchingRegistry.Controllers
 {
@@ -14,6 +15,8 @@ namespace CatchingRegistry.Controllers
             ctx = new();
             return instance;
         }
+
+        public MunicipalContract? GetByID(int mID) => ctx.MunicipalContracts.FirstOrDefault(x => x.ID == mID);
 
         public List<MunicipalContract> GetAllByOrganizationID(int organizationID)
         {
