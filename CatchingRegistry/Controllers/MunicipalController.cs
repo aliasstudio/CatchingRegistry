@@ -1,4 +1,5 @@
 ﻿using CatchingRegistry.Models;
+using CatchingRegistry.Services;
 using CatchingRegistry.Utils;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,23 +8,28 @@ namespace CatchingRegistry.Controllers
     public class MunicipalController
     {
         private static MunicipalController instance;
-        private static ApplicationContext ctx;
+        private static MunicipalService municipalService;
 
         public static MunicipalController GetInstance()
         {
             if (instance == null)
                 instance = new MunicipalController();
-            ctx = new();
             return instance;
         }
 
-        public MunicipalContract? GetByID(int mID) => ctx.MunicipalContracts.FirstOrDefault(x => x.ID == mID);
+        public MunicipalController()
+        {
+            municipalService = MunicipalService.GetInstance();
+        }
+
+        public MunicipalContract? GetByID(int mID)
+        {
+            return municipalService.GetByID(mID);
+        }
 
         public List<MunicipalContract> GetAllByOrganizationID(int organizationID)
         {
-            return ctx.MunicipalContracts
-                .Where(contract => contract.Organization.ID == organizationID)
-                .ToList();
+            return municipalService.GetAllByOrganizationID(organizationID);
         }
     }
 }
