@@ -36,7 +36,7 @@ namespace CatchingRegistry.Views
             InitializeFilter();
 
             registryPageSizeBox.Value = 10;
-            totalPages = records.Count() / PageSize;
+            totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
             currentPageBox.Text = $"{CurrentPage} / {totalPages}";
             queryBuilder = QueryBuilder.GetInstance();
         }
@@ -64,7 +64,8 @@ namespace CatchingRegistry.Views
             try
             {
                 var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
-                new CatchingCard(itemID).Show();
+                new CatchingCard(itemID).ShowDialog();
+                UpdateNavigationItems();
             } 
             catch(Exception ex)
             {
@@ -78,15 +79,9 @@ namespace CatchingRegistry.Views
 
         private void registryDeleteBtn_Click(object sender, EventArgs e)
         {
-            try 
-            { 
-                var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
-                catchingCardController.Delete(itemID);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка удаления записи. {ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
+            catchingCardController.Delete(itemID);
+            UpdateNavigationItems();
         }
 
         private void pageSizeApplyBtn_Click(object sender, EventArgs e)
@@ -103,6 +98,15 @@ namespace CatchingRegistry.Views
 
         public void UpdateNavigationItems()
         {
+            records = registryController.GetPage();
+            registryGrid.DataSource = records.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+            totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
+            currentPageBox.Text = $"{CurrentPage} / {totalPages}";
+        }
+
+        public void UpdateNavigationItems(string query)
+        {
+            records = registryController.GetPage(query);
             registryGrid.DataSource = records.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
             totalPages = (int)Math.Ceiling((double)records.Count() / PageSize);
             currentPageBox.Text = $"{CurrentPage} / {totalPages}";
@@ -154,8 +158,7 @@ namespace CatchingRegistry.Views
             if (filterFormResponse == DialogResult.OK)
             {
                 var query = queryBuilder.SelectFrom("CatchingActs").ByCondition(registryFilter).GetResult();
-                records = registryController.GetPage(query);
-                UpdateNavigationItems();
+                UpdateNavigationItems(query);
             }
         }
 
@@ -163,8 +166,7 @@ namespace CatchingRegistry.Views
         {
             InitializeFilter();
             var query = queryBuilder.SelectFrom("CatchingActs").ByCondition(registryFilter).GetResult();
-            records = registryController.GetPage(query);
-            UpdateNavigationItems();
+            UpdateNavigationItems(query);
         }
     }
 }

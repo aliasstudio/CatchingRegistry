@@ -4,6 +4,7 @@ using Word = Microsoft.Office.Interop.Word;
 using System.Reflection;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using System.Globalization;
 
 namespace CatchingRegistry.Views
 {
@@ -142,8 +143,15 @@ namespace CatchingRegistry.Views
             catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
-        private void catchCardSaveBtn_Click(object sender, EventArgs e)
-            => catchingCardController.Save(catchingAct);
+        private void catchCardSaveBtn_Click(object sender, EventArgs e) 
+        {
+            catchingAct.MunicipalContractID = int.Parse(municipalNumCombo.Text.Substring(1));
+            catchingAct.CatchingPurpose = catchPurposeBox.Text;
+            catchingAct.CatchingAddress = catchAddressBox.Text;
+            catchingAct.Date = catchDatePicker.Value.ToString("dd.MM.yyyy");
+            catchingCardController.Save(catchingAct);
+            Close();
+        }
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
@@ -171,6 +179,11 @@ namespace CatchingRegistry.Views
         private void catchCardExportBtn_Click_1(object sender, EventArgs e)
         {
             catchingCardController.ExportToWord(catchingAct);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            catchingCardController.Save(catchingAct);
         }
     }
 }

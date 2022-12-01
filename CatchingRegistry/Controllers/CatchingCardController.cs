@@ -30,18 +30,21 @@ namespace CatchingRegistry.Controllers
 
         public void Save(CatchingAct catchingAct)
         {
-            if (ctx.CatchingActs.Contains(catchingAct))
-                ctx.CatchingActs.Update(catchingAct);
-            else
-                ctx.CatchingActs.Add(catchingAct);
-            try
+            using (var db = new ApplicationContext())
             {
-                ctx.SaveChanges();
-                UpdateFiles(catchingAct);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Ошибка сохранения акта. {ex}");
+                if (db.CatchingActs.Contains(catchingAct))
+                    db.CatchingActs.Update(catchingAct);
+                else
+                    db.CatchingActs.Add(catchingAct);
+                try
+                {
+                    db.SaveChanges();
+                    UpdateFiles(catchingAct);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Ошибка сохранения акта. {ex}");
+                }
             }
         }
 
