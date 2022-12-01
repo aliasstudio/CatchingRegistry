@@ -1,6 +1,5 @@
 using CatchingRegistry.Models;
 using CatchingRegistry.Services;
-using System.Linq;
 using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -35,7 +34,6 @@ namespace CatchingRegistry.Controllers
         public void Save(CatchingAct catchingAct)
         {
             catchingCardService.Save(catchingAct);
-
             UpdateFiles(catchingAct);
         }
 
@@ -72,10 +70,8 @@ namespace CatchingRegistry.Controllers
             var file = AttachedFiles.FirstOrDefault(x => x.Name.Contains(attachedFile.Name));
             if (file != null)
                 AttachedFiles.Remove(file);
-
             catchingCardService.RemoveFile(catchingAct, attachedFile);
         }
-
         private void UpdateFiles(CatchingAct catchingAct)
         {
             var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
@@ -101,7 +97,6 @@ namespace CatchingRegistry.Controllers
                 Directory.Delete(fileSavePath);
         }
 
-
         public void ExportToWord(CatchingAct catchingAct)
         {
             var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate);
@@ -109,62 +104,23 @@ namespace CatchingRegistry.Controllers
 
             var dictionary = new Dictionary<string, string>
             {
-                {
-                    "{actNumber}",
-                    catchingAct.ID.ToString()
-                },
-                {
-                    "{locality}",
-                    catchingAct.MunicipalContract.City
-                },
-                {
-                    "{catchingActAddress}",
-                    catchingAct.CatchingAddress
-                },
-                {
-                    "{catchingActDate}",
-                    catchingActDate.Day.ToString()
-                },
-                {
-                    "{catchingActMonth}",
-                    catchingActDate.Month.ToString()
-                },
-                {
-                    "{catchingActYear}",
-                    catchingActDate.Year.ToString()
-                },
-                {
-                    "{organisationName}",
-                    AuthController.AuthorizedUser.Organization.Name.ToString()
-                },
-                {
-                    "{contractNumber}",
-                    catchingAct.MunicipalContract.ID.ToString()
-                },
-                {
-                    "{contractDate}",
-                    contractDate.Day.ToString()
-                },
-                {
-                    "{contractMonth}",
-                    contractDate.Month.ToString()
-                },
-                {
-                    "{contractYear}",
-                    contractDate.Year.ToString()
-                },
-                {
-                    "{municipalName}",
-                    catchingAct.MunicipalContract.MunicipalName.ToString()
-                }
+                { "{actNumber}", catchingAct.ID.ToString() },
+                { "{locality}", catchingAct.MunicipalContract.City },
+                { "{catchingActAddress}", catchingAct.CatchingAddress },
+                { "{catchingActDate}", catchingActDate.Day.ToString() },
+                { "{catchingActMonth}", catchingActDate.Month.ToString() },
+                { "{catchingActYear}", catchingActDate.Year.ToString() },
+                { "{organisationName}", AuthController.AuthorizedUser.Organization.Name.ToString() },
+                { "{contractNumber}", catchingAct.MunicipalContract.ID.ToString() },
+                { "{contractDate}", contractDate.Day.ToString() },
+                { "{contractMonth}", contractDate.Month.ToString() },
+                { "{contractYear}", contractDate.Year.ToString() },
+                { "{municipalName}", catchingAct.MunicipalContract.MunicipalName.ToString() }
             };
-
-
-            string path = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
+            string templatePath = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
 
             Word.Application wordApp = new Word.Application();
-
-            Word.Document document = wordApp.Documents.OpenNoRepairDialog(path, ReadOnly: true);
+            Word.Document document = wordApp.Documents.OpenNoRepairDialog(templatePath, ReadOnly: true);
 
             ReplaceWordStub(document, dictionary);
 
@@ -188,9 +144,7 @@ namespace CatchingRegistry.Controllers
                 table.Cell(i + 2, 7).Range.Text = catchingAct.Animals[i].ID.ToString();
             }
 
-
             document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName}\Docs\result.docx");
-
             document.Close();
             wordApp.Quit();
         }

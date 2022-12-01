@@ -1,40 +1,30 @@
 ﻿using CatchingRegistry.Models;
 using CatchingRegistry.Services;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace CatchingRegistry.Controllers
 {
     public class RegistryController
     {
-        private static RegistryController instance;
+        private static RegistryController? instance;
         private RegistryService registryService;
 
-        private int currentPage = 1;
+        int currentPage = 1;
+        public int TotalPages { get; private set; }
         public int PageSize { get; set; } = 10;
-
-        private int totalPages;
-        public int TotalPages
-        {
-            get => totalPages;
-            set => totalPages = value;
-        }
-
-        public int CurrentPage 
-        {
-            get => currentPage;
-            set {
-                if (value > 0 && value <= TotalPages)
+        public int CurrentPage { 
+            get => currentPage; 
+            set
+            {
+                if(value > 0 && value <= TotalPages)
                     currentPage = value;
             }
         }
+        public string Filter { get; set; } = null;
 
         public static RegistryController GetInstance()
         {
             if (instance == null)
                 instance = new RegistryController();
-
             return instance;
         }
 
@@ -45,12 +35,16 @@ namespace CatchingRegistry.Controllers
 
         public List<CatchingAct> GetPage()
         {
-            return registryService.GetPage();
-        }
-
-        public List<CatchingAct> GetPage(string query)
-        {
-            return registryService.GetPage(query);
+            List<CatchingAct> dataSet;
+            if (Filter != null)
+                dataSet = registryService.GetPage(Filter);
+            else
+                dataSet = registryService.GetPage();
+            TotalPages = (int)Math.Ceiling((double)dataSet.Count / PageSize);
+            return dataSet
+                    .Skip((CurrentPage - 1) * PageSize)
+                    .Take(PageSize)
+                    .ToList();
         }
     }
 }

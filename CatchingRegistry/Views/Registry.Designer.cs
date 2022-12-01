@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.registryOpenBtn = new MaterialSkin.Controls.MaterialButton();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.registryAddBtn = new MaterialSkin.Controls.MaterialButton();
@@ -46,7 +46,7 @@
             this.currentPageBox = new MaterialSkin.Controls.MaterialLabel();
             this.registryPageSizeBox = new Siticone.Desktop.UI.WinForms.SiticoneTrackBar();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            this.pageSliderLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.registryPageSizeLabel = new MaterialSkin.Controls.MaterialLabel();
             this.registryGrid = new Siticone.Desktop.UI.WinForms.SiticoneDataGridView();
             this.resetFilterBtn = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)(this.registryGrid)).BeginInit();
@@ -154,7 +154,7 @@
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.materialLabel2.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
-            this.materialLabel2.Location = new System.Drawing.Point(902, 318);
+            this.materialLabel2.Location = new System.Drawing.Point(905, 317);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(101, 24);
@@ -169,7 +169,7 @@
             this.previousPageBtn.Depth = 0;
             this.previousPageBtn.HighEmphasis = true;
             this.previousPageBtn.Icon = null;
-            this.previousPageBtn.Location = new System.Drawing.Point(905, 459);
+            this.previousPageBtn.Location = new System.Drawing.Point(905, 495);
             this.previousPageBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.previousPageBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.previousPageBtn.Name = "previousPageBtn";
@@ -190,7 +190,7 @@
             this.nextPageBtn.Depth = 0;
             this.nextPageBtn.HighEmphasis = true;
             this.nextPageBtn.Icon = null;
-            this.nextPageBtn.Location = new System.Drawing.Point(1094, 459);
+            this.nextPageBtn.Location = new System.Drawing.Point(1094, 495);
             this.nextPageBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.nextPageBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.nextPageBtn.Name = "nextPageBtn";
@@ -234,7 +234,7 @@
             this.pPageSizeApplyBtn.Depth = 0;
             this.pPageSizeApplyBtn.HighEmphasis = true;
             this.pPageSizeApplyBtn.Icon = null;
-            this.pPageSizeApplyBtn.Location = new System.Drawing.Point(902, 391);
+            this.pPageSizeApplyBtn.Location = new System.Drawing.Point(905, 383);
             this.pPageSizeApplyBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.pPageSizeApplyBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.pPageSizeApplyBtn.Name = "pPageSizeApplyBtn";
@@ -252,7 +252,7 @@
             this.currentPageBox.Depth = 0;
             this.currentPageBox.Font = new System.Drawing.Font("Roboto Medium", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.currentPageBox.FontType = MaterialSkin.MaterialSkinManager.fontType.H6;
-            this.currentPageBox.Location = new System.Drawing.Point(992, 459);
+            this.currentPageBox.Location = new System.Drawing.Point(992, 495);
             this.currentPageBox.MouseState = MaterialSkin.MouseState.HOVER;
             this.currentPageBox.Name = "currentPageBox";
             this.currentPageBox.Size = new System.Drawing.Size(95, 40);
@@ -263,7 +263,7 @@
             // registryPageSizeBox
             // 
             this.registryPageSizeBox.FillColor = System.Drawing.SystemColors.ControlDark;
-            this.registryPageSizeBox.Location = new System.Drawing.Point(1026, 350);
+            this.registryPageSizeBox.Location = new System.Drawing.Point(1029, 347);
             this.registryPageSizeBox.Maximum = 50;
             this.registryPageSizeBox.Minimum = 10;
             this.registryPageSizeBox.Name = "registryPageSizeBox";
@@ -278,55 +278,55 @@
             this.materialLabel3.AutoSize = true;
             this.materialLabel3.Depth = 0;
             this.materialLabel3.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialLabel3.Location = new System.Drawing.Point(902, 354);
+            this.materialLabel3.Location = new System.Drawing.Point(905, 351);
             this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel3.Name = "materialLabel3";
             this.materialLabel3.Size = new System.Drawing.Size(115, 19);
             this.materialLabel3.TabIndex = 29;
             this.materialLabel3.Text = "Кол-во записей";
             // 
-            // pageSliderLabel
+            // registryPageSizeLabel
             // 
-            this.pageSliderLabel.Depth = 0;
-            this.pageSliderLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.pageSliderLabel.Location = new System.Drawing.Point(1150, 354);
-            this.pageSliderLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.pageSliderLabel.Name = "pageSliderLabel";
-            this.pageSliderLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.pageSliderLabel.Size = new System.Drawing.Size(24, 19);
-            this.pageSliderLabel.TabIndex = 30;
-            this.pageSliderLabel.Text = "5";
-            this.pageSliderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.registryPageSizeLabel.Depth = 0;
+            this.registryPageSizeLabel.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.registryPageSizeLabel.Location = new System.Drawing.Point(1149, 351);
+            this.registryPageSizeLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.registryPageSizeLabel.Name = "registryPageSizeLabel";
+            this.registryPageSizeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.registryPageSizeLabel.Size = new System.Drawing.Size(24, 19);
+            this.registryPageSizeLabel.TabIndex = 30;
+            this.registryPageSizeLabel.Text = "5";
+            this.registryPageSizeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // registryGrid
             // 
             this.registryGrid.AllowUserToAddRows = false;
             this.registryGrid.AllowUserToDeleteRows = false;
             this.registryGrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.registryGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.registryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.registryGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(63)))), ((int)(((byte)(159)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.registryGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.registryGrid.ColumnHeadersHeight = 40;
             this.registryGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.registryGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.registryGrid.DefaultCellStyle = dataGridViewCellStyle7;
             this.registryGrid.Dock = System.Windows.Forms.DockStyle.Left;
             this.registryGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.registryGrid.Location = new System.Drawing.Point(0, 64);
@@ -334,14 +334,14 @@
             this.registryGrid.Name = "registryGrid";
             this.registryGrid.ReadOnly = true;
             this.registryGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.registryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.registryGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.registryGrid.RowHeadersVisible = false;
             this.registryGrid.RowHeadersWidth = 51;
             this.registryGrid.RowTemplate.Height = 30;
@@ -372,19 +372,20 @@
             // 
             // resetFilterBtn
             // 
+            this.resetFilterBtn.AutoSize = false;
             this.resetFilterBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.resetFilterBtn.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.resetFilterBtn.Depth = 0;
             this.resetFilterBtn.HighEmphasis = true;
             this.resetFilterBtn.Icon = null;
-            this.resetFilterBtn.Location = new System.Drawing.Point(721, 555);
+            this.resetFilterBtn.Location = new System.Drawing.Point(1029, 383);
             this.resetFilterBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.resetFilterBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.resetFilterBtn.Name = "resetFilterBtn";
             this.resetFilterBtn.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.resetFilterBtn.Size = new System.Drawing.Size(154, 36);
+            this.resetFilterBtn.Size = new System.Drawing.Size(145, 36);
             this.resetFilterBtn.TabIndex = 32;
-            this.resetFilterBtn.Text = "Убрать фильтры";
+            this.resetFilterBtn.Text = "Сбросить фильтр";
             this.resetFilterBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.resetFilterBtn.UseAccentColor = false;
             this.resetFilterBtn.UseVisualStyleBackColor = true;
@@ -397,7 +398,7 @@
             this.ClientSize = new System.Drawing.Size(1188, 610);
             this.Controls.Add(this.resetFilterBtn);
             this.Controls.Add(this.registryGrid);
-            this.Controls.Add(this.pageSliderLabel);
+            this.Controls.Add(this.registryPageSizeLabel);
             this.Controls.Add(this.materialLabel3);
             this.Controls.Add(this.registryPageSizeBox);
             this.Controls.Add(this.currentPageBox);
@@ -442,7 +443,7 @@
         private MaterialSkin.Controls.MaterialLabel currentPageBox;
         private Siticone.Desktop.UI.WinForms.SiticoneTrackBar registryPageSizeBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
-        private MaterialSkin.Controls.MaterialLabel pageSliderLabel;
+        private MaterialSkin.Controls.MaterialLabel registryPageSizeLabel;
         private Siticone.Desktop.UI.WinForms.SiticoneDataGridView registryGrid;
         private MaterialSkin.Controls.MaterialButton resetFilterBtn;
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CatchingRegistry
+namespace CatchingRegistry.Utils
 {
     public class QueryBuilder
     {
@@ -31,7 +31,7 @@ namespace CatchingRegistry
         public QueryBuilder ByCondition(Dictionary<string, string> dictionary)
         {
             foreach (var condition in dictionary)
-                if(!string.IsNullOrWhiteSpace(condition.Value))
+                if (!string.IsNullOrWhiteSpace(condition.Value))
                     conditions.Add($"{condition.Key} LIKE '%{condition.Value}%'");
 
             return this;
@@ -39,7 +39,7 @@ namespace CatchingRegistry
 
         public string GetResult()
         {
-            if(conditions.Count > 0)
+            if (conditions.Count > 0)
                 stringbuilder.Append(" WHERE ");
 
             var conditionString = string.Join(" AND ", conditions);

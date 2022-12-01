@@ -14,14 +14,12 @@ namespace CatchingRegistry.Views
 {
     public partial class Filter : Form
     {
-        private RegistryController registryController;
         private Dictionary<string, string> dictionary;
         private DataGridViewColumn column;
 
         public Filter(Dictionary<string, string> dictionary, DataGridViewColumn column)
         {
             InitializeComponent();
-            this.registryController = RegistryController.GetInstance();
             this.column = column;
             this.dictionary = dictionary;
 
@@ -33,14 +31,6 @@ namespace CatchingRegistry.Views
         {
             dictionary[column.Name] = filterBox.Text;
             this.DialogResult = DialogResult.OK;
-        }
-
-        private void filterResetBtn_Click(object sender, EventArgs e)
-        {
-            //TODO: сброс фильтра
-/*            filterBox.Text = "";
-            dictionary[columnName] = filterBox.Text;
-            this.DialogResult = DialogResult.OK;*/
         }
     }
 }

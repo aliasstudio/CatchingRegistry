@@ -1,4 +1,5 @@
 ﻿using CatchingRegistry.Models;
+using CatchingRegistry.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,15 +23,9 @@ namespace CatchingRegistry.Services
         }
 
         public List<CatchingAct> GetPage()
-        {
-            ctx = new();
-            return ctx.CatchingActs.ToList();
-        }
+            => new ApplicationContext().CatchingActs.ToList();
 
         public List<CatchingAct> GetPage(string query)
-        {
-            ctx = new();
-            return ctx.CatchingActs.FromSqlRaw(query).ToList();
-        }
+            => new ApplicationContext().CatchingActs.FromSqlRaw(query).ToList();
     }
 }

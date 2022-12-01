@@ -1,4 +1,5 @@
 ﻿using CatchingRegistry.Models;
+using CatchingRegistry.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatchingRegistry.Controllers
@@ -6,7 +7,7 @@ namespace CatchingRegistry.Controllers
     public class MunicipalController
     {
         private static MunicipalController instance;
-        private static ApplicationContext ctx = new();
+        private static ApplicationContext ctx;
 
         public static MunicipalController GetInstance()
         {
