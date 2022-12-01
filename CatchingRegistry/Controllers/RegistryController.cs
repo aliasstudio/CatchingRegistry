@@ -1,4 +1,5 @@
 ﻿using CatchingRegistry.Models;
+using CatchingRegistry.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,7 +9,7 @@ namespace CatchingRegistry.Controllers
     public class RegistryController
     {
         private static RegistryController instance;
-        private static ApplicationContext ctx = new();
+        private RegistryService registryService;
 
         private int currentPage = 1;
         public int PageSize { get; set; } = 10;
@@ -33,21 +34,23 @@ namespace CatchingRegistry.Controllers
         {
             if (instance == null)
                 instance = new RegistryController();
-            ctx = new();
 
             return instance;
         }
 
+        public RegistryController()
+        {
+            registryService = RegistryService.GetInstance();
+        }
+
         public List<CatchingAct> GetPage()
         {
-            ctx = new();
-            return ctx.CatchingActs.ToList();
+            return registryService.GetPage();
         }
 
         public List<CatchingAct> GetPage(string query)
         {
-            ctx = new();
-            return ctx.CatchingActs.FromSqlRaw(query).ToList();
+            return registryService.GetPage(query);
         }
     }
 }

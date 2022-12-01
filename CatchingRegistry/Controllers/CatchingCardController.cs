@@ -1,4 +1,5 @@
 using CatchingRegistry.Models;
+using CatchingRegistry.Services;
 using System.Linq;
 using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
@@ -9,43 +10,33 @@ namespace CatchingRegistry.Controllers
     public class CatchingCardController
     {
         private static CatchingCardController instance;
-        private static ApplicationContext ctx = new();
+        private CatchingCardService catchingCardService;
         private static List<FileInfo> AttachedFiles = new();
 
         public static CatchingCardController GetInstance()
         {
             if (instance == null)
                 instance = new CatchingCardController();
-            ctx = new();
 
             return instance;
         }
 
-        public CatchingAct? GetByID(int actID) => ctx.CatchingActs.FirstOrDefault(x => x.ID == actID);
+        public CatchingCardController()
+        {
+            catchingCardService = CatchingCardService.GetInstance();
+        }
+
+        public CatchingAct? GetByID(int actID) => catchingCardService.GetByID(actID);
         public void Delete(int actID) 
-        { 
-            ctx.CatchingActs.Remove(GetByID(actID));
-            ctx.SaveChanges();
+        {
+            catchingCardService.Delete(actID);
         }
 
         public void Save(CatchingAct catchingAct)
         {
-            using (var db = new ApplicationContext())
-            {
-                if (db.CatchingActs.Contains(catchingAct))
-                    db.CatchingActs.Update(catchingAct);
-                else
-                    db.CatchingActs.Add(catchingAct);
-                try
-                {
-                    db.SaveChanges();
-                    UpdateFiles(catchingAct);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Ошибка сохранения акта. {ex}");
-                }
-            }
+            catchingCardService.Save(catchingAct);
+
+            UpdateFiles(catchingAct);
         }
 
         public List<Animal> GetAnimals(CatchingAct catchingAct)
@@ -81,9 +72,8 @@ namespace CatchingRegistry.Controllers
             var file = AttachedFiles.FirstOrDefault(x => x.Name.Contains(attachedFile.Name));
             if (file != null)
                 AttachedFiles.Remove(file);
-            //Bug
-            ctx.Files.Remove(attachedFile);
-            catchingAct.Files.Remove(attachedFile);
+
+            catchingCardService.RemoveFile(catchingAct, attachedFile);
         }
 
         private void UpdateFiles(CatchingAct catchingAct)

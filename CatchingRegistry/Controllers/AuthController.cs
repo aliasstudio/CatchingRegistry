@@ -1,18 +1,23 @@
 ﻿using CatchingRegistry.Models;
+using CatchingRegistry.Services;
 
 namespace CatchingRegistry.Controllers
 {
     public class AuthController
     {
         private static AuthController instance;
-        private static ApplicationContext ctx;
+        private static AuthService authService;
 
         public static AuthController GetInstance()
         {
             if (instance == null)
                 instance = new AuthController();
-            ctx = new();
             return instance;
+        }
+
+        public AuthController()
+        {
+            authService = AuthService.GetInstance();
         }
 
         public static User? AuthorizedUser { get; private set; } = null;
@@ -21,11 +26,8 @@ namespace CatchingRegistry.Controllers
             if (userName.Length < 1 || userPassword.Length < 1)
                 throw new Exception("Одно из полей не заполненно");
 
-            var user = ctx.Employees.FirstOrDefault(
-                user 
-                => user.Name == userName
-                && user.Password == userPassword
-            );
+            var user = authService.Authorize(userName, userPassword);
+
             if (user != null)
                 AuthorizedUser = user;
             else
