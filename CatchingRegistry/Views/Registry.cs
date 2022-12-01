@@ -64,7 +64,9 @@ namespace CatchingRegistry.Views
             try
             {
                 var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
-                new CatchingCard(itemID).Show();
+                new CatchingCard(itemID).ShowDialog();
+                records = registryController.GetPage();
+                UpdateNavigationItems();
             } 
             catch(Exception ex)
             {
@@ -73,7 +75,9 @@ namespace CatchingRegistry.Views
         }
         private void registryAddBtn_Click(object sender, EventArgs e)
         {
-            new CatchingCard().Show();
+            new CatchingCard().ShowDialog();
+            records = registryController.GetPage();
+            UpdateNavigationItems();
         }
 
         private void registryDeleteBtn_Click(object sender, EventArgs e)
@@ -82,6 +86,8 @@ namespace CatchingRegistry.Views
             { 
                 var itemID = (int)registryGrid[0, registryGrid.SelectedRows[0].Index].Value;
                 catchingCardController.Delete(itemID);
+                records = registryController.GetPage();
+                UpdateNavigationItems();
             }
             catch (Exception ex)
             {

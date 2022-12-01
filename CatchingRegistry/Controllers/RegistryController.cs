@@ -40,14 +40,14 @@ namespace CatchingRegistry.Controllers
 
         public List<CatchingAct> GetPage()
         {
-            return ctx.CatchingActs
-                .ToList();
+            ctx = new();
+            return ctx.CatchingActs.ToList();
         }
 
         public List<CatchingAct> GetPage(string query)
         {
-            var res = ctx.CatchingActs.FromSqlRaw(query).ToList();
-            return res;
+            ctx = new();
+            return ctx.CatchingActs.FromSqlRaw(query).ToList();
         }
     }
 }
