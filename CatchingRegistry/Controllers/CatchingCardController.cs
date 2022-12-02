@@ -47,6 +47,8 @@ namespace CatchingRegistry.Controllers
         public void RemoveAnimal(CatchingAct catchingAct, int animalID)
             => catchingAct.Animals.Remove(catchingAct.Animals.FirstOrDefault(x => x.ID == animalID));
 
+        public List<AttachedFile> GetAttachedFiles(CatchingAct catchingAct)
+            => catchingCardService.GetAttachedFiles(catchingAct);
         public void AddFile(CatchingAct catchingAct, string filePath)
         {
             var fileName = filePath.Split("\\").Last();
@@ -56,11 +58,7 @@ namespace CatchingRegistry.Controllers
             var fileSavePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
 
             if (!File.Exists(@$"{fileSavePath}\{fileName}"))
-                catchingAct.Files.Add(new AttachedFile()
-                {
-                    Name = fileName,
-                    CatchingActID = catchingAct.ID
-                });
+                catchingCardService.AddFile(catchingAct, fileName);
         }
         public void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
         {

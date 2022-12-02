@@ -18,10 +18,10 @@ namespace CatchingRegistry.Services
         }
 
         public CatchingAct? GetBy(Expression<Func<CatchingAct, bool>> predicate)
-            => new ApplicationContext().CatchingActs.FirstOrDefault(predicate);
+            => ctx.CatchingActs.FirstOrDefault(predicate);
 
         public CatchingAct? GetByID(int actID)
-            => new ApplicationContext().CatchingActs
+            => ctx.CatchingActs
                 .Include(x => x.MunicipalContract)
                 .Include(x => x.Animals)
                 .Include(x => x.Files)
@@ -49,11 +49,23 @@ namespace CatchingRegistry.Services
             }
         }
 
+        public List<AttachedFile> GetAttachedFiles(CatchingAct catchingAct)
+            => new ApplicationContext().CatchingActs.FirstOrDefault(x => x.ID == catchingAct.ID).Files;
+
         public void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
         {
             //Bug
             ctx.Files.Remove(attachedFile);
             catchingAct.Files.Remove(attachedFile);
+        }
+
+        public void AddFile(CatchingAct catchingAct, string fileName)
+        {
+            catchingAct.Files.Add(new AttachedFile()
+            {
+                Name = fileName,
+                CatchingActID = catchingAct.ID
+            });
         }
     }
 }

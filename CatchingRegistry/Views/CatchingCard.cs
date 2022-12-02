@@ -51,7 +51,7 @@ namespace CatchingRegistry.Views
 
             if (catchingAct.MunicipalContract != null)
             {
-                foreach (var file in catchingAct.Files)
+                foreach (var file in catchingCardController.GetAttachedFiles(catchingAct))
                     catchCardFileList.Items.Add(new MaterialListBoxItem(file.Name.Split("\\").Last()));
 
                 FillCatchingActData();
@@ -170,8 +170,6 @@ namespace CatchingRegistry.Views
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
             => FillAnimalData();
 
-        
-
         private void catchCardFileUploadBtn_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
@@ -193,11 +191,6 @@ namespace CatchingRegistry.Views
         private void catchCardExportBtn_Click_1(object sender, EventArgs e)
         {
             catchingCardController.ExportToWord(catchingAct);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            catchingCardController.Save(catchingAct);
         }
     }
 }
