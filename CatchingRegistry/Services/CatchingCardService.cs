@@ -15,7 +15,14 @@ namespace CatchingRegistry.Services
             return instance;
         }
 
-        public CatchingAct? GetByID(int actID) => ctx.CatchingActs.FirstOrDefault(x => x.ID == actID);
+        public CatchingAct? GetByID(int actID)
+        {
+            var contract = ctx.CatchingActs.FirstOrDefault(x => x.ID == actID);
+            if (contract.MunicipalContract == null)
+                contract.MunicipalContract = ctx.MunicipalContracts.FirstOrDefault(x => x.ID == contract.MunicipalContractID);
+
+            return contract;
+        }
 
         public void Delete(int actID)
         {
@@ -25,6 +32,7 @@ namespace CatchingRegistry.Services
 
         public void Save(CatchingAct catchingAct)
         {
+            ctx = new();
             if (ctx.CatchingActs.Contains(catchingAct))
                 ctx.CatchingActs.Update(catchingAct);
             else
