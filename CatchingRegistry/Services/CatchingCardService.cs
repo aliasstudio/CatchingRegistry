@@ -18,18 +18,14 @@ namespace CatchingRegistry.Services
         }
 
         public CatchingAct? GetBy(Expression<Func<CatchingAct, bool>> predicate)
-        {
-            return ctx.CatchingActs.FirstOrDefault(predicate);
-        }
+            => new ApplicationContext().CatchingActs.FirstOrDefault(predicate);
 
         public CatchingAct? GetByID(int actID)
-        {
-            return ctx.CatchingActs
+            => new ApplicationContext().CatchingActs
                 .Include(x => x.MunicipalContract)
                 .Include(x => x.Animals)
                 .Include(x => x.Files)
                 .FirstOrDefault(x => x.ID == actID);
-        }
 
         public void Delete(int actID)
         {
