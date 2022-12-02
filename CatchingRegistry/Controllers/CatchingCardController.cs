@@ -55,16 +55,12 @@ namespace CatchingRegistry.Controllers
             var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
             var fileSavePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
 
-            if (Directory.Exists(fileSavePath))
-            {
-                var existFile = Directory.GetFiles(fileSavePath).FirstOrDefault(x => x.Equals(@$"{fileSavePath}\{fileName}"));
-                if (existFile == null)
-                    catchingAct.Files.Add(new AttachedFile()
-                    {
-                        Name = fileName,
-                        CatchingActID = catchingAct.ID
-                    });
-            }
+            if (!File.Exists(@$"{fileSavePath}\{fileName}"))
+                catchingAct.Files.Add(new AttachedFile()
+                {
+                    Name = fileName,
+                    CatchingActID = catchingAct.ID
+                });
         }
         public void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
         {
