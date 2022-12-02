@@ -128,9 +128,14 @@ namespace CatchingRegistry.Views
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
-            catchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
-            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
-            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
+            var animal = CreateAnimalFromData();
+            if (catchingCardController.GetAnimals(catchingAct).FirstOrDefault(x => x.ID == animal.ID) == null)
+            {
+                catchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
+                catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
+                catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
+            } else
+                MessageBox.Show($"Животное с таким номером чипа уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
