@@ -129,9 +129,10 @@ namespace CatchingRegistry.Views
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
             var animal = CreateAnimalFromData();
-            if (catchingCardController.GetAnimals(catchingAct).FirstOrDefault(x => x.ID == animal.ID) == null)
+            if (catchingCardController.GetAnimals(catchingAct).FirstOrDefault(x => x.ID == animal.ID) == null
+                && catchingCardController.GetAllAnimals().FirstOrDefault(x => x.ID == animal.ID) == null)
             {
-                catchingCardController.AddAnimal(catchingAct, CreateAnimalFromData());
+                catchingCardController.AddAnimal(catchingAct, animal);
                 catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
                 catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
             } else

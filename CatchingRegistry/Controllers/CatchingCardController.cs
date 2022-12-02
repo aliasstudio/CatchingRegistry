@@ -37,12 +37,15 @@ namespace CatchingRegistry.Controllers
             UpdateFiles(catchingAct);
         }
 
+        //Тут мб надо делать отдельно AnimalService, AnimalController
+        public List<Animal> GetAllAnimals()
+            => catchingCardService.GetAllAnimals();
         public List<Animal> GetAnimals(CatchingAct catchingAct)
             => catchingAct.Animals != null ? catchingAct.Animals.ToList() : new List<Animal>();
         public void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
         public void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
             [catchingAct.Animals.IndexOf(
-                catchingAct.Animals.FirstOrDefault(x => x.ID == animal.ID)
+                catchingAct.Animals.Single(x => x.ID == animal.ID)
             )] = animal;
         public void RemoveAnimal(CatchingAct catchingAct, int animalID)
             => catchingAct.Animals.Remove(catchingAct.Animals.FirstOrDefault(x => x.ID == animalID));
@@ -65,7 +68,7 @@ namespace CatchingRegistry.Controllers
             var file = AttachedFiles.FirstOrDefault(x => x.Name.Contains(attachedFile.Name));
             if (file != null)
                 AttachedFiles.Remove(file);
-            catchingCardService.RemoveFile(catchingAct, attachedFile);
+            catchingAct.Files.Remove(attachedFile);
         }
         private void UpdateFiles(CatchingAct catchingAct)
         {
@@ -86,7 +89,14 @@ namespace CatchingRegistry.Controllers
                 {
                     var fileName = file.Split("\\").Last();
                     if (catchingAct.Files.FirstOrDefault(x => x.Name == fileName) == null)
+                    {
                         File.Delete(file);
+                        catchingCardService.RemoveFile(catchingAct, new AttachedFile()
+                        {
+                            Name = fileName,
+                            CatchingActID = catchingAct.ID
+                        });
+                    }
                 }
             else
                 Directory.Delete(fileSavePath);
