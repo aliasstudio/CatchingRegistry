@@ -129,7 +129,7 @@ namespace CatchingRegistry.Views
             this.catchCardExportBtn.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.catchCardExportBtn.UseAccentColor = false;
             this.catchCardExportBtn.UseVisualStyleBackColor = true;
-            this.catchCardExportBtn.Click += new System.EventHandler(this.catchCardExportBtn_Click_1);
+            this.catchCardExportBtn.Click += new System.EventHandler(this.catchCardExportBtn_Click);
             // 
             // materialLabel2
             // 
@@ -821,6 +821,7 @@ namespace CatchingRegistry.Views
             this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Акт отлова";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CatchingCard_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

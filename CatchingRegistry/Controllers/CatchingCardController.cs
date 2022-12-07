@@ -29,12 +29,14 @@ namespace CatchingRegistry.Controllers
         public void Delete(int actID) 
         {
             catchingCardService.Delete(actID);
+            LoggerService.Add($"ID: {actID}");
         }
 
         public void Save(CatchingAct catchingAct)
         {
             catchingCardService.Save(catchingAct);
             UpdateFiles(catchingAct);
+            LoggerService.Add(catchingAct);
         }
 
         //Тут мб надо делать отдельно AnimalService, AnimalController
@@ -42,13 +44,22 @@ namespace CatchingRegistry.Controllers
             => catchingCardService.GetAllAnimals();
         public List<Animal> GetAnimals(CatchingAct catchingAct)
             => catchingAct.Animals != null ? catchingAct.Animals.ToList() : new List<Animal>();
-        public void AddAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals.Add(animal);
-        public void EditAnimal(CatchingAct catchingAct, Animal animal) => catchingAct.Animals
-            [catchingAct.Animals.IndexOf(
+        public void AddAnimal(CatchingAct catchingAct, Animal animal) {
+            catchingAct.Animals.Add(animal);
+            LoggerService.Add(animal);
+        }
+        public void EditAnimal(CatchingAct catchingAct, Animal animal)
+        {
+            catchingAct.Animals[catchingAct.Animals.IndexOf(
                 catchingAct.Animals.Single(x => x.ID == animal.ID)
             )] = animal;
+            LoggerService.Add(animal);
+        }
         public void RemoveAnimal(CatchingAct catchingAct, int animalID)
-            => catchingAct.Animals.Remove(catchingAct.Animals.FirstOrDefault(x => x.ID == animalID));
+        {
+            catchingAct.Animals.Remove(catchingAct.Animals.FirstOrDefault(x => x.ID == animalID));
+            LoggerService.Add($"ID: {animalID}");
+        }
 
         public List<AttachedFile> GetAttachedFiles(CatchingAct catchingAct)
             => catchingCardService.GetAttachedFiles(catchingAct);
@@ -59,9 +70,9 @@ namespace CatchingRegistry.Controllers
             //Проверка на совпадение файлов
             var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
             var fileSavePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
-
             if (!File.Exists(@$"{fileSavePath}\{fileName}"))
                 catchingCardService.AddFile(catchingAct, fileName);
+            LoggerService.Add(filePath);
         }
         public void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
         {
@@ -69,6 +80,7 @@ namespace CatchingRegistry.Controllers
             if (file != null)
                 AttachedFiles.Remove(file);
             catchingAct.Files.Remove(attachedFile);
+            LoggerService.Add(attachedFile);
         }
         private void UpdateFiles(CatchingAct catchingAct)
         {

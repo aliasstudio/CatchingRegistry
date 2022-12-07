@@ -1,4 +1,5 @@
 using CatchingRegistry.Controllers;
+using CatchingRegistry.Services;
 using CatchingRegistry.Utils;
 using MaterialSkin;
 using MaterialSkin.Controls;

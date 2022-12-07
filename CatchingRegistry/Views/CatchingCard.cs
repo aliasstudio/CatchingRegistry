@@ -5,6 +5,7 @@ using System.Reflection;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Globalization;
+using CatchingRegistry.Services;
 
 namespace CatchingRegistry.Views
 {
@@ -20,6 +21,7 @@ namespace CatchingRegistry.Views
             catchingAct = new();
             catchingAct.Animals = new List<Animal>();
             catchingAct.Files = new List<AttachedFile>();
+            LoggerService.Add("New Act");
 
             InitializeComponent();
             InitializeItems();
@@ -30,6 +32,7 @@ namespace CatchingRegistry.Views
         {
             InitializeControllers();
             catchingAct = catchingCardController.GetByID(cardID);
+            LoggerService.Add(catchingAct);
 
             InitializeComponent();
             InitializeItems();
@@ -116,15 +119,23 @@ namespace CatchingRegistry.Views
             animalFeaturesBox.Text = GetAnimalValueAtIndex(5);
         }
 
-        private Animal CreateAnimalFromData() => new()
+        private Animal CreateAnimalFromData()
         {
-            ID = int.Parse(animalCheapNumBox.Text),
-            Category = animalCategoryCombo.Text,
-            Gender = animalGenderCombo.Text,
-            Size = animalSizeBox.Text,
-            Color = animalСolorBox.Text,
-            Features = animalFeaturesBox.Text,
-        };
+            var animal = new Animal();
+            try
+            {
+                animal.ID = int.Parse(animalCheapNumBox.Text);
+                animal.Category = animalCategoryCombo.Text;
+                animal.Gender = animalGenderCombo.Text;
+                animal.Size = animalSizeBox.Text;
+                animal.Color = animalСolorBox.Text;
+                animal.Features = animalFeaturesBox.Text;
+            } catch
+            {
+                MessageBox.Show($"Неверно заполненны данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return animal;
+        }
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
@@ -189,9 +200,14 @@ namespace CatchingRegistry.Views
             catchCardFileList.Items.RemoveAt(catchCardFileList.SelectedIndex);
         }
 
-        private void catchCardExportBtn_Click_1(object sender, EventArgs e)
+        private void catchCardExportBtn_Click(object sender, EventArgs e)
         {
             catchingCardController.ExportToWord(catchingAct);
+        }
+
+        private void CatchingCard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LoggerService.Add("CatchingCardClosed");
         }
     }
 }
