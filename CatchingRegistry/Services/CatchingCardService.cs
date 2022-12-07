@@ -7,41 +7,39 @@ namespace CatchingRegistry.Services
     public class CatchingCardService
     {
         public static CatchingCardService instance;
-        private static ApplicationContext ctx;
-
+        ApplicationContext actContext = new();
         public static CatchingCardService GetInstance()
         {
             if (instance == null)
                 instance = new CatchingCardService();
-            ctx = new();
             return instance;
         }
 
-        public CatchingAct? GetBy(Expression<Func<CatchingAct, bool>> predicate)
-            => new ApplicationContext().CatchingActs.FirstOrDefault(predicate);
-
         public CatchingAct? GetByID(int actID)
-            => new ApplicationContext().CatchingActs
-                .Include(x => x.MunicipalContract)
-                .Include(x => x.Animals)
-                .Include(x => x.Files)
-                .FirstOrDefault(x => x.ID == actID);
+        {
+            actContext = new ApplicationContext();
+            return actContext.CatchingActs
+                        .Include(x => x.MunicipalContract)
+                        .Include(x => x.Animals)
+                        .Include(x => x.Files)
+                        .FirstOrDefault(x => x.ID == actID);
+        }
 
         public void Delete(int actID)
         {
-            ctx.CatchingActs.Remove(GetByID(actID));
+            using var ctx = new ApplicationContext();
+            var act = ctx.CatchingActs.Find(actID);
+            ctx.CatchingActs.Remove(act);
             ctx.SaveChanges();
         }
 
         public void Save(CatchingAct catchingAct)
         {
-            if (ctx.CatchingActs.Contains(catchingAct))
-                ctx.CatchingActs.Update(catchingAct);
-            else
-                ctx.CatchingActs.Add(catchingAct);
+            if (!actContext.CatchingActs.Contains(catchingAct))
+                actContext.CatchingActs.Add(catchingAct);
             try
             {
-                ctx.SaveChanges();
+                actContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -53,18 +51,20 @@ namespace CatchingRegistry.Services
             => new ApplicationContext().Animals.ToList();
 
         public List<AttachedFile> GetAttachedFiles(CatchingAct catchingAct)
-            => new ApplicationContext().CatchingActs.FirstOrDefault(x => x.ID == catchingAct.ID).Files;
+            => new ApplicationContext().CatchingActs.Include(x => x.Files).FirstOrDefault(x => x.ID == catchingAct.ID).Files;
 
         public void RemoveFile(CatchingAct catchingAct, AttachedFile attachedFile)
             => new ApplicationContext().Files.Remove(attachedFile);
 
         public void AddFile(CatchingAct catchingAct, string fileName)
         {
-            catchingAct.Files.Add(new AttachedFile()
+            var file = new AttachedFile()
             {
                 Name = fileName,
                 CatchingActID = catchingAct.ID
-            });
+            };
+            catchingAct.Files.Add(file);
+            LoggerService.Add(file);
         }
     }
 }

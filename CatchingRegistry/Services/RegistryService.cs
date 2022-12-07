@@ -12,13 +12,11 @@ namespace CatchingRegistry.Services
     public class RegistryService
     {
         public static RegistryService instance;
-        private static ApplicationContext ctx;
 
         public static RegistryService GetInstance()
         {
             if (instance == null)
                 instance = new RegistryService();
-            ctx = new();
             return instance;
         }
 
