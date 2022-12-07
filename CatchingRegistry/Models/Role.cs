@@ -8,34 +8,20 @@ namespace CatchingRegistry.Models
         public int ID { get; set; }
         public string Name { get; set; }
 
-        /*        public string[] roleNames = {
-                    "Подписант приюта",
-                    "Подписант по отлову",
-                    "Подписант ОМСУ",
-                    "Подписант ВетСлужбы",
-                    "Оператор приюта",
-                    "Оператор ОМСУ",
-                    "Оператор ВетСлужбы",
-                    "Куратор приюта",
-                    "Куратор по отлову",
-                    "Куратор ОМСУ",
-                    "Куратор ВетСлужбы",
-                    "Оператор по отлову"
-                };*/
-        public PosibilityType Posibility { get; set; } = PosibilityType.Observer;
+        public int Posibility { get; set; }
 
-        public VisibilityType Visibility { get; set; } = VisibilityType.Organization;
+        public int Visibility { get; set; }
 
         public enum PosibilityType
         {
-            Redactor,
-            Observer
+            Redactor = 0,
+            Observer = 1
         }
         public enum VisibilityType
         {
-            All,
-            Organization,
-            Municipality
+            All = 0,
+            Organization = 1,
+            Municipality = 2
         }
     }
 }
