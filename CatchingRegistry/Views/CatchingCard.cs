@@ -214,9 +214,6 @@ namespace CatchingRegistry.Views
         }
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
-            if (!IsAnimalDataCorrect())
-                return;
-
             catchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
         }
