@@ -6,7 +6,7 @@ namespace CatchingRegistry.Models
 {
     public class CatchingAct
     {
-        public int ID { get; set; }
+        public int? ID { get; set; }
         public string Date { get; set; }
         public int MunicipalContractID { get; set; }
         public string CatchingPurpose { get; set; }

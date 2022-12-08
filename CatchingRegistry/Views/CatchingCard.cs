@@ -6,6 +6,8 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Globalization;
 using CatchingRegistry.Services;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace CatchingRegistry.Views
 {
@@ -26,6 +28,7 @@ namespace CatchingRegistry.Views
             InitializeComponent();
             InitializeItems();
             InitializeTheme();
+
         }
 
         public CatchingCard(int cardID)
@@ -134,38 +137,86 @@ namespace CatchingRegistry.Views
             animalFeaturesBox.Text = GetAnimalValueAtIndex(5);
         }
 
+        private bool AreFieldsEmpty(Dictionary<string, string> keyValuePairs)
+        {
+            var spaceRegex = new Regex(@"\S+");
+
+            foreach (var item in keyValuePairs)
+                if (!spaceRegex.IsMatch(item.Value))
+                {
+                    MessageBox.Show($"Поле '{item.Key}' не заполнено.");
+                    return true;
+                }
+
+            return false;
+        }
+
+        private bool IsAnimalDataCorrect()
+        {
+            var keyValuePairs = new Dictionary<string, string>
+            {
+                { "Номер чипа", animalCheapNumBox.Text },
+                { "Категория", animalCategoryCombo.Text },
+                { "Пол", animalGenderCombo.Text },
+                { "Размер", animalSizeBox.Text },
+                { "Окрас", animalСolorBox.Text },
+                { "Особенности", animalFeaturesBox.Text }
+            };
+
+            // Проверка на пустые поля
+            if (AreFieldsEmpty(keyValuePairs))
+                return false;
+
+            // Проверка на корректность указаного номера животного
+            var numRegex = new Regex(@"\D");
+            if (numRegex.IsMatch(animalCheapNumBox.Text))
+            {
+                MessageBox.Show($"Номер животного - число.");
+                return false;
+            }
+
+            // Проверка на существование животного с таким номером.
+            var isAnimalNumExist = catchingCardController
+                .GetAllAnimals()
+                .Any(x => x.ID == int.Parse(animalCheapNumBox.Text));
+            if (isAnimalNumExist)
+            {
+                MessageBox.Show("Животное с таким номером уже существует.");
+                return false;
+            }
+
+            return true;
+        }
+
         private Animal CreateAnimalFromData()
         {
             var animal = new Animal();
-            try
-            {
-                animal.ID = int.Parse(animalCheapNumBox.Text);
-                animal.Category = animalCategoryCombo.Text;
-                animal.Gender = animalGenderCombo.Text;
-                animal.Size = animalSizeBox.Text;
-                animal.Color = animalСolorBox.Text;
-                animal.Features = animalFeaturesBox.Text;
-            } catch
-            {
-                MessageBox.Show($"Неверно заполненны данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            animal.ID = int.Parse(animalCheapNumBox.Text);
+            animal.Category = animalCategoryCombo.Text;
+            animal.Gender = animalGenderCombo.Text;
+            animal.Size = animalSizeBox.Text;
+            animal.Color = animalСolorBox.Text;
+            animal.Features = animalFeaturesBox.Text;
+          
             return animal;
         }
 
         private void catchAnimalAddBtn_Click(object sender, EventArgs e)
         {
+            if (!IsAnimalDataCorrect())
+                return;
+
             var animal = CreateAnimalFromData();
-            if (catchingCardController.GetAnimals(catchingAct).FirstOrDefault(x => x.ID == animal.ID) == null
-                && catchingCardController.GetAllAnimals().FirstOrDefault(x => x.ID == animal.ID) == null)
-            {
-                catchingCardController.AddAnimal(catchingAct, animal);
-                catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
-                catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
-            } else
-                MessageBox.Show($"Животное с таким номером чипа уже существует", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catchingCardController.AddAnimal(catchingAct, animal);
+            catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
+            catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
         private void catchAnimalEditBtn_Click(object sender, EventArgs e)
         {
+            if (!IsAnimalDataCorrect())
+                return;
+
             catchingCardController.EditAnimal(catchingAct, CreateAnimalFromData());
             catchAnimalsGrid.DataSource = catchingCardController.GetAnimals(catchingAct);
         }
@@ -177,21 +228,32 @@ namespace CatchingRegistry.Views
             catchAnimalsCountLabel.Text = catchingAct.Animals.Count().ToString();
         }
 
+        private bool IsActDataCorrect()
+        {
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>
+            {
+                { "Муниципальный контракт", municipalNumCombo.Text },
+                { "Адрес отлова", catchAddressBox.Text },
+                { "Цель отлова", catchPurposeBox.Text }
+            };
+
+            if (AreFieldsEmpty(keyValuePairs))
+                return false;
+
+            return true;
+        }
+
         private void catchCardSaveBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                catchingAct.MunicipalContractID = int.Parse(municipalNumCombo.Text.Substring(1));
-                catchingAct.CatchingPurpose = catchPurposeBox.Text;
-                catchingAct.CatchingAddress = catchAddressBox.Text;
-                catchingAct.Date = catchDatePicker.Value.ToString("dd.MM.yyyy");
-                catchingCardController.Save(catchingAct);
-                MessageBox.Show("Акт успешно сохранен");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            if (!IsActDataCorrect())
+                return; 
+
+            catchingAct.MunicipalContractID = int.Parse(municipalNumCombo.Text.Substring(1));
+            catchingAct.CatchingPurpose = catchPurposeBox.Text;
+            catchingAct.CatchingAddress = catchAddressBox.Text;
+            catchingAct.Date = catchDatePicker.Value.ToString("dd.MM.yyyy");
+            catchingCardController.Save(catchingAct);
+            MessageBox.Show("Акт успешно сохранен");
         }
 
         private void catchAnimalsGrid_CellClick(object sender, DataGridViewCellEventArgs e) 
@@ -217,6 +279,11 @@ namespace CatchingRegistry.Views
 
         private void catchCardExportBtn_Click(object sender, EventArgs e)
         {
+            if (catchingAct.ID == null)
+            {
+                MessageBox.Show("Сохраните акт отлова перед экспортом в ворд");
+                return;
+            }
             catchingCardController.ExportToWord(catchingAct);
         }
 
@@ -229,7 +296,6 @@ namespace CatchingRegistry.Views
         {
             var fileIndex = catchCardFileList.SelectedIndex;
             var fileName = catchCardFileList.Items[fileIndex].Text;
-
             catchingCardController.OpenFile(catchingAct, fileName);
         }
     }
