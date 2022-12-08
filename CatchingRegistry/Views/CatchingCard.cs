@@ -223,5 +223,13 @@ namespace CatchingRegistry.Views
         {
             LoggerService.Add("CatchingCardClosed");
         }
+
+        private void catchCardFileList_DoubleClick(object sender, EventArgs e)
+        {
+            var fileIndex = catchCardFileList.SelectedIndex;
+            var fileName = catchCardFileList.Items[fileIndex].Text;
+
+            catchingCardController.OpenFile(catchingAct, fileName);
+        }
     }
 }

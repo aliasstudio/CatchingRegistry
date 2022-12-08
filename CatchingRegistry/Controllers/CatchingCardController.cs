@@ -1,5 +1,6 @@
 using CatchingRegistry.Models;
 using CatchingRegistry.Services;
+using System.Diagnostics;
 using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -43,8 +44,11 @@ namespace CatchingRegistry.Controllers
         public List<Animal> GetAllAnimals()
             => catchingCardService.GetAllAnimals();
         public List<Animal> GetAnimals(CatchingAct catchingAct)
-            => catchingAct.Animals != null ? catchingAct.Animals.ToList() : new List<Animal>();
-        public void AddAnimal(CatchingAct catchingAct, Animal animal) {
+            => catchingAct.Animals != null 
+            ? catchingAct.Animals.ToList() 
+            : new List<Animal>();
+        public void AddAnimal(CatchingAct catchingAct, Animal animal) 
+        {
             catchingAct.Animals.Add(animal);
             LoggerService.Add(animal);
         }
@@ -173,6 +177,25 @@ namespace CatchingRegistry.Controllers
                 range.Find.ClearFormatting();
                 range.Find.Execute(FindText: record.Key, ReplaceWith: record.Value);
             }
+        }
+
+        public void OpenFile(CatchingAct catchingAct, string fileName)
+        {
+            var programPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+            var filePath = @$"{programPath}\Files\Municipal{catchingAct.MunicipalContractID}\Act{catchingAct.ID}";
+
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.UseShellExecute = true;
+            processInfo.FileName = @$"{filePath}\{fileName}";
+
+            if (!File.Exists(@$"{filePath}\{fileName}"))
+            {
+                MessageBox.Show("Сохраните, прежде чем открыть файл.");
+                return;
+            }
+
+
+            Process.Start(processInfo);
         }
     }
 }

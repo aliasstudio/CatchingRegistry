@@ -21,9 +21,9 @@ namespace CatchingRegistry.Services
             return instance;
         }
 
-        private List<CatchingAct> GetActsByPermission(string query = "")
+        public List<CatchingAct> GetPage(string query = "")
         {
-            IQueryable<CatchingAct> ctx = query.Length > 0 
+            IQueryable<CatchingAct> ctx = query.Length > 0
                 ? new ApplicationContext().CatchingActs.FromSqlRaw(query)
                 : new ApplicationContext().CatchingActs;
 
@@ -41,9 +41,5 @@ namespace CatchingRegistry.Services
                     .Where(x => x.MunicipalContract.LocalGovernment.ID == AuthController.AuthorizedUser.Organization.ID)
                     .ToList();
         }
-
-        public List<CatchingAct> GetPage() => GetActsByPermission();
-
-        public List<CatchingAct> GetPage(string query) => GetActsByPermission(query);
     }
 }
