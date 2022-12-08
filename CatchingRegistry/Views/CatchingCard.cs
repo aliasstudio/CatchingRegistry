@@ -116,10 +116,14 @@ namespace CatchingRegistry.Views
 
         private void FillMunicipalCombo()
         {
-            municipalNumCombo.DataSource = municipalController
+            var municipalContracts = municipalController
                 .GetAllByOrganizationID(AuthController.AuthorizedUser.Organization.ID)
                 .Select(contract => $"№{contract.ID}")
                 .ToList();
+
+            municipalNumCombo.DataSource = municipalContracts.Count == 0
+                ? new List<string> { $"№{catchingAct.MunicipalContractID}" }
+                : municipalContracts;
         }
 
         private string? GetAnimalValueAtIndex(int index)
