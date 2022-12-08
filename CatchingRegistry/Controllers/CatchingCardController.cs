@@ -122,7 +122,7 @@ namespace CatchingRegistry.Controllers
             var dictionary = new Dictionary<string, string>
             {
                 { "{actNumber}", catchingAct.ID.ToString() },
-                { "{locality}", catchingAct.MunicipalContract.City },
+                //{ "{locality}", catchingAct.MunicipalContract.Contractor.Location },
                 { "{catchingActAddress}", catchingAct.CatchingAddress },
                 { "{catchingActDate}", catchingActDate.Day.ToString() },
                 { "{catchingActMonth}", catchingActDate.Month.ToString() },
@@ -132,7 +132,6 @@ namespace CatchingRegistry.Controllers
                 { "{contractDate}", contractDate.Day.ToString() },
                 { "{contractMonth}", contractDate.Month.ToString() },
                 { "{contractYear}", contractDate.Year.ToString() },
-                { "{municipalName}", catchingAct.MunicipalContract.MunicipalName.ToString() }
             };
             string templatePath = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
 

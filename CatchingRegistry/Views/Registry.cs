@@ -20,6 +20,16 @@ namespace CatchingRegistry.Views
             InitializeDataGrid();
             InitializeFilter();
             InitializeTheme();
+            InitializeElementsByPermission();
+        }
+
+        public void InitializeElementsByPermission()
+        {
+            if (AuthController.AuthorizedUser.Role.Posibility == 1)
+            {
+                registryAddBtn.Visible = false;
+                registryDeleteBtn.Visible = false;
+            }
         }
 
         private void InitializeControllers()

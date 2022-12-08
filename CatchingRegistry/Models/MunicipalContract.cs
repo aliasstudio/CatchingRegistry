@@ -8,10 +8,14 @@ namespace CatchingRegistry.Models
     {
         public int ID { get; set; }
         public string ContractDate { get; set; }
-        public string MunicipalName { get; set; }
-        public string LocalGovernment { get; set; }
-        public string City { get; set; }
-        public virtual Organization Organization { get; set; }
 
+        // муниципальное образование
+        public string Municipality { get; set; }
+
+        // подрядчик
+        public Organization Contractor { get; set; }
+
+        // администрация и т.д.
+        public Organization LocalGovernment { get; set; }
     }
 }

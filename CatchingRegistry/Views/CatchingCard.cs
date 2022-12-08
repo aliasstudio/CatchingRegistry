@@ -50,6 +50,7 @@ namespace CatchingRegistry.Views
         private void InitializeItems()
         {
             InitializeDataGrid();
+            InitializeElementsByPermission();
             FillMunicipalCombo();
 
             if (catchingAct.MunicipalContract != null)
@@ -58,6 +59,19 @@ namespace CatchingRegistry.Views
                     catchCardFileList.Items.Add(new MaterialListBoxItem(file.Name.Split("\\").Last()));
 
                 FillCatchingActData();
+            }
+        }
+
+        public void InitializeElementsByPermission()
+        {
+            if (AuthController.AuthorizedUser.Role.Posibility == 1)
+            {
+                catchCardSaveBtn.Visible = false;
+                catchCardFileUploadBtn.Visible = false;
+                catchCardFileDeleteBtn.Visible = false;
+                catchAnimalAddBtn.Visible = false;
+                catchAnimalEditBtn.Visible = false;
+                catchAnimalDeleteBtn.Visible = false;
             }
         }
 

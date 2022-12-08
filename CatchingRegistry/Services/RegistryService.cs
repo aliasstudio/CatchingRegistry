@@ -1,4 +1,5 @@
-﻿using CatchingRegistry.Models;
+﻿using CatchingRegistry.Controllers;
+using CatchingRegistry.Models;
 using CatchingRegistry.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,10 +21,29 @@ namespace CatchingRegistry.Services
             return instance;
         }
 
-        public List<CatchingAct> GetPage()
-            => new ApplicationContext().CatchingActs.ToList();
+        private List<CatchingAct> GetActsByPermission(string query = "")
+        {
+            IQueryable<CatchingAct> ctx = query.Length > 0 
+                ? new ApplicationContext().CatchingActs.FromSqlRaw(query)
+                : new ApplicationContext().CatchingActs;
 
-        public List<CatchingAct> GetPage(string query)
-            => new ApplicationContext().CatchingActs.FromSqlRaw(query).ToList();
+            if (AuthController.AuthorizedUser.Role.Visibility == 0)
+                return ctx.ToList();
+            else if (AuthController.AuthorizedUser.Role.Visibility == 1)
+                return ctx
+                    .Include(x => x.MunicipalContract)
+                    .Where(x => x.MunicipalContract.Contractor.ID == AuthController.AuthorizedUser.Organization.ID)
+                    .ToList();
+            else
+                return ctx
+                    .Include(x => x.MunicipalContract)
+                        .ThenInclude(x => x.Contractor)
+                    .Where(x => x.MunicipalContract.LocalGovernment.ID == AuthController.AuthorizedUser.Organization.ID)
+                    .ToList();
+        }
+
+        public List<CatchingAct> GetPage() => GetActsByPermission();
+
+        public List<CatchingAct> GetPage(string query) => GetActsByPermission(query);
     }
 }

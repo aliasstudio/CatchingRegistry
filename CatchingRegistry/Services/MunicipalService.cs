@@ -23,7 +23,7 @@ namespace CatchingRegistry.Services
 
         public List<MunicipalContract> GetAllByOrganizationID(int organizationID)
             => new ApplicationContext().MunicipalContracts
-                .Where(contract => contract.Organization.ID == organizationID)
+                .Where(contract => contract.Contractor.ID == organizationID)
                 .ToList();
     }
 }
