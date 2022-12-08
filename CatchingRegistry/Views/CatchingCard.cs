@@ -72,6 +72,7 @@ namespace CatchingRegistry.Views
                 catchAnimalAddBtn.Visible = false;
                 catchAnimalEditBtn.Visible = false;
                 catchAnimalDeleteBtn.Visible = false;
+                materialLabel3.Visible = false;
             }
         }
 
