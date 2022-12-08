@@ -105,14 +105,7 @@ namespace CatchingRegistry.Controllers
                 {
                     var fileName = file.Split("\\").Last();
                     if (catchingAct.Files.FirstOrDefault(x => x.Name == fileName) == null)
-                    {
                         File.Delete(file);
-                        catchingCardService.RemoveFile(catchingAct, new AttachedFile()
-                        {
-                            Name = fileName,
-                            CatchingActID = catchingAct.ID
-                        });
-                    }
                 }
             else
                 Directory.Delete(fileSavePath);
