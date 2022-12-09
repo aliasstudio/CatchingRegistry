@@ -20,7 +20,14 @@ namespace CatchingRegistry.Views
             InitializeDataGrid();
             InitializeFilter();
             InitializeTheme();
+            InitializeLabels();
             InitializeElementsByPermission();
+        }
+
+        private void InitializeLabels()
+        {
+            userRoleLabel.Text = AuthController.AuthorizedUser.Role.Name;
+            userNameLabel.Text = AuthController.AuthorizedUser.Name;
         }
 
         public void InitializeElementsByPermission()

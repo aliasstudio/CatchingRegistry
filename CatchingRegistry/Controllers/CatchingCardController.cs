@@ -39,8 +39,7 @@ namespace CatchingRegistry.Controllers
             UpdateFiles(catchingAct);
             LoggerService.Add(catchingAct);
         }
-
-        //Тут мб надо делать отдельно AnimalService, AnimalController
+        
         public List<Animal> GetAllAnimals()
             => catchingCardService.GetAllAnimals();
         public List<Animal> GetAnimals(CatchingAct catchingAct)
@@ -119,7 +118,7 @@ namespace CatchingRegistry.Controllers
             var dictionary = new Dictionary<string, string>
             {
                 { "{actNumber}", catchingAct.ID.ToString() },
-                //{ "{locality}", catchingAct.MunicipalContract.Contractor.Location },
+                { "{locality}", catchingAct.MunicipalContract.Municipality },
                 { "{catchingActAddress}", catchingAct.CatchingAddress },
                 { "{catchingActDate}", catchingActDate.Day.ToString() },
                 { "{catchingActMonth}", catchingActDate.Month.ToString() },
