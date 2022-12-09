@@ -13,6 +13,7 @@ namespace CatchingRegistry.Views
     {
         private CatchingCardController catchingCardController;
         private MunicipalController municipalController;
+        private AuthController authController;
         private CatchingAct catchingAct;
 
         public CatchingCard()
@@ -59,12 +60,29 @@ namespace CatchingRegistry.Views
 
                 FillCatchingActData();
             }
+
+            if (AuthController.AuthorizedUser != null)
+            {
+                var role = AuthController.AuthorizedUser.Role;
+                
+                if (role.Posibility == 1)
+                {
+                    catchCardSaveBtn.Visible = false;
+                    catchCardFileUploadBtn.Visible = false;
+                    catchCardFileDeleteBtn.Visible = false;
+                    materialLabel3.Visible = false;
+                    catchAnimalAddBtn.Visible = false;
+                    catchAnimalEditBtn.Visible = false;
+                    catchAnimalDeleteBtn.Visible = false;
+                }
+            }
         }
 
         private void InitializeControllers()
         {
             catchingCardController = CatchingCardController.GetInstance();
             municipalController = MunicipalController.GetInstance();
+            authController = AuthController.GetInstance();
         }
 
         private void InitializeDataGrid()

@@ -10,6 +10,7 @@ namespace CatchingRegistry.Views
     {
         private RegistryController registryController;
         private CatchingCardController catchingCardController;
+        private AuthController authController;
         private QueryBuilder queryBuilder;
         private Dictionary<string, string> registryFilter;
 
@@ -19,6 +20,7 @@ namespace CatchingRegistry.Views
             InitializeControllers();
             InitializeDataGrid();
             InitializeFilter();
+            InitializeItems();
             InitializeTheme();
         }
 
@@ -27,6 +29,7 @@ namespace CatchingRegistry.Views
             catchingCardController = CatchingCardController.GetInstance();
             registryController = RegistryController.GetInstance();
             queryBuilder = QueryBuilder.GetInstance();
+            authController = AuthController.GetInstance();
         }
 
         private void InitializeFilter()
@@ -65,7 +68,26 @@ namespace CatchingRegistry.Views
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Indigo500, Primary.Indigo700, Primary.Indigo100, Accent.Pink200, TextShade.WHITE);
         }
 
-        private void registryOpenBtn_Click(object sender, EventArgs e)
+        private void InitializeItems()
+        {
+            if (AuthController.AuthorizedUser != null)
+            {
+                var role = AuthController.AuthorizedUser.Role;
+
+                if (role.Posibility == 1)
+                {
+                    registryAddBtn.Visible= false;
+                    registryDeleteBtn.Visible= false;
+                }
+
+                userRoleLabel.Visible = true;
+                userNameLabel.Visible= true;
+                userRoleLabel.Text = role.Name;
+                userNameLabel.Text = AuthController.AuthorizedUser.Name;
+            }
+        }
+
+            private void registryOpenBtn_Click(object sender, EventArgs e)
         {
             try
             {
