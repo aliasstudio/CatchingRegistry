@@ -112,22 +112,26 @@ namespace CatchingRegistry.Controllers
 
         public void ExportToWord(CatchingAct catchingAct)
         {
-            var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate);
-            var catchingActDate = DateTime.Parse(catchingAct.Date);
+            var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate)
+                .ToString("dd MMMM yyyy")
+                .Split(" ");
+            var catchingActDate = DateTime.Parse(catchingAct.Date)
+                .ToString("dd MMMM yyyy")
+                .Split(" ");
 
             var dictionary = new Dictionary<string, string>
             {
                 { "{actNumber}", catchingAct.ID.ToString() },
                 { "{locality}", catchingAct.MunicipalContract.Municipality },
                 { "{catchingActAddress}", catchingAct.CatchingAddress },
-                { "{catchingActDate}", catchingActDate.Day.ToString() },
-                { "{catchingActMonth}", catchingActDate.Month.ToString() },
-                { "{catchingActYear}", catchingActDate.Year.ToString() },
+                { "{catchingActDate}", catchingActDate[0].ToString() },
+                { "{catchingActMonth}", catchingActDate[1].ToString() },
+                { "{catchingActYear}", catchingActDate[2].ToString() },
                 { "{organisationName}", AuthController.AuthorizedUser.Organization.Name.ToString() },
                 { "{contractNumber}", catchingAct.MunicipalContract.ID.ToString() },
-                { "{contractDate}", contractDate.Day.ToString() },
-                { "{contractMonth}", contractDate.Month.ToString() },
-                { "{contractYear}", contractDate.Year.ToString() },
+                { "{contractDate}", contractDate[0].ToString() },
+                { "{contractMonth}", contractDate[1].ToString() },
+                { "{contractYear}", contractDate[2].ToString() },
             };
             string templatePath = @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\template.docx";
 

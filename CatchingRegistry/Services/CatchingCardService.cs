@@ -61,7 +61,7 @@ namespace CatchingRegistry.Services
             var file = new AttachedFile()
             {
                 Name = fileName,
-                CatchingActID = (int)catchingAct.ID
+                CatchingActID = catchingAct.ID == null ? 0 : (int)catchingAct.ID
             };
             catchingAct.Files.Add(file);
             LoggerService.Add(file);
