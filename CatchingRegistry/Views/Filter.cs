@@ -24,12 +24,26 @@ namespace CatchingRegistry.Views
             this.dictionary = dictionary;
 
             filterLabel.Text = column.HeaderText;
-            filterBox.Text = dictionary[column.Name];
+
+            if (dictionary[column.Name].Length > 0)
+            {
+                if (dictionary[column.Name].Split('&')[0].Length > 0)
+                {
+                    filterBox.Text = dictionary[column.Name].Split('&')[0];
+                }
+
+                if (dictionary[column.Name].Split('&')[1].Length > 0)
+                {
+                    var sort = dictionary[column.Name].Split('&')[1] == "DESC" ? 1 : 0;
+                    sortCombo.SelectedIndex = sort;
+                }
+            }
         }
 
         private void filterApplyBtn_Click(object sender, EventArgs e)
         {
-            dictionary[column.Name] = filterBox.Text;
+            var sort = (sortCombo.Text == "По убыванию") ? "DESC" : "ASC";
+            dictionary[column.Name] = filterBox.Text + "&" + sort;
             this.DialogResult = DialogResult.OK;
         }
     }

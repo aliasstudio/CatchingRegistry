@@ -1,4 +1,5 @@
 using CatchingRegistry.Controllers;
+using CatchingRegistry.Models;
 using CatchingRegistry.Services;
 using CatchingRegistry.Utils;
 using MaterialSkin;
@@ -32,7 +33,7 @@ namespace CatchingRegistry.Views
 
         public void InitializeElementsByPermission()
         {
-            if (AuthController.AuthorizedUser.Role.Posibility == 1)
+            if (AuthController.AuthorizedUser.Role.Posibility == (int) Role.PosibilityType.Observer)
             {
                 registryAddBtn.Visible = false;
                 registryDeleteBtn.Visible = false;

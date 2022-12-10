@@ -21,25 +21,36 @@ namespace CatchingRegistry.Services
             return instance;
         }
 
-        public List<CatchingAct> GetPage(string query = "")
+        public IQueryable<CatchingAct> GetPage(string query = "")
         {
-            IQueryable<CatchingAct> ctx = query.Length > 0
-                ? new ApplicationContext().CatchingActs.FromSqlRaw(query)
-                : new ApplicationContext().CatchingActs;
+            //IQueryable<CatchingAct> ctx = query.Length > 0
+            //    ? new ApplicationContext().CatchingActs.FromSqlRaw(query)
+            //    : new ApplicationContext().CatchingActs;
+            ApplicationContext ctx = new();
 
-            if (AuthController.AuthorizedUser.Role.Visibility == 0)
-                return ctx.ToList();
-            else if (AuthController.AuthorizedUser.Role.Visibility == 1)
-                return ctx
+            if (AuthController.AuthorizedUser.Role.Visibility == (int)Role.VisibilityType.All) {
+                ctx.CatchingActs.AsQueryable();
+
+            }
+            else if (AuthController.AuthorizedUser.Role.Visibility == (int)Role.VisibilityType.Organization)
+            {
+                ctx.CatchingActs
                     .Include(x => x.MunicipalContract)
-                    .Where(x => x.MunicipalContract.Contractor.ID == AuthController.AuthorizedUser.Organization.ID)
-                    .ToList();
+                    .Where(x => x.MunicipalContract.Contractor.ID == AuthController.AuthorizedUser.Organization.ID);
+            }
             else
-                return ctx
+            {
+                ctx.CatchingActs
                     .Include(x => x.MunicipalContract)
                         .ThenInclude(x => x.Contractor)
                     .Where(x => x.MunicipalContract.LocalGovernment.ID == AuthController.AuthorizedUser.Organization.ID)
-                    .ToList();
+                    .AsQueryable();
+            }
+
+            if (query.Length > 0)
+                return ctx.CatchingActs.FromSqlRaw(query);
+            else
+                return ctx.CatchingActs;
         }
     }
 }

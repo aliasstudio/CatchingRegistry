@@ -67,7 +67,7 @@ namespace CatchingRegistry.Views
 
         public void InitializeElementsByPermission()
         {
-            if (AuthController.AuthorizedUser.Role.Posibility == 1)
+            if (AuthController.AuthorizedUser.Role.Posibility == (int) Role.PosibilityType.Observer)
             {
                 catchCardSaveBtn.Visible = false;
                 catchCardFileUploadBtn.Visible = false;
@@ -285,7 +285,15 @@ namespace CatchingRegistry.Views
                 MessageBox.Show("Сохраните акт отлова перед экспортом в ворд");
                 return;
             }
-            catchingCardController.ExportToWord(catchingAct);
+
+            saveFileDialog.FileName = $"Акт отлова №{catchingAct.ID}";
+            saveFileDialog.DefaultExt = ".docx";
+            saveFileDialog.Filter = "Документ Microsoft Word (*.docx)|*.docx";
+            if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                return;
+            string filepath = saveFileDialog.FileName;
+
+            catchingCardController.ExportToWord(catchingAct, filepath);
         }
 
         private void CatchingCard_FormClosed(object sender, FormClosedEventArgs e)

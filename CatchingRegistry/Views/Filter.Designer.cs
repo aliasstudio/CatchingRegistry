@@ -36,6 +36,8 @@
             this.filterApplyBtn = new MaterialSkin.Controls.MaterialButton();
             this.filterLabel = new MaterialSkin.Controls.MaterialLabel();
             this.siticoneHtmlLabel1 = new Siticone.Desktop.UI.WinForms.SiticoneHtmlLabel();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.sortCombo = new Siticone.Desktop.UI.WinForms.SiticoneComboBox();
             siticoneSeparator1 = new Siticone.Desktop.UI.WinForms.SiticoneSeparator();
             this.SuspendLayout();
             // 
@@ -94,7 +96,7 @@
             this.filterApplyBtn.Depth = 0;
             this.filterApplyBtn.HighEmphasis = true;
             this.filterApplyBtn.Icon = null;
-            this.filterApplyBtn.Location = new System.Drawing.Point(22, 101);
+            this.filterApplyBtn.Location = new System.Drawing.Point(22, 164);
             this.filterApplyBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.filterApplyBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.filterApplyBtn.Name = "filterApplyBtn";
@@ -130,11 +132,43 @@
             this.siticoneHtmlLabel1.TabIndex = 9;
             this.siticoneHtmlLabel1.Text = "Фильтр";
             // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialLabel1.Location = new System.Drawing.Point(22, 95);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(91, 19);
+            this.materialLabel1.TabIndex = 10;
+            this.materialLabel1.Text = "Сортировка";
+            // 
+            // sortCombo
+            // 
+            this.sortCombo.BackColor = System.Drawing.Color.Transparent;
+            this.sortCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.sortCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sortCombo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.sortCombo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.sortCombo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.sortCombo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.sortCombo.ItemHeight = 30;
+            this.sortCombo.Items.AddRange(new object[] {
+            "По возрастанию",
+            "По убыванию"});
+            this.sortCombo.Location = new System.Drawing.Point(22, 117);
+            this.sortCombo.Name = "sortCombo";
+            this.sortCombo.Size = new System.Drawing.Size(239, 36);
+            this.sortCombo.TabIndex = 13;
+            // 
             // Filter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 156);
+            this.ClientSize = new System.Drawing.Size(285, 223);
+            this.Controls.Add(this.sortCombo);
+            this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.siticoneHtmlLabel1);
             this.Controls.Add(this.siticoneControlBox1);
             this.Controls.Add(siticoneSeparator1);
@@ -158,5 +192,7 @@
         private MaterialSkin.Controls.MaterialLabel filterLabel;
         private Siticone.Desktop.UI.WinForms.SiticoneSeparator siticoneSeparator1;
         private Siticone.Desktop.UI.WinForms.SiticoneHtmlLabel siticoneHtmlLabel1;
+        private Siticone.Desktop.UI.WinForms.SiticoneComboBox sortCombo;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
     }
 }

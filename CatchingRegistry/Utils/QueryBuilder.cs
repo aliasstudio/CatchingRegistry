@@ -11,6 +11,7 @@ namespace CatchingRegistry.Utils
         private static QueryBuilder instance;
         private StringBuilder stringbuilder;
         private List<string> conditions;
+        private List<string> filter;
 
         public static QueryBuilder GetInstance()
         {
@@ -24,6 +25,7 @@ namespace CatchingRegistry.Utils
         {
             stringbuilder = new("SELECT * FROM ");
             conditions = new List<string>();
+            filter = new List<string>();
             stringbuilder.Append(tableName);
             return this;
         }
@@ -31,8 +33,17 @@ namespace CatchingRegistry.Utils
         public QueryBuilder ByCondition(Dictionary<string, string> dictionary)
         {
             foreach (var condition in dictionary)
+            {
                 if (!string.IsNullOrWhiteSpace(condition.Value))
-                    conditions.Add($"{condition.Key} LIKE '%{condition.Value}%'");
+                {
+                    var filterValue = condition.Value.Split("&")[0];
+                    var sortValue = condition.Value.Split("&")[1];
+                    if (filterValue.Length > 0)
+                        conditions.Add($"{condition.Key} LIKE '%{filterValue}%'");
+
+                    filter.Add($"{condition.Key} {sortValue}");
+                }
+            }
 
             return this;
         }
@@ -44,6 +55,14 @@ namespace CatchingRegistry.Utils
 
             var conditionString = string.Join(" AND ", conditions);
             stringbuilder.Append(conditionString);
+
+            if (filter.Count > 0)
+                stringbuilder.Append(" ORDER BY ");
+
+            var filterString = string.Join(", ", filter);
+            stringbuilder.Append(filterString);
+
+
             return stringbuilder.ToString();
         }
     }

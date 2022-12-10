@@ -110,7 +110,7 @@ namespace CatchingRegistry.Controllers
                 Directory.Delete(fileSavePath);
         }
 
-        public void ExportToWord(CatchingAct catchingAct)
+        public void ExportToWord(CatchingAct catchingAct, string path)
         {
             var contractDate = DateTime.Parse(catchingAct.MunicipalContract.ContractDate)
                 .ToString("dd MMMM yyyy")
@@ -160,7 +160,7 @@ namespace CatchingRegistry.Controllers
                 table.Cell(i + 2, 7).Range.Text = catchingAct.Animals[i].ID.ToString();
             }
 
-            document.SaveAs2(FileName: @$"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName}\Docs\result.docx");
+            document.SaveAs2(FileName: path);
             document.Close();
             wordApp.Quit();
         }

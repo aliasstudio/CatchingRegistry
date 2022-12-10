@@ -35,12 +35,12 @@ namespace CatchingRegistry.Controllers
 
         public List<CatchingAct> GetPage()
         {
-            List<CatchingAct> dataSet;
+            IQueryable<CatchingAct> dataSet;
             if (Filter != null)
                 dataSet = registryService.GetPage(Filter);
             else
                 dataSet = registryService.GetPage();
-            TotalPages = (int)Math.Ceiling((double)dataSet.Count / PageSize);
+            TotalPages = (int)Math.Ceiling((double)dataSet.Count() / PageSize);
             return dataSet
                     .Skip((CurrentPage - 1) * PageSize)
                     .Take(PageSize)

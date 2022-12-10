@@ -17,6 +17,7 @@ namespace CatchingRegistry.Models
             Redactor = 0,
             Observer = 1
         }
+
         public enum VisibilityType
         {
             All = 0,

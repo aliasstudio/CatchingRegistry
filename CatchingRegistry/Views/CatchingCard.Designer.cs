@@ -68,6 +68,7 @@ namespace CatchingRegistry.Views
             this.catchAnimalsGrid = new Siticone.Desktop.UI.WinForms.SiticoneDataGridView();
             this.catchAddressBox = new MaterialSkin.Controls.MaterialTextBox2();
             this.materialLabel19 = new MaterialSkin.Controls.MaterialLabel();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.catchAnimalsGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -356,7 +357,7 @@ namespace CatchingRegistry.Views
             this.catchDatePicker.Name = "catchDatePicker";
             this.catchDatePicker.Size = new System.Drawing.Size(373, 36);
             this.catchDatePicker.TabIndex = 85;
-            this.catchDatePicker.Value = new System.DateTime(2022, 11, 28, 22, 29, 39, 465);
+            this.catchDatePicker.Value = new System.DateTime(2022, 12, 10, 15, 58, 40, 0);
             // 
             // municipalNumCombo
             // 
@@ -677,7 +678,7 @@ namespace CatchingRegistry.Views
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.catchAnimalsGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.catchAnimalsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.catchAnimalsGrid.Location = new System.Drawing.Point(3, 64);
+            this.catchAnimalsGrid.Location = new System.Drawing.Point(1, 64);
             this.catchAnimalsGrid.Margin = new System.Windows.Forms.Padding(0);
             this.catchAnimalsGrid.Name = "catchAnimalsGrid";
             this.catchAnimalsGrid.ReadOnly = true;
@@ -852,5 +853,6 @@ namespace CatchingRegistry.Views
         private Siticone.Desktop.UI.WinForms.SiticoneDataGridView catchAnimalsGrid;
         private MaterialSkin.Controls.MaterialTextBox2 catchAddressBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel19;
+        private SaveFileDialog saveFileDialog;
     }
 }
